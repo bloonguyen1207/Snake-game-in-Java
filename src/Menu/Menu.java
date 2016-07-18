@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package snakegame;
+package Menu;
 
 /**
  *
@@ -36,10 +36,11 @@ public class Menu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(800, 600));
+        setResizable(false);
         getContentPane().setLayout(null);
 
-        jButton1.setBackground(new java.awt.Color(204, 204, 0));
-        jButton1.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        jButton1.setBackground(new java.awt.Color(255, 204, 0));
+        jButton1.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
         jButton1.setForeground(new java.awt.Color(204, 51, 0));
         jButton1.setText("Exit");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -48,10 +49,10 @@ public class Menu extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(330, 440, 125, 59);
+        jButton1.setBounds(290, 440, 200, 59);
 
-        jButton2.setBackground(new java.awt.Color(204, 204, 0));
-        jButton2.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        jButton2.setBackground(new java.awt.Color(255, 204, 0));
+        jButton2.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
         jButton2.setForeground(new java.awt.Color(204, 51, 0));
         jButton2.setText("Store");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -60,10 +61,10 @@ public class Menu extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton2);
-        jButton2.setBounds(330, 300, 125, 59);
+        jButton2.setBounds(290, 300, 200, 59);
 
-        jButton3.setBackground(new java.awt.Color(204, 204, 0));
-        jButton3.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        jButton3.setBackground(new java.awt.Color(255, 204, 0));
+        jButton3.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
         jButton3.setForeground(new java.awt.Color(204, 51, 0));
         jButton3.setText("Leader board");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -72,10 +73,10 @@ public class Menu extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton3);
-        jButton3.setBounds(330, 370, 125, 59);
+        jButton3.setBounds(290, 370, 200, 59);
 
-        jButton5.setBackground(new java.awt.Color(204, 204, 0));
-        jButton5.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        jButton5.setBackground(new java.awt.Color(255, 204, 0));
+        jButton5.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
         jButton5.setForeground(new java.awt.Color(204, 51, 0));
         jButton5.setText("Start");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -84,14 +85,14 @@ public class Menu extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton5);
-        jButton5.setBounds(330, 230, 125, 59);
+        jButton5.setBounds(290, 230, 200, 59);
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/snakegame/snake.png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Menu/snake.png"))); // NOI18N
         jLabel2.setText("jLabel2");
         getContentPane().add(jLabel2);
         jLabel2.setBounds(260, 80, 250, 143);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/snakegame/bg.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Menu/bg.png"))); // NOI18N
         jLabel1.setText("jLabel1");
         getContentPane().add(jLabel1);
         jLabel1.setBounds(0, 0, 800, 600);

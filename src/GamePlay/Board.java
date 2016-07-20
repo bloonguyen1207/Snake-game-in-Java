@@ -73,7 +73,7 @@ public class Board extends JPanel implements ActionListener {
         //ImageIcon iid = new ImageIcon(new ImageIcon("res\\Items\\dot.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
         //ball = iid.getImage();
 
-        ImageIcon iia = new ImageIcon(new ImageIcon("res\\Items\\leaf.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
+        ImageIcon iia = new ImageIcon(new ImageIcon("res\\Items\\death.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
         leaf = iia.getImage();
 
         //ImageIcon iih = new ImageIcon(new ImageIcon("res\\Items\\head.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));

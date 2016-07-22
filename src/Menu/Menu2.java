@@ -88,6 +88,9 @@ public class Menu2 extends javax.swing.JFrame {
 
     private void TimeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TimeButtonActionPerformed
         // TODO add your handling code here:
+         Menu3 menu3 = new Menu3();
+        menu3.setVisible(true);
+        setVisible(false);
     }//GEN-LAST:event_TimeButtonActionPerformed
 
     private void Moveto(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Moveto

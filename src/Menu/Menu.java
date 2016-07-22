@@ -4,7 +4,13 @@
  * and open the template in the editor.
  */
 package Menu;
-
+import java.awt.Color;
+import java.awt.Toolkit;
+import javax.swing.JOptionPane;
+import java.util.Scanner;
+import java.io.*;
+import java.util.List;
+import java.util.ArrayList;
 /**
  *
  * @author nguyentranngocdiep
@@ -27,65 +33,65 @@ public class Menu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        StartButton = new javax.swing.JButton();
+        StoreButton = new javax.swing.JButton();
+        LeaderBoardButton = new javax.swing.JButton();
+        ExitButton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(800, 600));
+        setMinimumSize(new java.awt.Dimension(800, 600));
         setResizable(false);
         getContentPane().setLayout(null);
 
-        jButton1.setBackground(new java.awt.Color(255, 204, 0));
-        jButton1.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(204, 51, 0));
-        jButton1.setText("Exit");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        StartButton.setBackground(new java.awt.Color(255, 204, 0));
+        StartButton.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24));
+        StartButton.setForeground(new java.awt.Color(204, 51, 0));
+        StartButton.setText("Start");
+        StartButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                StartButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1);
-        jButton1.setBounds(290, 440, 200, 59);
+        getContentPane().add(StartButton);
+        StartButton.setBounds(290, 230, 200, 59);
 
-        jButton2.setBackground(new java.awt.Color(255, 204, 0));
-        jButton2.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(204, 51, 0));
-        jButton2.setText("Store");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        StoreButton.setBackground(new java.awt.Color(255, 204, 0));
+        StoreButton.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
+        StoreButton.setForeground(new java.awt.Color(204, 51, 0));
+        StoreButton.setText("Store");
+        StoreButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                StoreButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2);
-        jButton2.setBounds(290, 300, 200, 59);
+        getContentPane().add(StoreButton);
+        StoreButton.setBounds(290, 300, 200, 59);
 
-        jButton3.setBackground(new java.awt.Color(255, 204, 0));
-        jButton3.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(204, 51, 0));
-        jButton3.setText("Leader board");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        LeaderBoardButton.setBackground(new java.awt.Color(255, 204, 0));
+        LeaderBoardButton.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
+        LeaderBoardButton.setForeground(new java.awt.Color(204, 51, 0));
+        LeaderBoardButton.setText("Leader board");
+        LeaderBoardButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                LeaderBoardButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton3);
-        jButton3.setBounds(290, 370, 200, 59);
+        getContentPane().add(LeaderBoardButton);
+        LeaderBoardButton.setBounds(290, 370, 200, 59);
 
-        jButton5.setBackground(new java.awt.Color(255, 204, 0));
-        jButton5.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
-        jButton5.setForeground(new java.awt.Color(204, 51, 0));
-        jButton5.setText("Start");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        ExitButton.setBackground(new java.awt.Color(255, 204, 0));
+        ExitButton.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
+        ExitButton.setForeground(new java.awt.Color(204, 51, 0));
+        ExitButton.setText("Exit");
+        ExitButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                ExitButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton5);
-        jButton5.setBounds(290, 230, 200, 59);
+        getContentPane().add(ExitButton);
+        ExitButton.setBounds(290, 440, 200, 59);
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Menu/snake.png"))); // NOI18N
         jLabel2.setText("jLabel2");
@@ -100,21 +106,28 @@ public class Menu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void ExitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        System.exit(0);
+         
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_ExitButtonActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void StartButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StartButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+        Menu2 menu2 = new Menu2();
+        menu2.setVisible(true);
+        setVisible(false);
+                      
+    }//GEN-LAST:event_StartButtonActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void StoreButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StoreButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_StoreButtonActionPerformed
+
+    private void LeaderBoardButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LeaderBoardButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_LeaderBoardButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -152,11 +165,11 @@ public class Menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    public javax.swing.JButton ExitButton;
+    public javax.swing.JButton LeaderBoardButton;
+    public javax.swing.JButton StartButton;
+    public javax.swing.JButton StoreButton;
+    public javax.swing.JLabel jLabel1;
+    public javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
 }

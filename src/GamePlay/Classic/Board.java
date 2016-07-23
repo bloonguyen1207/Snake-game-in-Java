@@ -27,6 +27,9 @@ import javax.swing.Timer;
 
 import Entity.DynamicObject.Snakes;
 import Entity.StaticObject.ClassicFood;
+import GamePlay.Snake;
+import Menu.Menu;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 
 public class Board extends JPanel implements ActionListener {
@@ -37,7 +40,7 @@ public class Board extends JPanel implements ActionListener {
     public static final int ALL_DOTS = B_WIDTH * B_HEIGHT / DOT_SIZE / DOT_SIZE;
 //    private final int RAND_POS_X = 49;
 //    private final int RAND_POS_Y = 29;
-    private int DELAY = 50;
+    public int DELAY = 50;
     public int SCORE = 0;
 
 //    private final int x[] = new int[ALL_DOTS];
@@ -92,6 +95,8 @@ public class Board extends JPanel implements ActionListener {
         //}
         
         snake.initSnake();
+        snake.speed = 100;
+        DELAY = snake.speed;
         food.locateFood();
 
         timer = new Timer(DELAY, this);
@@ -134,20 +139,74 @@ public class Board extends JPanel implements ActionListener {
 
         g.setColor(Color.orange);
         g.setFont(small);
-        g.drawString(msg, (B_WIDTH - metr.stringWidth(msg)) / 2, B_HEIGHT / 2);
+        g.drawString(msg, (B_WIDTH - metr.stringWidth(msg)) / 2, B_HEIGHT / 2 - 150);
         
         String score = "Score: " + Integer.toString(SCORE);
 
         g.setColor(Color.black);
         g.setFont(small);
-        g.drawString(score, (B_WIDTH - metr.stringWidth(msg)) / 2 + 20, B_HEIGHT / 2 + 50);
+        g.drawString(score, (B_WIDTH - metr.stringWidth(msg)) / 2 + 20, B_HEIGHT / 2 - 90);
+        
+        //TODO: Delete when done
+        String speed = "Speed: " + Integer.toString(DELAY);
+
+        g.setColor(Color.black);
+        g.setFont(small);
+        g.drawString(speed, (B_WIDTH - metr.stringWidth(msg)) / 2 + 20, B_HEIGHT / 2 - 30);
+        // END
+        
+        // Replay
+        JButton ReplayButton = new javax.swing.JButton();
+        
+        ReplayButton.setBackground(new java.awt.Color(255, 204, 0));
+        ReplayButton.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24));
+        ReplayButton.setForeground(new java.awt.Color(204, 51, 0));
+        ReplayButton.setText("Replay");
+        ReplayButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ReplayButtonActionPerformed(evt);
+            }
+        });
+        add(ReplayButton);
+        ReplayButton.setBounds((B_WIDTH - metr.stringWidth(msg)) / 2 - 20, B_HEIGHT / 2 + 20, 200, 59);
+        
+        // Back to menu - In Progess
+//        JButton MenuButton = new javax.swing.JButton();
+//        
+//        MenuButton.setBackground(new java.awt.Color(255, 204, 0));
+//        MenuButton.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24));
+//        MenuButton.setForeground(new java.awt.Color(204, 51, 0));
+//        MenuButton.setText("Back to menu");
+//        MenuButton.addActionListener(new java.awt.event.ActionListener() {
+//            public void actionPerformed(java.awt.event.ActionEvent evt) {
+//                MenuButtonActionPerformed(evt);
+//            }
+//        });
+//        add(MenuButton);
+//        MenuButton.setBounds((B_WIDTH - metr.stringWidth(msg)) / 2 - 20, B_HEIGHT / 2 + 100, 200, 59);
+    }
+    
+    private void ReplayButtonActionPerformed(java.awt.event.ActionEvent evt) {                                            
+        // TODO add your handling code here:
+        Snake newGame = new Snake();
+        newGame.setVisible(true);
+        setVisible(false);
+                      
+    }
+    
+    private void MenuButtonActionPerformed(java.awt.event.ActionEvent evt) {                                            
+        // TODO add your handling code here:
+        Menu mainMenu = new Menu();
+        mainMenu.setVisible(true);
+        setVisible(false);
+                      
     }
 
     private void checkFood() {
-
         if ((snake.getX(0) == food.posX) && (snake.getY(0) == food.posY)) {
             snake.setDots(snake.getDots() + 1);
             SCORE += food.point;
+            DELAY--;
             food.locateFood();
         }
     }

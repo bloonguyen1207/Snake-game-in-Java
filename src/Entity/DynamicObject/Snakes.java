@@ -60,6 +60,13 @@ public class Snakes extends DynamicObject{
         return this.head;
     }
     
+    public void setDefault() {
+        setDots(3);
+        setLeftDirection(false);
+        setUpDirection(false);
+        setDownDirection(false);
+        setRightDirection(true);
+    }
     @Override
     public void move() {
         for (int z = dots; z > 0; z--) {
@@ -85,6 +92,7 @@ public class Snakes extends DynamicObject{
     }
 
     public void initSnake() {
+        setDefault();
         for (int z = 0; z < dots; z++) {
             x[z] = DOT_SIZE * 5 - z * (DOT_SIZE / 2);
             y[z] = DOT_SIZE * 5;

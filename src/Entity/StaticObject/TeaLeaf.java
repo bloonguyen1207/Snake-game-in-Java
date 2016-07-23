@@ -10,6 +10,10 @@ package Entity.StaticObject;
  * @author Hanh
  */
 public class TeaLeaf extends StaticObject {
+    public TeaLeaf() {
+        icon = loadImage(icon, "res\\Items\\leaf.png");
+    }
+    
     @Override
     public void specialEffect() {
         

@@ -26,6 +26,7 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import Entity.DynamicObject.Snakes;
+import Entity.StaticObject.TeaLeaf;
 import javax.swing.JLabel;
 
 public class Board extends JPanel implements ActionListener {
@@ -34,16 +35,16 @@ public class Board extends JPanel implements ActionListener {
     private static final int B_HEIGHT = 600;
     public static final int DOT_SIZE = 20;
     public static final int ALL_DOTS = B_WIDTH * B_HEIGHT / DOT_SIZE / DOT_SIZE;
-    private final int RAND_POS_X = 49;
-    private final int RAND_POS_Y = 29;
+//    private final int RAND_POS_X = 49;
+//    private final int RAND_POS_Y = 29;
     private final int DELAY = 50;
 
 //    private final int x[] = new int[ALL_DOTS];
 //    private final int y[] = new int[ALL_DOTS];
 
 //    private int dots;
-    private int food_x;
-    private int food_y;
+//    private int food_x;
+//    private int food_y;
 
 //    private boolean leftDirection = false;
 //    private boolean rightDirection = true;
@@ -53,10 +54,11 @@ public class Board extends JPanel implements ActionListener {
 
     private Timer timer;
 //    private Image ball;
-    private Image leaf;
+//    private Image leaf;
 //    private Image head;
 
     static Snakes snake = new Snakes();
+    static TeaLeaf leaf = new TeaLeaf();
     
     public Board() {
 
@@ -65,21 +67,21 @@ public class Board extends JPanel implements ActionListener {
         setFocusable(true);
 
         setPreferredSize(new Dimension(B_WIDTH, B_HEIGHT));
-        loadImages();
+        //loadImages();
         initGame();
     }
 
-    private void loadImages() {
+    //private void loadImages() {
 
         //ImageIcon iid = new ImageIcon(new ImageIcon("res\\Items\\dot.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
         //ball = iid.getImage();
 
-        ImageIcon iia = new ImageIcon(new ImageIcon("res\\Items\\coffee-bean.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
-        leaf = iia.getImage();
+        //ImageIcon iia = new ImageIcon(new ImageIcon("res\\Items\\coffee-bean.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
+        //leaf = iia.getImage();
 
         //ImageIcon iih = new ImageIcon(new ImageIcon("res\\Items\\head.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
         //head = iih.getImage();
-    }
+    //}
 
     private void initGame() {
 
@@ -91,7 +93,7 @@ public class Board extends JPanel implements ActionListener {
         //}
         snake.initSnake();
         
-        locateFood();
+        leaf.locateFood();
 
         timer = new Timer(DELAY, this);
         timer.start();
@@ -108,7 +110,7 @@ public class Board extends JPanel implements ActionListener {
         
         if (inGame) {
 
-            g.drawImage(leaf, food_x, food_y, this);
+            g.drawImage(leaf.getIcon(), leaf.getPosX(), leaf.getPosY(), this);
 
             for (int z = 0; z < snake.getDots(); z++) {
                 if (z == 0) {
@@ -139,10 +141,10 @@ public class Board extends JPanel implements ActionListener {
 
     private void checkFood() {
 
-        if ((snake.getX(0) == food_x) && (snake.getY(0) == food_y)) {
+        if ((snake.getX(0) == leaf.posX) && (snake.getY(0) == leaf.posY)) {
 
             snake.setDots(snake.getDots() + 1);
-            locateFood();
+            leaf.locateFood();
         }
     }
 
@@ -204,14 +206,14 @@ public class Board extends JPanel implements ActionListener {
         }
     }
 
-    private void locateFood() {
+    //private void locateFood() {
 
-        int r = (int) (Math.random() * RAND_POS_X);
-        food_x = ((r * DOT_SIZE));
+    //    int r = (int) (Math.random() * RAND_POS_X);
+    //    food_x = ((r * DOT_SIZE));
 
-        r = (int) (Math.random() * RAND_POS_Y);
-        food_y = ((r * DOT_SIZE));
-    }
+    //    r = (int) (Math.random() * RAND_POS_Y);
+    //    food_y = ((r * DOT_SIZE));
+    //}
 
     @Override
     public void actionPerformed(ActionEvent e) {

@@ -26,7 +26,7 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import Entity.DynamicObject.Snakes;
-import Entity.StaticObject.TeaLeaf;
+import Entity.StaticObject.ClassicFood;
 import javax.swing.JLabel;
 
 public class Board extends JPanel implements ActionListener {
@@ -54,16 +54,15 @@ public class Board extends JPanel implements ActionListener {
 
     private Timer timer;
 //    private Image ball;
-//    private Image leaf;
+//    private Image food;
 //    private Image head;
 
     static Snakes snake = new Snakes();
-    static TeaLeaf leaf = new TeaLeaf();
+    static ClassicFood food = new ClassicFood();
     
     public Board() {
-
+        
         addKeyListener(new TAdapter());
-        setBackground(Color.LIGHT_GRAY);
         setFocusable(true);
 
         setPreferredSize(new Dimension(B_WIDTH, B_HEIGHT));
@@ -91,9 +90,9 @@ public class Board extends JPanel implements ActionListener {
         //    x[z] = 50 - z * 10;
         //    y[z] = 50;
         //}
-        snake.initSnake();
         
-        leaf.locateFood();
+        snake.initSnake();
+        food.locateFood();
 
         timer = new Timer(DELAY, this);
         timer.start();
@@ -109,8 +108,7 @@ public class Board extends JPanel implements ActionListener {
     private void doDrawing(Graphics g) {
         
         if (inGame) {
-
-            g.drawImage(leaf.getIcon(), leaf.getPosX(), leaf.getPosY(), this);
+            g.drawImage(food.getIcon(), food.getPosX(), food.getPosY(), this);
 
             for (int z = 0; z < snake.getDots(); z++) {
                 if (z == 0) {
@@ -141,10 +139,10 @@ public class Board extends JPanel implements ActionListener {
 
     private void checkFood() {
 
-        if ((snake.getX(0) == leaf.posX) && (snake.getY(0) == leaf.posY)) {
+        if ((snake.getX(0) == food.posX) && (snake.getY(0) == food.posY)) {
 
             snake.setDots(snake.getDots() + 1);
-            leaf.locateFood();
+            food.locateFood();
         }
     }
 

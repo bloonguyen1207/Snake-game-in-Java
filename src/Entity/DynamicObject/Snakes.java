@@ -20,7 +20,7 @@ public class Snakes extends DynamicObject{
     private Image head;
     
     public Snakes() {
-        head = loadImage(head, "res\\Items\\body_1.png");
+        head = loadImage(head, "res\\Items\\heada.png");
         icon = loadImage(icon, "res\\Items\\body_1.png");
     }
     

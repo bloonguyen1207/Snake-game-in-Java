@@ -11,14 +11,14 @@ package GamePlay;
  */
 import java.awt.EventQueue;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 
-public class Snake extends JFrame {
+public class Snake extends javax.swing.JFrame {
 
     public Snake() {
 
         add(new Board());
-        
         setResizable(false);
         pack();
         

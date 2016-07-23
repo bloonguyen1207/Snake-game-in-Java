@@ -5,6 +5,8 @@
  */
 package Menu;
 
+import GamePlay.Snake;
+
 /**
  *
  * @author nguyentranngocdiep
@@ -62,12 +64,12 @@ public class Menu2 extends javax.swing.JFrame {
         TimeButton.setBounds(290, 350, 200, 59);
 
         SnakeLabels.setIcon(new javax.swing.ImageIcon("res\\Menu\\snake.png")); // NOI18N
-        SnakeLabels.setText("jLabel2");
+        SnakeLabels.setText("Title");
         getContentPane().add(SnakeLabels);
         SnakeLabels.setBounds(260, 80, 250, 143);
 
         Background.setIcon(new javax.swing.ImageIcon("res\\Menu\\bg.png")); // NOI18N
-        Background.setText("jLabel1");
+        Background.setText("Background");
         getContentPane().add(Background);
         Background.setBounds(0, 0, 800, 600);
 
@@ -76,7 +78,9 @@ public class Menu2 extends javax.swing.JFrame {
 
     private void ClassicButtonActionPerformed(java.awt.event.ActionEvent evt) {                                              
         // TODO add your handling code here:
-        
+        Snake s = new Snake();
+        s.setVisible(true);
+        setVisible(false);
     } 
 
     private void TimeButtonActionPerformed(java.awt.event.ActionEvent evt) {

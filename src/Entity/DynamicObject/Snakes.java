@@ -24,12 +24,20 @@ public class Snakes extends DynamicObject{
         icon = loadImage(icon, "res\\Items\\body_1.png");
     }
     
+    public int getSpeed() {
+        return this.speed;
+    }
+    
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+    
     public void setDots(int length) {
-        dots = length;
+        this.dots = length;
     }
     
     public int getDots() {
-        return dots;
+        return this.dots;
     }
     
     public void setX(int index, int value) {
@@ -49,7 +57,7 @@ public class Snakes extends DynamicObject{
     }
     
     public Image getHead() {
-        return head;
+        return this.head;
     }
     
     @Override

@@ -20,11 +20,20 @@ public abstract class Entity extends JFrame{
     public String name;
     public Image icon;
     public int delay;
+    public int point;
     public Timer duration;
     public Timer timer;
     public int posX;
     public int posY;
 
+    public int getPoint() {
+        return point;
+    }
+    
+    public void setPoint(int point) {
+        this.point = point;
+    }
+    
     public int getPosX() {
         return posX;
     }

@@ -11,6 +11,7 @@ package Entity.StaticObject;
  */
 public class ClassicFood extends StaticObject {
     public ClassicFood() {
+        point = 1;
         icon = loadImage(icon, "res\\Items\\dota.png");
     }
     @Override

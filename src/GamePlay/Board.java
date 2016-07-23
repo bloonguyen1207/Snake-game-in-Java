@@ -37,7 +37,8 @@ public class Board extends JPanel implements ActionListener {
     public static final int ALL_DOTS = B_WIDTH * B_HEIGHT / DOT_SIZE / DOT_SIZE;
 //    private final int RAND_POS_X = 49;
 //    private final int RAND_POS_Y = 29;
-    private final int DELAY = 50;
+    private int DELAY = 50;
+    public int SCORE = 0;
 
 //    private final int x[] = new int[ALL_DOTS];
 //    private final int y[] = new int[ALL_DOTS];
@@ -64,7 +65,6 @@ public class Board extends JPanel implements ActionListener {
         addKeyListener(new TAdapter());
         setBackground(new java.awt.Color(7, 123, 83));
         setFocusable(true);
-
         setPreferredSize(new Dimension(B_WIDTH, B_HEIGHT));
         //loadImages();
         initGame();
@@ -129,22 +129,29 @@ public class Board extends JPanel implements ActionListener {
     private void gameOver(Graphics g) {
         
         String msg = "Game Over";
-        Font small = new Font("Helvetica", Font.BOLD, 20);
+        Font small = new Font("Berlin Sans FB Demi", Font.BOLD, 30);
         FontMetrics metr = getFontMetrics(small);
 
-        g.setColor(Color.red);
+        g.setColor(Color.orange);
         g.setFont(small);
         g.drawString(msg, (B_WIDTH - metr.stringWidth(msg)) / 2, B_HEIGHT / 2);
+        
+        String score = "Score: " + Integer.toString(SCORE);
+
+        g.setColor(Color.black);
+        g.setFont(small);
+        g.drawString(score, (B_WIDTH - metr.stringWidth(msg)) / 2 + 20, B_HEIGHT / 2 + 50);
     }
 
     private void checkFood() {
 
         if ((snake.getX(0) == food.posX) && (snake.getY(0) == food.posY)) {
-
             snake.setDots(snake.getDots() + 1);
+            SCORE += food.point;
             food.locateFood();
         }
     }
+    
 
 /*    private void move() {
 

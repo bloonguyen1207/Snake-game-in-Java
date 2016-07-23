@@ -41,7 +41,7 @@ public class Menu extends javax.swing.JFrame {
         Background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(800, 600));
+        setMinimumSize(new java.awt.Dimension(1000, 600));
         setResizable(false);
         getContentPane().setLayout(null);
 
@@ -55,7 +55,7 @@ public class Menu extends javax.swing.JFrame {
             }
         });
         getContentPane().add(StartButton);
-        StartButton.setBounds(290, 230, 200, 59);
+        StartButton.setBounds(400, 230, 200, 59);
 
         StoreButton.setBackground(new java.awt.Color(255, 204, 0));
         StoreButton.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
@@ -67,7 +67,7 @@ public class Menu extends javax.swing.JFrame {
             }
         });
         getContentPane().add(StoreButton);
-        StoreButton.setBounds(290, 300, 200, 59);
+        StoreButton.setBounds(400, 300, 200, 59);
 
         LeaderBoardButton.setBackground(new java.awt.Color(255, 204, 0));
         LeaderBoardButton.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
@@ -79,7 +79,7 @@ public class Menu extends javax.swing.JFrame {
             }
         });
         getContentPane().add(LeaderBoardButton);
-        LeaderBoardButton.setBounds(290, 370, 200, 59);
+        LeaderBoardButton.setBounds(400, 370, 200, 59);
 
         ExitButton.setBackground(new java.awt.Color(255, 204, 0));
         ExitButton.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
@@ -91,17 +91,17 @@ public class Menu extends javax.swing.JFrame {
             }
         });
         getContentPane().add(ExitButton);
-        ExitButton.setBounds(290, 440, 200, 59);
+        ExitButton.setBounds(400, 440, 200, 59);
 
         SnakeLabels.setIcon(new javax.swing.ImageIcon("res\\Menu\\snake.png")); // NOI18N
         SnakeLabels.setText("Title");
         getContentPane().add(SnakeLabels);
-        SnakeLabels.setBounds(260, 80, 250, 143);
+        SnakeLabels.setBounds(370, 80, 250, 143);
 
-        Background.setIcon(new javax.swing.ImageIcon("res\\Menu\\bg.png")); // NOI18N
+        Background.setIcon(new javax.swing.ImageIcon("res\\Menu\\bg1.png")); // NOI18N
         Background.setText("Background");
         getContentPane().add(Background);
-        Background.setBounds(0, 0, 800, 600);
+        Background.setBounds(0, 0, 1000, 600);
 
         pack();
     }// </editor-fold>    

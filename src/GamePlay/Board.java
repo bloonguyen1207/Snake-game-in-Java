@@ -61,8 +61,8 @@ public class Board extends JPanel implements ActionListener {
     static ClassicFood food = new ClassicFood();
     
     public Board() {
-        
         addKeyListener(new TAdapter());
+        setBackground(new java.awt.Color(7, 123, 83));
         setFocusable(true);
 
         setPreferredSize(new Dimension(B_WIDTH, B_HEIGHT));

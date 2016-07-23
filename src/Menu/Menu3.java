@@ -49,7 +49,7 @@ public class Menu3 extends javax.swing.JFrame {
             }
         });
         getContentPane().add(EasyButton);
-        EasyButton.setBounds(290, 250, 200, 59);
+        EasyButton.setBounds(400, 250, 200, 59);
 
         NormalButton.setBackground(new java.awt.Color(255, 204, 0));
         NormalButton.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
@@ -61,7 +61,7 @@ public class Menu3 extends javax.swing.JFrame {
             }
         });
         getContentPane().add(NormalButton);
-        NormalButton.setBounds(290, 320, 200, 59);
+        NormalButton.setBounds(400, 320, 200, 59);
 
         HardButton.setBackground(new java.awt.Color(255, 204, 0));
         HardButton.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
@@ -73,7 +73,7 @@ public class Menu3 extends javax.swing.JFrame {
             }
         });
         getContentPane().add(HardButton);
-        HardButton.setBounds(290, 390, 200, 59);
+        HardButton.setBounds(400, 390, 200, 59);
 
         ExpertButton.setBackground(new java.awt.Color(255, 204, 0));
         ExpertButton.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
@@ -85,17 +85,17 @@ public class Menu3 extends javax.swing.JFrame {
             }
         });
         getContentPane().add(ExpertButton);
-        ExpertButton.setBounds(290, 460, 200, 59);
+        ExpertButton.setBounds(400, 460, 200, 59);
 
         SnakeLabel.setIcon(new javax.swing.ImageIcon("res\\Menu\\snake.png")); // NOI18N
-        SnakeLabel.setText("jLabel2");
+        SnakeLabel.setText("Title");
         getContentPane().add(SnakeLabel);
-        SnakeLabel.setBounds(260, 80, 250, 143);
+        SnakeLabel.setBounds(370, 80, 250, 143);
 
-        Background.setIcon(new javax.swing.ImageIcon("res\\Menu\\bg.png")); // NOI18N
-        Background.setText("jLabel1");
+        Background.setIcon(new javax.swing.ImageIcon("res\\Menu\\bg1.png")); // NOI18N
+        Background.setText("Background");
         getContentPane().add(Background);
-        Background.setBounds(0, 10, 800, 600);
+        Background.setBounds(0, 0, 1000, 600);
 
         pack();
     }// </editor-fold> 

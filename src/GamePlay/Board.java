@@ -60,9 +60,6 @@ public class Board extends JPanel implements ActionListener {
     
     public Board() {
 
-        JLabel background=new JLabel(new ImageIcon("C:\\Users\\Computer\\Downloads\\colorful_design.png"));
-
-        add(background);
         addKeyListener(new TAdapter());
         setBackground(Color.LIGHT_GRAY);
         setFocusable(true);

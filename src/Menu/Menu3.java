@@ -87,12 +87,12 @@ public class Menu3 extends javax.swing.JFrame {
         getContentPane().add(ExpertButton);
         ExpertButton.setBounds(290, 460, 200, 59);
 
-        SnakeLabel.setIcon(new javax.swing.ImageIcon("C:\\Users\\binguyen.com\\Documents\\NetBeansProjects\\snake\\res\\Menu\\snake.png")); // NOI18N
+        SnakeLabel.setIcon(new javax.swing.ImageIcon("res\\Menu\\snake.png")); // NOI18N
         SnakeLabel.setText("jLabel2");
         getContentPane().add(SnakeLabel);
         SnakeLabel.setBounds(260, 80, 250, 143);
 
-        Background.setIcon(new javax.swing.ImageIcon("C:\\Users\\binguyen.com\\Documents\\NetBeansProjects\\snake\\res\\Menu\\bg.png")); // NOI18N
+        Background.setIcon(new javax.swing.ImageIcon("res\\Menu\\bg.png")); // NOI18N
         Background.setText("jLabel1");
         getContentPane().add(Background);
         Background.setBounds(0, 10, 800, 600);

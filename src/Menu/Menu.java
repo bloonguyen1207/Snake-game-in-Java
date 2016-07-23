@@ -93,12 +93,12 @@ public class Menu extends javax.swing.JFrame {
         getContentPane().add(ExitButton);
         ExitButton.setBounds(290, 440, 200, 59);
 
-        SnakeLabels.setIcon(new javax.swing.ImageIcon("C:\\Users\\binguyen.com\\Documents\\NetBeansProjects\\snake\\res\\Menu\\snake.png")); // NOI18N
+        SnakeLabels.setIcon(new javax.swing.ImageIcon("res\\Menu\\snake.png")); // NOI18N
         SnakeLabels.setText("jLabel2");
         getContentPane().add(SnakeLabels);
         SnakeLabels.setBounds(260, 80, 250, 143);
 
-        Background.setIcon(new javax.swing.ImageIcon("C:\\Users\\binguyen.com\\Documents\\NetBeansProjects\\snake\\res\\Menu\\bg.png")); // NOI18N
+        Background.setIcon(new javax.swing.ImageIcon("res\\Menu\\bg.png")); // NOI18N
         Background.setText("jLabel1");
         getContentPane().add(Background);
         Background.setBounds(0, 0, 800, 600);

@@ -162,11 +162,7 @@ public class Board extends JPanel implements ActionListener {
         ReplayButton.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24));
         ReplayButton.setForeground(new java.awt.Color(204, 51, 0));
         ReplayButton.setText("Replay");
-        ReplayButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ReplayButtonActionPerformed(evt);
-            }
-        });
+        ReplayButton.addActionListener(this::ReplayButtonActionPerformed);
         add(ReplayButton);
         ReplayButton.setBounds((B_WIDTH - metr.stringWidth(msg)) / 2 - 20, B_HEIGHT / 2 + 20, 200, 59);
         
@@ -240,7 +236,7 @@ public class Board extends JPanel implements ActionListener {
 
         for (int z = snake.getDots(); z > 0; z--) {
 
-            if ((z > 4) && (snake.getX(0) == snake.getX(z)) && (snake.getY(0) == snake.getY(z))) {
+            if ((z > 3) && (snake.getX(0) == snake.getX(z)) && (snake.getY(0) == snake.getY(z))) {
                 inGame = false;
             }
         }

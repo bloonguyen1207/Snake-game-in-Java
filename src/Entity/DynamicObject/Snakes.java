@@ -67,6 +67,7 @@ public class Snakes extends DynamicObject{
         setDownDirection(false);
         setRightDirection(true);
     }
+    
     @Override
     public void move() {
         for (int z = dots; z > 0; z--) {

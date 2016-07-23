@@ -15,8 +15,9 @@ public class ClassicFood extends StaticObject {
         icon = loadImage(icon, "res\\Items\\dota.png");
     }
     @Override
-    public void specialEffect() {
+    public int specialEffect() {
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return 0;
     }
     
 }

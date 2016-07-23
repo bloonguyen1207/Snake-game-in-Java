@@ -5,6 +5,8 @@
  */
 package Entity.StaticObject;
 
+import GamePlay.Classic.Board;
+
 /**
  *
  * @author Hanh
@@ -15,7 +17,7 @@ public class TeaLeaf extends StaticObject {
     }
     
     @Override
-    public void specialEffect() {
-        
+    public int specialEffect() {
+        return 10;
     }
 }

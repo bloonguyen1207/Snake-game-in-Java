@@ -24,6 +24,6 @@ public abstract class StaticObject extends Entity {
         posY = ((r * DOT_SIZE));
     }
     
-    abstract public void specialEffect();
+    abstract public int specialEffect();
     
 }

@@ -26,7 +26,7 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import Entity.DynamicObject.Snakes;
-import Entity.StaticObject.ClassicFood;
+import Entity.StaticObject.TeaLeaf;
 import java.awt.BasicStroke;
 import java.awt.Graphics2D;
 import javax.swing.JLabel;
@@ -39,7 +39,7 @@ public class Board2 extends JPanel implements ActionListener {
     public static final int ALL_DOTS = B_WIDTH * B_HEIGHT / DOT_SIZE / DOT_SIZE;
 //    private final int RAND_POS_X = 49;
 //    private final int RAND_POS_Y = 29;
-    private final int DELAY = 50;
+    private int DELAY = 100;
 
 //    private final int x[] = new int[ALL_DOTS];
 //    private final int y[] = new int[ALL_DOTS];
@@ -60,7 +60,7 @@ public class Board2 extends JPanel implements ActionListener {
 //    private Image head;
 
     static Snakes snake = new Snakes();
-    static ClassicFood food = new ClassicFood();
+    static TeaLeaf food = new TeaLeaf();
     
     public Board2() {
         addKeyListener(new TAdapter());
@@ -177,7 +177,10 @@ public class Board2 extends JPanel implements ActionListener {
     private void checkFood() {
 
         if ((snake.getX(0) == food.posX) && (snake.getY(0) == food.posY)) {
-
+            if (DELAY > 50) {
+                timer.setDelay(timer.getDelay() - food.specialEffect());
+                DELAY -= food.specialEffect();
+            }
             snake.setDots(snake.getDots() + 1);
             food.locateFood();
         }

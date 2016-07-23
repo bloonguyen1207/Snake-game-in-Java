@@ -37,8 +37,8 @@ public class Menu extends javax.swing.JFrame {
         StoreButton = new javax.swing.JButton();
         LeaderBoardButton = new javax.swing.JButton();
         ExitButton = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        SnakeLabels = new javax.swing.JLabel();
+        Background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(800, 600));
@@ -93,15 +93,15 @@ public class Menu extends javax.swing.JFrame {
         getContentPane().add(ExitButton);
         ExitButton.setBounds(290, 440, 200, 59);
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Menu/snake.png"))); // NOI18N
-        jLabel2.setText("jLabel2");
-        getContentPane().add(jLabel2);
-        jLabel2.setBounds(260, 80, 250, 143);
+        SnakeLabels.setIcon(new javax.swing.ImageIcon("C:\\Users\\binguyen.com\\Documents\\NetBeansProjects\\snake\\res\\Menu\\snake.png")); // NOI18N
+        SnakeLabels.setText("jLabel2");
+        getContentPane().add(SnakeLabels);
+        SnakeLabels.setBounds(260, 80, 250, 143);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Menu/bg.png"))); // NOI18N
-        jLabel1.setText("jLabel1");
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(0, 0, 800, 600);
+        Background.setIcon(new javax.swing.ImageIcon("C:\\Users\\binguyen.com\\Documents\\NetBeansProjects\\snake\\res\\Menu\\bg.png")); // NOI18N
+        Background.setText("jLabel1");
+        getContentPane().add(Background);
+        Background.setBounds(0, 0, 800, 600);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -165,11 +165,11 @@ public class Menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JLabel Background;
     public javax.swing.JButton ExitButton;
     public javax.swing.JButton LeaderBoardButton;
+    public javax.swing.JLabel SnakeLabels;
     public javax.swing.JButton StartButton;
     public javax.swing.JButton StoreButton;
-    public javax.swing.JLabel jLabel1;
-    public javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
 }

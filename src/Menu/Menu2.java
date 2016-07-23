@@ -29,8 +29,8 @@ public class Menu2 extends javax.swing.JFrame {
 
         ClassicButton = new javax.swing.JButton();
         TimeButton = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        SnakeLabels = new javax.swing.JLabel();
+        Background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(800, 600));
@@ -66,24 +66,22 @@ public class Menu2 extends javax.swing.JFrame {
         getContentPane().add(TimeButton);
         TimeButton.setBounds(290, 350, 200, 59);
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Menu/snake.png"))); // NOI18N
-        jLabel2.setText("jLabel2");
-        getContentPane().add(jLabel2);
-        jLabel2.setBounds(260, 80, 250, 14);
+        SnakeLabels.setIcon(new javax.swing.ImageIcon("C:\\Users\\binguyen.com\\Documents\\NetBeansProjects\\snake\\res\\Menu\\snake.png")); // NOI18N
+        SnakeLabels.setText("jLabel2");
+        getContentPane().add(SnakeLabels);
+        SnakeLabels.setBounds(260, 80, 250, 143);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Menu/bg.png"))); // NOI18N
-        jLabel1.setText("jLabel1");
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(0, 0, 800, 600);
+        Background.setIcon(new javax.swing.ImageIcon("C:\\Users\\binguyen.com\\Documents\\NetBeansProjects\\snake\\res\\Menu\\bg.png")); // NOI18N
+        Background.setText("jLabel1");
+        getContentPane().add(Background);
+        Background.setBounds(0, 0, 800, 600);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void ClassicButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClassicButtonActionPerformed
         // TODO add your handling code here:
-        Menu3 menu3 = new Menu3();
-        menu3.setVisible(true);
-        setVisible(false);
+        
     }//GEN-LAST:event_ClassicButtonActionPerformed
 
     private void TimeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TimeButtonActionPerformed
@@ -134,9 +132,9 @@ public class Menu2 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Background;
     private javax.swing.JButton ClassicButton;
+    private javax.swing.JLabel SnakeLabels;
     private javax.swing.JButton TimeButton;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
 }

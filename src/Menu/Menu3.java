@@ -27,111 +27,94 @@ public class Menu3 extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton2 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
+        EasyButton = new javax.swing.JButton();
+        NormalButton = new javax.swing.JButton();
+        HardButton = new javax.swing.JButton();
+        ExpertButton = new javax.swing.JButton();
+        SnakeLabel = new javax.swing.JLabel();
+        Background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(800, 600));
         setResizable(false);
         getContentPane().setLayout(null);
 
-        jButton2.setBackground(new java.awt.Color(255, 204, 0));
-        jButton2.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(204, 51, 0));
-        jButton2.setText("Expert");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        EasyButton.setBackground(new java.awt.Color(255, 204, 0));
+        EasyButton.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
+        EasyButton.setForeground(new java.awt.Color(204, 51, 0));
+        EasyButton.setText("Easy");
+        EasyButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                EasyButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2);
-        jButton2.setBounds(290, 460, 200, 59);
+        getContentPane().add(EasyButton);
+        EasyButton.setBounds(290, 250, 200, 59);
 
-        jButton5.setBackground(new java.awt.Color(255, 204, 0));
-        jButton5.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
-        jButton5.setForeground(new java.awt.Color(204, 51, 0));
-        jButton5.setText("Normal");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        NormalButton.setBackground(new java.awt.Color(255, 204, 0));
+        NormalButton.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
+        NormalButton.setForeground(new java.awt.Color(204, 51, 0));
+        NormalButton.setText("Normal");
+        NormalButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                NormalButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton5);
-        jButton5.setBounds(290, 320, 200, 59);
+        getContentPane().add(NormalButton);
+        NormalButton.setBounds(290, 320, 200, 59);
 
-        jButton6.setBackground(new java.awt.Color(255, 204, 0));
-        jButton6.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
-        jButton6.setForeground(new java.awt.Color(204, 51, 0));
-        jButton6.setText("Easy");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        HardButton.setBackground(new java.awt.Color(255, 204, 0));
+        HardButton.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
+        HardButton.setForeground(new java.awt.Color(204, 51, 0));
+        HardButton.setText("Hard");
+        HardButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                HardButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton6);
-        jButton6.setBounds(290, 250, 200, 59);
+        getContentPane().add(HardButton);
+        HardButton.setBounds(290, 390, 200, 59);
 
-        jButton4.setBackground(new java.awt.Color(255, 204, 0));
-        jButton4.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(204, 51, 0));
-        jButton4.setText("Hard");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        ExpertButton.setBackground(new java.awt.Color(255, 204, 0));
+        ExpertButton.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
+        ExpertButton.setForeground(new java.awt.Color(204, 51, 0));
+        ExpertButton.setText("Expert");
+        ExpertButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                ExpertButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton4);
-        jButton4.setBounds(290, 390, 200, 59);
+        getContentPane().add(ExpertButton);
+        ExpertButton.setBounds(290, 460, 200, 59);
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Menu/snake.png"))); // NOI18N
-        jLabel2.setText("jLabel2");
-        getContentPane().add(jLabel2);
-        jLabel2.setBounds(260, 80, 250, 14);
+        SnakeLabel.setIcon(new javax.swing.ImageIcon("C:\\Users\\binguyen.com\\Documents\\NetBeansProjects\\snake\\res\\Menu\\snake.png")); // NOI18N
+        SnakeLabel.setText("jLabel2");
+        getContentPane().add(SnakeLabel);
+        SnakeLabel.setBounds(260, 80, 250, 143);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Menu/bg.png"))); // NOI18N
-        jLabel1.setText("jLabel1");
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(0, 10, 800, 600);
-
-        jButton3.setBackground(new java.awt.Color(255, 204, 0));
-        jButton3.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(204, 51, 0));
-        jButton3.setText("Time attack");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton3);
-        jButton3.setBounds(290, 350, 200, 59);
+        Background.setIcon(new javax.swing.ImageIcon("C:\\Users\\binguyen.com\\Documents\\NetBeansProjects\\snake\\res\\Menu\\bg.png")); // NOI18N
+        Background.setText("jLabel1");
+        getContentPane().add(Background);
+        Background.setBounds(0, 10, 800, 600);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void NormalButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NormalButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_NormalButtonActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void ExpertButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExpertButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_ExpertButtonActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void EasyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EasyButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_EasyButtonActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void HardButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HardButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton6ActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_HardButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -172,12 +155,11 @@ public class Menu3 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    public javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel Background;
+    private javax.swing.JButton EasyButton;
+    private javax.swing.JButton ExpertButton;
+    public javax.swing.JButton HardButton;
+    private javax.swing.JButton NormalButton;
+    private javax.swing.JLabel SnakeLabel;
     // End of variables declaration//GEN-END:variables
 }

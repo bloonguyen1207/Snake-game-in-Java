@@ -6,7 +6,7 @@
 package Entity.StaticObject;
 
 import Entity.Entity;
-import static GamePlay.Board.DOT_SIZE;
+import static GamePlay.Classic.Board.DOT_SIZE;
 
 /**
  *

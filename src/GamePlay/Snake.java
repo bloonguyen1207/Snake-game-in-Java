@@ -9,6 +9,7 @@ package GamePlay;
  *
  * @author Bloo
  */
+import GamePlay.Classic.Board;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JLabel;

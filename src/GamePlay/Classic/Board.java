@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package GamePlay;
+package GamePlay.Classic;
 
 /**
  *
@@ -27,11 +27,9 @@ import javax.swing.Timer;
 
 import Entity.DynamicObject.Snakes;
 import Entity.StaticObject.ClassicFood;
-import java.awt.BasicStroke;
-import java.awt.Graphics2D;
 import javax.swing.JLabel;
 
-public class Board2 extends JPanel implements ActionListener {
+public class Board extends JPanel implements ActionListener {
 
     private static final int B_WIDTH = 1000;
     private static final int B_HEIGHT = 600;
@@ -39,7 +37,8 @@ public class Board2 extends JPanel implements ActionListener {
     public static final int ALL_DOTS = B_WIDTH * B_HEIGHT / DOT_SIZE / DOT_SIZE;
 //    private final int RAND_POS_X = 49;
 //    private final int RAND_POS_Y = 29;
-    private final int DELAY = 50;
+    private int DELAY = 50;
+    public int SCORE = 0;
 
 //    private final int x[] = new int[ALL_DOTS];
 //    private final int y[] = new int[ALL_DOTS];
@@ -62,11 +61,10 @@ public class Board2 extends JPanel implements ActionListener {
     static Snakes snake = new Snakes();
     static ClassicFood food = new ClassicFood();
     
-    public Board2() {
+    public Board() {
         addKeyListener(new TAdapter());
         setBackground(new java.awt.Color(7, 123, 83));
         setFocusable(true);
-
         setPreferredSize(new Dimension(B_WIDTH, B_HEIGHT));
         //loadImages();
         initGame();
@@ -103,10 +101,12 @@ public class Board2 extends JPanel implements ActionListener {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+
         doDrawing(g);
     }
     
     private void doDrawing(Graphics g) {
+        
         if (inGame) {
             g.drawImage(food.getIcon(), food.getPosX(), food.getPosY(), this);
 
@@ -117,48 +117,11 @@ public class Board2 extends JPanel implements ActionListener {
                     g.drawImage(snake.getIcon(), snake.getX(z), snake.getY(z), this);
                 }
             }
-            /*Drawing border*/
-            for (int z =0; z< B_WIDTH;z++){ /*Drawing width border*/
-            g.setColor(new Color(105,46,4));
-            g.fillRect(z, 0, 20, 20); /*Top Border*/
-            g.fillRect(z, B_HEIGHT-20, 20, 20); /*Bottom Border*/
-            
-            g.fillRect(B_WIDTH-740,20, 20, 20);
-            g.fillRect(B_WIDTH-740,40, 20, 20);
-            
-            g.fillRect(B_WIDTH-600,20, 20, 20);
-            g.fillRect(B_WIDTH-600,40, 20, 20);
-            g.fillRect(B_WIDTH-600,60, 20, 20);
-            g.fillRect(B_WIDTH-580,60, 20, 20);
-            
-            g.fillRect(B_WIDTH-300,20, 20, 20);
-            g.fillRect(B_WIDTH-300,40, 20, 20);
-            
-            g.fillRect(B_WIDTH-320,B_HEIGHT-40, 20, 20);
-            g.fillRect(B_WIDTH-320,B_HEIGHT-60, 20, 20);
-            g.fillRect(B_WIDTH-320,B_HEIGHT-80, 20, 20);
-            g.fillRect(B_WIDTH-300,B_HEIGHT-80, 20, 20);
-            
-            g.fillRect(B_WIDTH-720,B_HEIGHT-40, 20, 20);
-            g.fillRect(B_WIDTH-720,B_HEIGHT-60, 20, 20);
-            
-            }
-            for (int z =0; z< B_HEIGHT;z++){ /*Drawing height border*/
-            g.setColor(new Color(105,46,4));
-            g.fillRect(0, z, 20, 20); /*Left Border*/
-            g.fillRect(B_WIDTH-20, z, 20, 20); /*Right Border*/
-            
-            g.fillRect(B_WIDTH-40,120, 20, 20);
-            g.fillRect(B_WIDTH-60,120, 20, 20);
-            g.fillRect(B_WIDTH-80,120, 20, 20);
-            g.fillRect(B_WIDTH-80,100, 20, 20);
-            
-            g.fillRect(B_WIDTH-980,200, 20, 20);
-            g.fillRect(B_WIDTH-960,200, 20, 20);
-            }
+
             Toolkit.getDefaultToolkit().sync();
 
         } else {
+
             gameOver(g);
         }        
     }
@@ -166,22 +129,29 @@ public class Board2 extends JPanel implements ActionListener {
     private void gameOver(Graphics g) {
         
         String msg = "Game Over";
-        Font small = new Font("Helvetica", Font.BOLD, 20);
+        Font small = new Font("Berlin Sans FB Demi", Font.BOLD, 30);
         FontMetrics metr = getFontMetrics(small);
 
-        g.setColor(Color.red);
+        g.setColor(Color.orange);
         g.setFont(small);
         g.drawString(msg, (B_WIDTH - metr.stringWidth(msg)) / 2, B_HEIGHT / 2);
+        
+        String score = "Score: " + Integer.toString(SCORE);
+
+        g.setColor(Color.black);
+        g.setFont(small);
+        g.drawString(score, (B_WIDTH - metr.stringWidth(msg)) / 2 + 20, B_HEIGHT / 2 + 50);
     }
 
     private void checkFood() {
 
         if ((snake.getX(0) == food.posX) && (snake.getY(0) == food.posY)) {
-
             snake.setDots(snake.getDots() + 1);
+            SCORE += food.point;
             food.locateFood();
         }
     }
+    
 
 /*    private void move() {
 
@@ -258,7 +228,6 @@ public class Board2 extends JPanel implements ActionListener {
             checkFood();
             checkCollision();
             snake.move();
-          
         }
 
         repaint();

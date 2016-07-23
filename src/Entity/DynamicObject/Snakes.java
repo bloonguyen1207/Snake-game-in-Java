@@ -9,8 +9,8 @@ package Entity.DynamicObject;
  *
  * @author Hanh
  */
-import static GamePlay.Board.ALL_DOTS;
-import static GamePlay.Board.DOT_SIZE;
+import static GamePlay.Classic.Board.ALL_DOTS;
+import static GamePlay.Classic.Board.DOT_SIZE;
 import java.awt.Image;
 
 public class Snakes extends DynamicObject{

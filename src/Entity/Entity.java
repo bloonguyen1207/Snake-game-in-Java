@@ -14,7 +14,7 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.Timer;
-import static GamePlay.Board.DOT_SIZE;
+import static GamePlay.Classic.Board.DOT_SIZE;
 
 public abstract class Entity extends JFrame{
     public String name;

@@ -36,8 +36,9 @@ public class Menu3 extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1000, 600));
+        setLocationRelativeTo(null);
         setResizable(false);
-        getContentPane().setLayout(null);
+        setLayout(null);
 
         EasyButton.setBackground(new java.awt.Color(255, 204, 0));
         EasyButton.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
@@ -48,7 +49,7 @@ public class Menu3 extends javax.swing.JFrame {
                 EasyButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(EasyButton);
+        add(EasyButton);
         EasyButton.setBounds(400, 250, 200, 59);
 
         NormalButton.setBackground(new java.awt.Color(255, 204, 0));
@@ -60,7 +61,7 @@ public class Menu3 extends javax.swing.JFrame {
                 NormalButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(NormalButton);
+        add(NormalButton);
         NormalButton.setBounds(400, 320, 200, 59);
 
         HardButton.setBackground(new java.awt.Color(255, 204, 0));
@@ -72,7 +73,7 @@ public class Menu3 extends javax.swing.JFrame {
                 HardButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(HardButton);
+        add(HardButton);
         HardButton.setBounds(400, 390, 200, 59);
 
         ExpertButton.setBackground(new java.awt.Color(255, 204, 0));
@@ -84,17 +85,17 @@ public class Menu3 extends javax.swing.JFrame {
                 ExpertButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(ExpertButton);
+        add(ExpertButton);
         ExpertButton.setBounds(400, 460, 200, 59);
 
         SnakeLabel.setIcon(new javax.swing.ImageIcon("res\\Menu\\snake.png")); // NOI18N
         SnakeLabel.setText("Title");
-        getContentPane().add(SnakeLabel);
+        add(SnakeLabel);
         SnakeLabel.setBounds(370, 80, 250, 143);
 
         Background.setIcon(new javax.swing.ImageIcon("res\\Menu\\bg1.png")); // NOI18N
         Background.setText("Background");
-        getContentPane().add(Background);
+        add(Background);
         Background.setBounds(0, 0, 1000, 600);
 
         pack();

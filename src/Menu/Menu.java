@@ -42,8 +42,9 @@ public class Menu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1000, 600));
+        setLocationRelativeTo(null);
         setResizable(false);
-        getContentPane().setLayout(null);
+        setLayout(null);
 
         StartButton.setBackground(new java.awt.Color(255, 204, 0));
         StartButton.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24));
@@ -54,7 +55,7 @@ public class Menu extends javax.swing.JFrame {
                 StartButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(StartButton);
+        add(StartButton);
         StartButton.setBounds(400, 230, 200, 59);
 
         StoreButton.setBackground(new java.awt.Color(255, 204, 0));
@@ -66,7 +67,7 @@ public class Menu extends javax.swing.JFrame {
                 StoreButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(StoreButton);
+        add(StoreButton);
         StoreButton.setBounds(400, 300, 200, 59);
 
         LeaderBoardButton.setBackground(new java.awt.Color(255, 204, 0));
@@ -78,7 +79,7 @@ public class Menu extends javax.swing.JFrame {
                 LeaderBoardButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(LeaderBoardButton);
+        add(LeaderBoardButton);
         LeaderBoardButton.setBounds(400, 370, 200, 59);
 
         ExitButton.setBackground(new java.awt.Color(255, 204, 0));
@@ -90,17 +91,17 @@ public class Menu extends javax.swing.JFrame {
                 ExitButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(ExitButton);
+        add(ExitButton);
         ExitButton.setBounds(400, 440, 200, 59);
 
         SnakeLabels.setIcon(new javax.swing.ImageIcon("res\\Menu\\snake.png")); // NOI18N
         SnakeLabels.setText("Title");
-        getContentPane().add(SnakeLabels);
+        add(SnakeLabels);
         SnakeLabels.setBounds(370, 80, 250, 143);
 
         Background.setIcon(new javax.swing.ImageIcon("res\\Menu\\bg1.png")); // NOI18N
         Background.setText("Background");
-        getContentPane().add(Background);
+        add(Background);
         Background.setBounds(0, 0, 1000, 600);
 
         pack();

@@ -36,8 +36,9 @@ public class Menu2 extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1000, 600));
+        setLocationRelativeTo(null);
         setResizable(false);
-        getContentPane().setLayout(null);
+        setLayout(null);
 
         ClassicButton.setBackground(new java.awt.Color(255, 204, 0));
         ClassicButton.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
@@ -48,7 +49,7 @@ public class Menu2 extends javax.swing.JFrame {
                 ClassicButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(ClassicButton);
+        add(ClassicButton);
         ClassicButton.setBounds(400, 250, 200, 59);
 
         TimeButton.setBackground(new java.awt.Color(255, 204, 0));
@@ -60,17 +61,17 @@ public class Menu2 extends javax.swing.JFrame {
                 TimeButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(TimeButton);
+        add(TimeButton);
         TimeButton.setBounds(400, 350, 200, 59);
 
         SnakeLabels.setIcon(new javax.swing.ImageIcon("res\\Menu\\snake.png")); // NOI18N
         SnakeLabels.setText("Title");
-        getContentPane().add(SnakeLabels);
+        add(SnakeLabels);
         SnakeLabels.setBounds(370, 80, 250, 143);
 
         Background.setIcon(new javax.swing.ImageIcon("res\\Menu\\bg1.png")); // NOI18N
         Background.setText("Background");
-        getContentPane().add(Background);
+        add(Background);
         Background.setBounds(0, 0, 1000, 600);
 
         pack();

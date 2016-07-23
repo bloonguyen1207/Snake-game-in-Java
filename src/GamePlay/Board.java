@@ -26,6 +26,7 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import Entity.DynamicObject.Snakes;
+import javax.swing.JLabel;
 
 public class Board extends JPanel implements ActionListener {
 
@@ -59,8 +60,11 @@ public class Board extends JPanel implements ActionListener {
     
     public Board() {
 
+        JLabel background=new JLabel(new ImageIcon("C:\\Users\\Computer\\Downloads\\colorful_design.png"));
+
+        add(background);
         addKeyListener(new TAdapter());
-        setBackground(Color.white);
+        setBackground(Color.LIGHT_GRAY);
         setFocusable(true);
 
         setPreferredSize(new Dimension(B_WIDTH, B_HEIGHT));
@@ -73,7 +77,7 @@ public class Board extends JPanel implements ActionListener {
         //ImageIcon iid = new ImageIcon(new ImageIcon("res\\Items\\dot.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
         //ball = iid.getImage();
 
-        ImageIcon iia = new ImageIcon(new ImageIcon("res\\Items\\death.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
+        ImageIcon iia = new ImageIcon(new ImageIcon("res\\Items\\coffee-bean.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
         leaf = iia.getImage();
 
         //ImageIcon iih = new ImageIcon(new ImageIcon("res\\Items\\head.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));

@@ -69,7 +69,7 @@ public class Menu2 extends javax.swing.JFrame {
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Menu/snake.png"))); // NOI18N
         jLabel2.setText("jLabel2");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(260, 80, 250, 143);
+        jLabel2.setBounds(260, 80, 250, 14);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Menu/bg.png"))); // NOI18N
         jLabel1.setText("jLabel1");

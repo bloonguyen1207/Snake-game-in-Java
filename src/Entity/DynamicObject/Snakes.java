@@ -115,8 +115,4 @@ public class Snakes extends DynamicObject{
             }
     }
     
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        repaint();
-    }
 }

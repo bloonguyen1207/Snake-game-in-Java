@@ -29,8 +29,4 @@ public class ClassicFood extends StaticObject {
         super.paintComponent(g);
     }
     
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        repaint();
-    }
 }

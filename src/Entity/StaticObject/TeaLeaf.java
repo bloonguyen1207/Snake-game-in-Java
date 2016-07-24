@@ -25,11 +25,6 @@ public class TeaLeaf extends StaticObject {
     }
     
     @Override
-    public void actionPerformed(ActionEvent e) {
-        repaint();
-    }
-    
-    @Override
     public int specialEffect() {
         return 10;
     }

@@ -20,7 +20,7 @@ public class Snake extends javax.swing.JFrame {
 
     public Snake() {
 
-        add(new Board2());
+        add(new Board());
         setResizable(false);
         pack();
         

@@ -18,7 +18,7 @@ import static GamePlay.Classic.Board.DOT_SIZE;
 import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 
-public abstract class Entity extends JPanel implements ActionListener {
+public abstract class Entity extends JPanel{
     public String name;
     public Image icon;
     public int delay;

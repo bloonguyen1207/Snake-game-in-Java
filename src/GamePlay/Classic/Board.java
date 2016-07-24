@@ -148,7 +148,7 @@ public class Board extends JPanel implements ActionListener {
         g.drawString(score, (B_WIDTH - metr.stringWidth(msg)) / 2 + 20, B_HEIGHT / 2 - 90);
         
         //TODO: Delete when done
-        String speed = "Speed: " + Integer.toString(DELAY);
+        String speed = "Speed: " + Integer.toString(timer.getDelay());
 
         g.setColor(Color.black);
         g.setFont(small);

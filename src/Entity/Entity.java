@@ -15,8 +15,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.Timer;
 import static GamePlay.Classic.Board.DOT_SIZE;
+import java.awt.event.ActionListener;
+import javax.swing.JPanel;
 
-public abstract class Entity extends JFrame{
+public abstract class Entity extends JPanel implements ActionListener {
     public String name;
     public Image icon;
     public int delay;

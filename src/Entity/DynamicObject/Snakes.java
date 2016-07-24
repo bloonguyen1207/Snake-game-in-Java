@@ -11,7 +11,9 @@ package Entity.DynamicObject;
  */
 import static GamePlay.Classic.Board.ALL_DOTS;
 import static GamePlay.Classic.Board.DOT_SIZE;
+import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
 
 public class Snakes extends DynamicObject{
     private int dots = 3;
@@ -98,5 +100,23 @@ public class Snakes extends DynamicObject{
             x[z] = DOT_SIZE * 5 - z * (DOT_SIZE / 2);
             y[z] = DOT_SIZE * 5;
         }
+    }
+    
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        
+        for (int z = 0; z < dots; z++) {
+                if (z == 0) {
+                    g.drawImage(head, x[z], y[z], this);
+                } else {
+                    g.drawImage(icon, x[z], y[z], this);
+                }
+            }
+    }
+    
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        repaint();
     }
 }

@@ -108,15 +108,18 @@ public class Board2 extends JPanel implements ActionListener {
     
     private void doDrawing(Graphics g) {
         if (inGame) {
-            g.drawImage(food.getIcon(), food.getPosX(), food.getPosY(), this);
+            //g.drawImage(food.getIcon(), food.getPosX(), food.getPosY(), this);
 
-            for (int z = 0; z < snake.getDots(); z++) {
-                if (z == 0) {
-                    g.drawImage(snake.getHead(), snake.getX(z), snake.getY(z), this);
-                } else {
-                    g.drawImage(snake.getIcon(), snake.getX(z), snake.getY(z), this);
-                }
-            }
+//            for (int z = 0; z < snake.getDots(); z++) {
+//                if (z == 0) {
+//                    g.drawImage(snake.getHead(), snake.getX(z), snake.getY(z), this);
+//                } else {
+//                    g.drawImage(snake.getIcon(), snake.getX(z), snake.getY(z), this);
+//                }
+//            }
+            snake.paintComponent(g);
+            food.paintComponent(g);
+            
             /*Drawing border*/
             for (int z =0; z< B_WIDTH;z++){ /*Drawing width border*/
             g.setColor(new Color(105,46,4));

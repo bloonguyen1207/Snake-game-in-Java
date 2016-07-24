@@ -6,6 +6,8 @@
 package Entity.StaticObject;
 
 import GamePlay.Classic.Board;
+import java.awt.Graphics;
+import java.awt.event.ActionEvent;
 
 /**
  *
@@ -14,6 +16,17 @@ import GamePlay.Classic.Board;
 public class TeaLeaf extends StaticObject {
     public TeaLeaf() {
         icon = loadImage(icon, "res\\Items\\leaf.png");
+    }
+    
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.drawImage(icon, posX, posY, this);
+    }
+    
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        repaint();
     }
     
     @Override

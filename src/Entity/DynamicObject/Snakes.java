@@ -16,7 +16,7 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 
 public class Snakes extends DynamicObject{
-    private int dots = 3;
+    private int length = 3;
     private final int x[] = new int[ALL_DOTS];
     private final int y[] = new int[ALL_DOTS];
     private Image head;
@@ -34,12 +34,12 @@ public class Snakes extends DynamicObject{
         this.speed = speed;
     }
     
-    public void setDots(int length) {
-        this.dots = length;
+    public void setLength(int length) {
+        this.length = length;
     }
     
     public int getDots() {
-        return this.dots;
+        return this.length;
     }
     
     public void setX(int index, int value) {
@@ -63,7 +63,7 @@ public class Snakes extends DynamicObject{
     }
     
     public void setDefault() {
-        setDots(3);
+        setLength(3);
         setLeftDirection(false);
         setUpDirection(false);
         setDownDirection(false);
@@ -72,7 +72,7 @@ public class Snakes extends DynamicObject{
     
     @Override
     public void move() {
-        for (int z = dots; z > 0; z--) {
+        for (int z = length; z > 0; z--) {
             x[z] = x[(z - 1)];
             y[z] = y[(z - 1)];
         }
@@ -96,7 +96,7 @@ public class Snakes extends DynamicObject{
 
     public void initSnake() {
         setDefault();
-        for (int z = 0; z < dots; z++) {
+        for (int z = 0; z < length; z++) {
             x[z] = DOT_SIZE * 5 - z * (DOT_SIZE / 2);
             y[z] = DOT_SIZE * 5;
         }
@@ -106,7 +106,7 @@ public class Snakes extends DynamicObject{
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         
-        for (int z = 0; z < dots; z++) {
+        for (int z = 0; z < length; z++) {
                 if (z == 0) {
                     g.drawImage(head, x[z], y[z], this);
                 } else {

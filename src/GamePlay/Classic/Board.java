@@ -200,7 +200,7 @@ public class Board extends JPanel implements ActionListener {
 
     private void checkFood() {
         if ((snake.getX(0) == food.posX) && (snake.getY(0) == food.posY)) {
-            snake.setDots(snake.getDots() + 1);
+            snake.setLength(snake.getDots() + 1);
             SCORE += food.point;
             timer.setDelay(timer.getDelay() - 1);
             food.locateFood();

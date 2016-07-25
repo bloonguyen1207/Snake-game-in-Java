@@ -184,7 +184,7 @@ public class Board2 extends JPanel implements ActionListener {
                 timer.setDelay(timer.getDelay() - food.specialEffect());
                 DELAY -= food.specialEffect();
             }
-            snake.setDots(snake.getDots() + 1);
+            snake.setLength(snake.getDots() + 1);
             food.locateFood();
         }
     }

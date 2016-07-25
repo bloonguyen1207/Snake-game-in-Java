@@ -7,6 +7,7 @@ package Entity.StaticObject;
 
 import Entity.Entity;
 import static GamePlay.Classic.Board.DOT_SIZE;
+import java.awt.event.ActionListener;
 
 /**
  *

@@ -11,6 +11,8 @@ import java.util.Scanner;
 import java.io.*;
 import java.util.List;
 import java.util.ArrayList;
+import javax.swing.JButton;
+import javax.swing.JLabel;
 /**
  *
  * @author nguyentranngocdiep
@@ -164,11 +166,11 @@ public class Menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//
-    public javax.swing.JLabel Background;
-    public javax.swing.JButton ExitButton;
-    public javax.swing.JButton LeaderBoardButton;
-    public javax.swing.JLabel SnakeLabels;
-    public javax.swing.JButton StartButton;
-    public javax.swing.JButton StoreButton;
+    public JLabel Background;
+    public JButton ExitButton;
+    public JButton LeaderBoardButton;
+    public JLabel SnakeLabels;
+    public JButton StartButton;
+    public JButton StoreButton;
     // End of variables declaration//
 }

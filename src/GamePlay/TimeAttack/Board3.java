@@ -323,12 +323,12 @@ public class Board3 extends JPanel implements ActionListener {
             }
         }
     }
-    
+
     private int numOnScreen;
     private int fIndex = 0;
     private int fSet = 0;
     private StaticObject[] multiFood;
-    public int[][] foodsPos;
+    public static int[][] foodsPos;
     private void initMultiFood() {
         this.numOnScreen = 0;
         this.fIndex = 0;
@@ -354,7 +354,7 @@ public class Board3 extends JPanel implements ActionListener {
             } else if (r == 4) {
                 multiFood[fIndex] = new Coins();
             }
-            multiFood[fIndex].locateFood();
+            multiFood[fIndex].locateFood(snake);
             foodsPos[fIndex][0] = multiFood[fIndex].getPosX();
             foodsPos[fIndex][1] = multiFood[fIndex].getPosY();
             if (fIndex == fSet) {

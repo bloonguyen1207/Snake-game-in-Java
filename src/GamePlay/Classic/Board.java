@@ -97,7 +97,7 @@ public class Board extends JPanel implements ActionListener {
         snake.initSnake();
         snake.speed = 100;
         DELAY = snake.speed;
-        food.locateFood();
+        food.locateFood(snake);
 
         timer = new Timer(DELAY, this);
         timer.start();
@@ -203,7 +203,7 @@ public class Board extends JPanel implements ActionListener {
             snake.setLength(snake.getLength() + 1);
             SCORE += food.point;
             timer.setDelay(timer.getDelay() - 1);
-            food.locateFood();
+            food.locateFood(snake);
         }
     }
     

@@ -115,7 +115,7 @@ public class Board extends JPanel implements ActionListener {
         if (inGame) {
             g.drawImage(food.getIcon(), food.getPosX(), food.getPosY(), this);
 
-            for (int z = 0; z < snake.getDots(); z++) {
+            for (int z = 0; z < snake.getLength(); z++) {
                 if (z == 0) {
                     g.drawImage(snake.getHead(), snake.getX(z), snake.getY(z), this);
                 } else {
@@ -200,7 +200,7 @@ public class Board extends JPanel implements ActionListener {
 
     private void checkFood() {
         if ((snake.getX(0) == food.posX) && (snake.getY(0) == food.posY)) {
-            snake.setLength(snake.getDots() + 1);
+            snake.setLength(snake.getLength() + 1);
             SCORE += food.point;
             timer.setDelay(timer.getDelay() - 1);
             food.locateFood();
@@ -234,7 +234,7 @@ public class Board extends JPanel implements ActionListener {
 */
     private void checkCollision() {
 
-        for (int z = snake.getDots(); z > 0; z--) {
+        for (int z = snake.getLength(); z > 0; z--) {
 
             if ((z > 3) && (snake.getX(0) == snake.getX(z)) && (snake.getY(0) == snake.getY(z))) {
                 inGame = false;

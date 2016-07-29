@@ -27,12 +27,13 @@ import javax.swing.Timer;
 
 import Entity.DynamicObject.Snakes;
 import Entity.StaticObject.Coffee;
+import Entity.StaticObject.StaticObject;
 import Entity.StaticObject.TeaLeaf;
 import java.awt.BasicStroke;
 import java.awt.Graphics2D;
 import javax.swing.JLabel;
 
-public class Board2 extends JPanel implements ActionListener {
+public class Board3 extends JPanel implements ActionListener {
 
     private static final int B_WIDTH = 1000;
     private static final int B_HEIGHT = 600;
@@ -60,10 +61,10 @@ public class Board2 extends JPanel implements ActionListener {
 //    private Image food;
 //    private Image head;
 
-    static Snakes snake = new Snakes();
-    static Coffee food = new Coffee();
+    Snakes snake = new Snakes();
+    //static TeaLeaf food = new TeaLeaf();
     
-    public Board2() {
+    public Board3() {
         addKeyListener(new TAdapter());
         setBackground(new java.awt.Color(7, 123, 83));
         setFocusable(true);
@@ -95,8 +96,8 @@ public class Board2 extends JPanel implements ActionListener {
         //}
         
         snake.initSnake();
-        food.locateFood();
-
+        //food.locateFood();
+        initMultiFood();
         timer = new Timer(DELAY, this);
         timer.start();
     }
@@ -119,7 +120,12 @@ public class Board2 extends JPanel implements ActionListener {
 //                }
 //            }
             snake.paintComponent(g);
-            food.paintComponent(g);
+            //food.paintComponent(g);
+            for (int i = 0; i < foodsPos.length; i++) {
+                if (foodsPos[i][0] > -1) {
+                    multiFood[i].paintComponent(g);
+                }
+            }
             
             /*Drawing border*/
             for (int z =0; z< B_WIDTH;z++){ /*Drawing width border*/
@@ -178,14 +184,26 @@ public class Board2 extends JPanel implements ActionListener {
         g.drawString(msg, (B_WIDTH - metr.stringWidth(msg)) / 2, B_HEIGHT / 2);
     }
 
-    private void checkFood() {
-
-        if ((snake.getX(0) == food.posX) && (snake.getY(0) == food.posY)) {
-            if (timer.getDelay() > 20) {
-                timer.setDelay(timer.getDelay() + food.specialEffect());
+    private void checkFood() {                
+        //collision with multifood
+        for (int j = 0; j < foodsPos.length; j++) {
+            if (snake.getX(0) == foodsPos[j][0] && snake.getY(0) == foodsPos[j][1]) {
+                numOnScreen -= 1;
+                fIndex = j;
+                snake.setLength(snake.getLength()+ 1);
+                if (timer.getDelay() <= 20 && multiFood[fIndex].getClass().equals(TeaLeaf.class)) {
+                    timer.setDelay(timer.getDelay() + multiFood[fIndex].specialEffect());
+                } else if (timer.getDelay() >= 200 && multiFood[fIndex].getClass().equals(Coffee.class)) {
+                    timer.setDelay(timer.getDelay() + multiFood[fIndex].specialEffect());
+                } else if (timer.getDelay() > 20 && timer.getDelay() < 200) {
+                    timer.setDelay(timer.getDelay() + multiFood[fIndex].specialEffect());
+                }
+                locateMultiFood();
+                break;
+            } else if (fSet < 10 && j == foodsPos.length - 1){
+                fIndex = fSet;
+                locateMultiFood();
             }
-            snake.setLength(snake.getLength() + 1);
-            food.locateFood();
         }
     }
 
@@ -258,7 +276,6 @@ public class Board2 extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
         if (inGame) {
 
             checkFood();
@@ -299,6 +316,41 @@ public class Board2 extends JPanel implements ActionListener {
                 snake.setDownDirection(true);
                 snake.setRightDirection(false);
                 snake.setLeftDirection(false);
+            }
+        }
+    }
+    
+    private int numOnScreen;
+    private int fIndex = 0;
+    private int fSet = 0;
+    private StaticObject[] multiFood;
+    public int[][] foodsPos;
+    private void initMultiFood() {
+        this.numOnScreen = 0;
+        this.fIndex = 0;
+        this.fSet = 0;
+        multiFood = new StaticObject[10];
+        foodsPos = new int[10][2];
+        for (int[] foodPos : foodsPos) {
+            for (int j = 0; j < foodsPos[0].length; j++) {
+                foodPos[j] = -1;
+            }
+        }
+    }
+    private void locateMultiFood() {
+        if (numOnScreen < 10) {
+            numOnScreen += 1;
+            int r = (int) (Math.random() * 3);
+            if (r == 2) {
+                multiFood[fIndex] = new TeaLeaf();
+            } else if (r == 0 || r == 1) {
+                multiFood[fIndex] = new Coffee();
+            }
+            multiFood[fIndex].locateFood();
+            foodsPos[fIndex][0] = multiFood[fIndex].getPosX();
+            foodsPos[fIndex][1] = multiFood[fIndex].getPosY();
+            if (fIndex == fSet) {
+                fSet += 1;
             }
         }
     }

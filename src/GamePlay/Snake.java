@@ -11,6 +11,7 @@ package GamePlay;
  */
 import GamePlay.Classic.Board;
 import GamePlay.TimeAttack.Board2;
+import GamePlay.TimeAttack.Board3;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -20,7 +21,7 @@ public class Snake extends javax.swing.JFrame {
 
     public Snake() {
 
-        add(new Board());
+        add(new Board3());
         setResizable(false);
         pack();
         

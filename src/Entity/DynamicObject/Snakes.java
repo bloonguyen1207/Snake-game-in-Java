@@ -38,7 +38,7 @@ public class Snakes extends DynamicObject{
         this.length = length;
     }
     
-    public int getDots() {
+    public int getLength() {
         return this.length;
     }
     

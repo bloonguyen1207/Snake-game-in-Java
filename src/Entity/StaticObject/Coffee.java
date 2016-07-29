@@ -13,13 +13,13 @@ import java.awt.event.ActionEvent;
  *
  * @author Hanh
  */
-public class TeaLeaf extends StaticObject {
-    public TeaLeaf() {
-        icon = loadImage(icon, "res\\Items\\leaf.png");
-    }
+public class Coffee extends StaticObject {
+    public Coffee() {
+        icon = loadImage(icon, "res\\Items\\coffee-bean.png");
+    }   
     
     @Override
     public int specialEffect() {
-        return 10;
+        return -10;
     }
 }

@@ -27,6 +27,8 @@ import javax.swing.Timer;
 
 import Entity.DynamicObject.Snakes;
 import Entity.StaticObject.Coffee;
+import Entity.StaticObject.Coins;
+import Entity.StaticObject.Heal;
 import Entity.StaticObject.StaticObject;
 import Entity.StaticObject.TeaLeaf;
 import java.awt.BasicStroke;
@@ -191,7 +193,9 @@ public class Board3 extends JPanel implements ActionListener {
                 numOnScreen -= 1;
                 fIndex = j;
                 snake.setLength(snake.getLength()+ 1);
-                if (timer.getDelay() <= 20 && multiFood[fIndex].getClass().equals(TeaLeaf.class)) {
+                if (multiFood[fIndex].getClass().equals(Heal.class)) {
+                    timer.setDelay(DELAY);
+                } else if (timer.getDelay() <= 20 && multiFood[fIndex].getClass().equals(TeaLeaf.class)) {
                     timer.setDelay(timer.getDelay() + multiFood[fIndex].specialEffect());
                 } else if (timer.getDelay() >= 200 && multiFood[fIndex].getClass().equals(Coffee.class)) {
                     timer.setDelay(timer.getDelay() + multiFood[fIndex].specialEffect());
@@ -340,11 +344,15 @@ public class Board3 extends JPanel implements ActionListener {
     private void locateMultiFood() {
         if (numOnScreen < 10) {
             numOnScreen += 1;
-            int r = (int) (Math.random() * 3);
+            int r = (int) (Math.random() * 5);
             if (r == 2) {
                 multiFood[fIndex] = new TeaLeaf();
             } else if (r == 0 || r == 1) {
                 multiFood[fIndex] = new Coffee();
+            } else if (r == 3) {
+                multiFood[fIndex] = new Heal();
+            } else if (r == 4) {
+                multiFood[fIndex] = new Coins();
             }
             multiFood[fIndex].locateFood();
             foodsPos[fIndex][0] = multiFood[fIndex].getPosX();

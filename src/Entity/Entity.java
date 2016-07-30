@@ -14,7 +14,7 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.Timer;
-import static GamePlay.Classic.Board.DOT_SIZE;
+import static GamePlay.Classic.Board.BLOCK_SIZE;
 import java.awt.Graphics;
 import java.awt.event.ActionListener;
 import javax.swing.JPanel;
@@ -58,7 +58,7 @@ public abstract class Entity extends JPanel{
     }
     
     public Image loadImage(Image icon, String path){
-        ImageIcon iconImage = new ImageIcon(new ImageIcon(path).getImage().getScaledInstance(DOT_SIZE, DOT_SIZE, Image.SCALE_DEFAULT));
+        ImageIcon iconImage = new ImageIcon(new ImageIcon(path).getImage().getScaledInstance(BLOCK_SIZE, BLOCK_SIZE, Image.SCALE_DEFAULT));
         icon = iconImage.getImage();
         return icon;
     }

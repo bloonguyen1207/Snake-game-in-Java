@@ -64,7 +64,7 @@ public class Board3 extends JPanel implements ActionListener {
     
     public Board3() {
         addKeyListener(new TAdapter());
-        setBackground(new java.awt.Color(7, 123, 83));
+        setBackground(new Color(7, 123, 83));
         setFocusable(true);
 
         setPreferredSize(new Dimension(B_WIDTH, B_HEIGHT));

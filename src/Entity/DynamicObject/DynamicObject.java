@@ -16,7 +16,7 @@ public abstract class DynamicObject extends Entity {
     public boolean rightDirection = true;
     public boolean upDirection = false;
     public boolean downDirection = false;
-    public int speed;
+    public int speed, veloX, veloY;
 
     public boolean isLeftDirection() {
         return leftDirection;

@@ -36,15 +36,15 @@ public class Board extends JPanel implements ActionListener {
 
     private static final int B_WIDTH = 1000;
     private static final int B_HEIGHT = 600;
-    public static final int DOT_SIZE = 20;
-    public static final int ALL_DOTS = B_WIDTH * B_HEIGHT / DOT_SIZE / DOT_SIZE;
+    public static final int BLOCK_SIZE = 20;
+    public static final int LENGTH = B_WIDTH * B_HEIGHT / BLOCK_SIZE / BLOCK_SIZE;
 //    private final int RAND_POS_X = 49;
 //    private final int RAND_POS_Y = 29;
     public int DELAY = 50;
     public int SCORE = 0;
 
-//    private final int x[] = new int[ALL_DOTS];
-//    private final int y[] = new int[ALL_DOTS];
+//    private final int x[] = new int[LENGTH];
+//    private final int y[] = new int[LENGTH];
 
 //    private int dots;
 //    private int food_x;

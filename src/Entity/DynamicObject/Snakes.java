@@ -9,16 +9,16 @@ package Entity.DynamicObject;
  *
  * @author Hanh
  */
-import static GamePlay.Classic.Board.ALL_DOTS;
-import static GamePlay.Classic.Board.DOT_SIZE;
+import static GamePlay.Classic.Board.LENGTH;
+import static GamePlay.Classic.Board.BLOCK_SIZE;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 
 public class Snakes extends DynamicObject{
     private int length = 3;
-    private final int x[] = new int[ALL_DOTS];
-    private final int y[] = new int[ALL_DOTS];
+    private final int x[] = new int[LENGTH];
+    private final int y[] = new int[LENGTH];
     private Image head;
     private boolean isRevert = false;
 
@@ -104,27 +104,27 @@ public class Snakes extends DynamicObject{
         }
                 
         if (leftDirection) {
-            x[0] -= DOT_SIZE;
+            x[0] -= BLOCK_SIZE;
         }
 
         if (rightDirection) {
-            x[0] += DOT_SIZE;
+            x[0] += BLOCK_SIZE;
         }
 
         if (upDirection) {
-            y[0] -= DOT_SIZE;
+            y[0] -= BLOCK_SIZE;
         }
 
         if (downDirection) {
-            y[0] += DOT_SIZE;
+            y[0] += BLOCK_SIZE;
         }
     }
 
     public void initSnake() {
         setDefault();
         for (int z = 0; z < length; z++) {
-            x[z] = DOT_SIZE * 5 - z * (DOT_SIZE / 2);
-            y[z] = DOT_SIZE * 5;
+            x[z] = BLOCK_SIZE * 5 - z * (BLOCK_SIZE / 2);
+            y[z] = BLOCK_SIZE * 5;
         }
     }
     

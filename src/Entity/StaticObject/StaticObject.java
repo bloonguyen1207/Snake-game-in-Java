@@ -7,7 +7,7 @@ package Entity.StaticObject;
 
 import Entity.DynamicObject.Snakes;
 import Entity.Entity;
-import static GamePlay.Classic.Board.DOT_SIZE;
+import static GamePlay.Classic.Board.BLOCK_SIZE;
 import static GamePlay.TimeAttack.Board3.foodsPos;
 import java.awt.event.ActionListener;
 
@@ -25,10 +25,10 @@ public abstract class StaticObject extends Entity {
             int checkFood = 0;
             int checkSnake = 0;
             int r = (int) (Math.random() * RAND_POS_X);
-            posX = ((r * DOT_SIZE));
+            posX = ((r * BLOCK_SIZE));
 
             r = (int) (Math.random() * RAND_POS_Y);
-            posY = ((r * DOT_SIZE));
+            posY = ((r * BLOCK_SIZE));
            
             for (int[] foodPos : foodsPos) {                
                 if (!(posX == foodPos[0] && posY == foodPos[1])) {

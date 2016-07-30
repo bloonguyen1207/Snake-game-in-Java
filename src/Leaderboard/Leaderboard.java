@@ -7,10 +7,13 @@ package Leaderboard;
 
 import Player.Player;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Dictionary;
@@ -18,6 +21,8 @@ import java.util.Scanner;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.WindowConstants;
 
 /**
  *
@@ -25,7 +30,8 @@ import javax.swing.JLabel;
  */
 public class Leaderboard extends JFrame{
     // Variables declaration - do not modify//
-    public JLabel Background, Title;
+    public JPanel Background;
+    public JLabel Title, Info;
     public JButton BackButton;
     private ArrayList<Player> playersInfo = new ArrayList<Player>(10);    
     private static File highscores;
@@ -36,8 +42,25 @@ public class Leaderboard extends JFrame{
         initComponents();
     }
     
-    public static void readFile() throws Exception {
-        String[] chc; 
+    public void initComponents() {
+        
+        int counter = 0;
+        Background = new JPanel();
+        Title = new JLabel();
+        BackButton = new JButton();
+        Font big = new Font("Berlin Sans FB Demi", Font.BOLD, 30);
+        
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new Dimension(1000, 600));
+        setLocationRelativeTo(null);
+        setResizable(false);
+        setLayout(null);
+
+        Title.setText("Leaderboard");
+        Title.setFont(big);
+        add(Title);
+        Title.setBounds(420, 0, 300, 100);
+        
         try {
             highscores = new File(System.getProperty("user.dir") + ("/classic.txt"));
             readFiles = new Scanner(highscores);
@@ -46,36 +69,43 @@ public class Leaderboard extends JFrame{
         }
         
         while (readFiles.hasNext()) {
-            System.out.println(readFiles.nextLine());
+            counter++;
+            Info = new JLabel();
+            Info.setText(Integer.toString(counter) + ". " + readFiles.nextLine());
+            Info.setFont(big);
+            if (counter <= 5) {
+                Info.setBounds(300, counter * 80, 300, 100);
+            } else {
+                Info.setBounds(600, (counter - 5) * 80, 300, 100);
+            }
+            add(Info);
         }
-    }
-    
-    public void initComponents() {
         
-        Background = new JLabel();
-        Title = new JLabel();
-        Font small = new Font("Berlin Sans FB Demi", Font.BOLD, 30);
-        FontMetrics metr = getFontMetrics(small);
+        BackButton.setBackground(new java.awt.Color(255, 204, 0));
+        BackButton.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
+        BackButton.setForeground(new java.awt.Color(204, 51, 0));
+        BackButton.setText("Back");
+        BackButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                BackButtonActionPerformed(evt);
+            }
+        });
+        add(BackButton);
+        BackButton.setBounds(410, 500, 200, 59);
         
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(1000, 600));
-        setLocationRelativeTo(null);
-        setResizable(false);
-        setLayout(null);
-        
-        Background.setBackground(Color.yellow);
-//        Background.setIcon(new javax.swing.ImageIcon("res\\Menu\\bg1.png"));
-        Background.setText("Background");
-        add(Background);
+        Background.setBackground(new Color(7, 123, 83));
         Background.setBounds(0, 0, 1000, 600);
-        
-        Title.setText("Leaderboard");
-        Title.setFont(small);
-        add(Title);
-        Title.setBounds(400, 0, 300, 150);
+        add(Background);
         
         pack();
     }
+    
+    public void BackButtonActionPerformed(ActionEvent evt) {                                              
+        // TODO add your handling code here:
+        LeaderboardChoice s = new LeaderboardChoice();
+        s.setVisible(true);
+        setVisible(false);
+    } 
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

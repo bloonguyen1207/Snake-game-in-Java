@@ -3,9 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Menu;
+package Leaderboard;
+
+/**
+ *
+ * @author Bloo
+ */
 
 import GamePlay.ClassicGame;
+import Menu.Menu;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -17,16 +23,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.WindowConstants;
 
-/**
- *
- * @author nguyentranngocdiep
- */
-public class Menu2 extends JFrame {
-
+public class LeaderboardChoice extends JFrame {
+    
     /**
      * Creates new form Menu
      */
-    public Menu2() {
+    public LeaderboardChoice() {
         initComponents();
     }
 
@@ -42,7 +44,7 @@ public class Menu2 extends JFrame {
         ClassicButton = new JButton();
         TimeButton = new JButton();
         BackButton = new JButton();
-        SnakeLabels = new JLabel();
+        LeaderLabel = new JLabel();
         Background = new JLabel();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -61,11 +63,11 @@ public class Menu2 extends JFrame {
             }
         });
         add(ClassicButton);
-        ClassicButton.setBounds(400, 250, 200, 59);
+        ClassicButton.setBounds(400, 200, 200, 59);
 
-        TimeButton.setBackground(new java.awt.Color(255, 204, 0));
-        TimeButton.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
-        TimeButton.setForeground(new java.awt.Color(204, 51, 0));
+        TimeButton.setBackground(new Color(255, 204, 0));
+        TimeButton.setFont(new Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
+        TimeButton.setForeground(new Color(204, 51, 0));
         TimeButton.setText("Time Mode");
         TimeButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
@@ -73,7 +75,7 @@ public class Menu2 extends JFrame {
             }
         });
         add(TimeButton);
-        TimeButton.setBounds(400, 320, 200, 59);
+        TimeButton.setBounds(400, 300, 200, 59);
         
         BackButton.setBackground(new Color(255, 204, 0));
         BackButton.setFont(new Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
@@ -85,12 +87,12 @@ public class Menu2 extends JFrame {
             }
         });
         add(BackButton);
-        BackButton.setBounds(400, 390, 200, 59);
+        BackButton.setBounds(400, 400, 200, 59);
 
-        SnakeLabels.setIcon(new ImageIcon("res\\Menu\\snake.png")); // NOI18N
-        SnakeLabels.setText("Title");
-        add(SnakeLabels);
-        SnakeLabels.setBounds(370, 80, 250, 143);
+        LeaderLabel.setText("Leaderboard");
+        LeaderLabel.setFont(new Font("Berlin Sans FB Demi", 1, 36));
+        add(LeaderLabel);
+        LeaderLabel.setBounds(395, 50, 250, 143);
 
         Background.setIcon(new ImageIcon("res\\Menu\\bg1.png")); // NOI18N
         Background.setText("Background");
@@ -102,15 +104,15 @@ public class Menu2 extends JFrame {
 
     public void ClassicButtonActionPerformed(ActionEvent evt) {                                              
         // TODO add your handling code here:
-        ClassicGame s = new ClassicGame();
-        s.setVisible(true);
+        Leaderboard c = new Leaderboard();
+        c.setVisible(true);
         setVisible(false);
     } 
 
     private void TimeButtonActionPerformed(ActionEvent evt) {
         // TODO add your handling code here:
-        Menu3 menu3 = new Menu3();
-        menu3.setVisible(true);
+        LeaderboardTimeChoice t = new LeaderboardTimeChoice();
+        t.setVisible(true);
         setVisible(false);
     } 
     
@@ -138,13 +140,13 @@ public class Menu2 extends JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Menu2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LeaderboardChoice.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Menu2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LeaderboardChoice.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Menu2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LeaderboardChoice.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Menu2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LeaderboardChoice.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -152,7 +154,7 @@ public class Menu2 extends JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Menu2().setVisible(true);
+                new LeaderboardChoice().setVisible(true);
             }
         });
     }
@@ -160,6 +162,7 @@ public class Menu2 extends JFrame {
     // Variables declaration - do not modify
     public JLabel Background;
     public JButton ClassicButton, TimeButton, BackButton;
-    public JLabel SnakeLabels;
+    public JLabel LeaderLabel;
     // End of variables declaration
+    
 }

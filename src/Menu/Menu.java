@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package Menu;
+import Leaderboard.LeaderboardChoice;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Toolkit;
@@ -78,7 +79,7 @@ public class Menu extends JFrame {
         LeaderBoardButton.setBackground(new java.awt.Color(255, 204, 0));
         LeaderBoardButton.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
         LeaderBoardButton.setForeground(new java.awt.Color(204, 51, 0));
-        LeaderBoardButton.setText("Leader board");
+        LeaderBoardButton.setText("Leaderboard");
         LeaderBoardButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 LeaderBoardButtonActionPerformed(evt);
@@ -131,6 +132,9 @@ public class Menu extends JFrame {
 
     private void LeaderBoardButtonActionPerformed(java.awt.event.ActionEvent evt) {//
         // TODO add your handling code here:
+        LeaderboardChoice l = new LeaderboardChoice();
+        l.setVisible(true);
+        setVisible(false);
     }//
 
     /**

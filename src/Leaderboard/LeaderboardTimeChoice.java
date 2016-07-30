@@ -3,32 +3,25 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Menu;
+package Leaderboard;
 
-import GamePlay.EasyGame;
-import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.WindowConstants;
+import javax.swing.JPanel;
 
 /**
  *
- * @author nguyentranngocdiep
+ * @author Bloo
  */
-public class Menu3 extends javax.swing.JFrame {
-
-    /**
-     * Creates new form Menu
-     */
-    public Menu3() {
+public class LeaderboardTimeChoice extends JFrame {
+    
+    public LeaderboardTimeChoice() {
         initComponents();
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -43,79 +36,79 @@ public class Menu3 extends javax.swing.JFrame {
         HardButton = new JButton();
         ExpertButton = new JButton();
         BackButton = new JButton();
-        SnakeLabel = new JLabel();
+        LeaderLabel = new JLabel();
         Background = new JLabel();
 
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new Dimension(1000, 600));
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(1000, 600));
         setLocationRelativeTo(null);
         setResizable(false);
         setLayout(null);
 
-        EasyButton.setBackground(new Color(255, 204, 0));
-        EasyButton.setFont(new Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
-        EasyButton.setForeground(new Color(204, 51, 0));
+        EasyButton.setBackground(new java.awt.Color(255, 204, 0));
+        EasyButton.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
+        EasyButton.setForeground(new java.awt.Color(204, 51, 0));
         EasyButton.setText("Easy");
-        EasyButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
+        EasyButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 EasyButtonActionPerformed(evt);
             }
         });
         add(EasyButton);
-        EasyButton.setBounds(400, 200, 200, 59);
+        EasyButton.setBounds(400, 150, 200, 59);
 
-        NormalButton.setBackground(new Color(255, 204, 0));
-        NormalButton.setFont(new Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
-        NormalButton.setForeground(new Color(204, 51, 0));
+        NormalButton.setBackground(new java.awt.Color(255, 204, 0));
+        NormalButton.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
+        NormalButton.setForeground(new java.awt.Color(204, 51, 0));
         NormalButton.setText("Normal");
-        NormalButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
+        NormalButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 NormalButtonActionPerformed(evt);
             }
         });
         add(NormalButton);
-        NormalButton.setBounds(400, 270, 200, 59);
+        NormalButton.setBounds(400, 230, 200, 59);
 
-        HardButton.setBackground(new Color(255, 204, 0));
-        HardButton.setFont(new Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
-        HardButton.setForeground(new Color(204, 51, 0));
+        HardButton.setBackground(new java.awt.Color(255, 204, 0));
+        HardButton.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
+        HardButton.setForeground(new java.awt.Color(204, 51, 0));
         HardButton.setText("Hard");
-        HardButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
+        HardButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 HardButtonActionPerformed(evt);
             }
         });
         add(HardButton);
-        HardButton.setBounds(400, 340, 200, 59);
+        HardButton.setBounds(400, 310, 200, 59);
 
-        ExpertButton.setBackground(new Color(255, 204, 0));
-        ExpertButton.setFont(new Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
-        ExpertButton.setForeground(new Color(204, 51, 0));
+        ExpertButton.setBackground(new java.awt.Color(255, 204, 0));
+        ExpertButton.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
+        ExpertButton.setForeground(new java.awt.Color(204, 51, 0));
         ExpertButton.setText("Expert");
-        ExpertButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
+        ExpertButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ExpertButtonActionPerformed(evt);
             }
         });
         add(ExpertButton);
-        ExpertButton.setBounds(400, 410, 200, 59);
-        
-        BackButton.setBackground(new Color(255, 204, 0));
-        BackButton.setFont(new Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
-        BackButton.setForeground(new Color(204, 51, 0));
+        ExpertButton.setBounds(400, 390, 200, 59);
+
+        BackButton.setBackground(new java.awt.Color(255, 204, 0));
+        BackButton.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
+        BackButton.setForeground(new java.awt.Color(204, 51, 0));
         BackButton.setText("Back");
-        BackButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
+        BackButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BackButtonActionPerformed(evt);
             }
         });
         add(BackButton);
-        BackButton.setBounds(400, 500, 200, 59);
-
-        SnakeLabel.setIcon(new ImageIcon("res\\Menu\\snake.png")); // NOI18N
-        SnakeLabel.setText("Title");
-        add(SnakeLabel);
-        SnakeLabel.setBounds(370, 20, 250, 143);
+        BackButton.setBounds(400, 490, 200, 59);
+        
+        LeaderLabel.setText("Leaderboard");
+        LeaderLabel.setFont(new Font("Berlin Sans FB Demi", 1, 36));
+        add(LeaderLabel);
+        LeaderLabel.setBounds(395, 20, 250, 143);
 
         Background.setIcon(new ImageIcon("res\\Menu\\bg1.png")); // NOI18N
         Background.setText("Background");
@@ -135,8 +128,8 @@ public class Menu3 extends javax.swing.JFrame {
 
     private void EasyButtonActionPerformed(java.awt.event.ActionEvent evt) { 
         // TODO add your handling code here:
-        EasyGame s = new EasyGame();
-        s.setVisible(true);
+        Leaderboard e = new Leaderboard();
+        e.setVisible(true);
         setVisible(false);
     } 
 
@@ -146,8 +139,8 @@ public class Menu3 extends javax.swing.JFrame {
     
     private void BackButtonActionPerformed(java.awt.event.ActionEvent evt) { 
         // TODO add your handling code here:
-        Menu2 m2 = new Menu2();
-        m2.setVisible(true);
+        LeaderboardChoice l = new LeaderboardChoice();
+        l.setVisible(true);
         setVisible(false);
     } 
 
@@ -168,13 +161,13 @@ public class Menu3 extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Menu3.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LeaderboardTimeChoice.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Menu3.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LeaderboardTimeChoice.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Menu3.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LeaderboardTimeChoice.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Menu3.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LeaderboardTimeChoice.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -184,13 +177,14 @@ public class Menu3 extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Menu3().setVisible(true);
+                new LeaderboardTimeChoice().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify 
-    private JLabel Background, SnakeLabel;
+    private JLabel Background, LeaderLabel;
     public JButton EasyButton, NormalButton, HardButton, ExpertButton, BackButton;
     // End of variables declaration 
+    
 }

@@ -19,7 +19,6 @@ import javax.swing.JLabel;
 public class ClassicGame extends JFrame {
 
     public ClassicGame() {
-
         add(new Board());
         setResizable(false);
         pack();

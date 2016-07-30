@@ -57,42 +57,20 @@ public class Board extends JPanel implements ActionListener {
     private boolean inGame = true;
 
     private Timer timer;
-//    private Image ball;
-//    private Image food;
-//    private Image head;
 
     static Snakes snake = new Snakes();
     static ClassicFood food = new ClassicFood();
     
     public Board() {
         addKeyListener(new TAdapter());
-        setBackground(new java.awt.Color(7, 123, 83));
+        setBackground(new Color(7, 123, 83));
         setFocusable(true);
         setPreferredSize(new Dimension(B_WIDTH, B_HEIGHT));
         //loadImages();
         initGame();
     }
 
-    //private void loadImages() {
-
-        //ImageIcon iid = new ImageIcon(new ImageIcon("res\\Items\\dot.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
-        //ball = iid.getImage();
-
-        //ImageIcon iia = new ImageIcon(new ImageIcon("res\\Items\\coffee-bean.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
-        //leaf = iia.getImage();
-
-        //ImageIcon iih = new ImageIcon(new ImageIcon("res\\Items\\head.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
-        //head = iih.getImage();
-    //}
-
     private void initGame() {
-
-        //dots = 3;
-
-        //for (int z = 0; z < dots; z++) {
-        //    x[z] = 50 - z * 10;
-        //    y[z] = 50;
-        //}
         
         snake.initSnake();
         snake.speed = 100;
@@ -122,7 +100,14 @@ public class Board extends JPanel implements ActionListener {
                     g.drawImage(snake.getIcon(), snake.getX(z), snake.getY(z), this);
                 }
             }
-
+            
+            String score = "Score: " + Integer.toString(SCORE);
+            Font small = new Font("Berlin Sans FB Demi", Font.BOLD, 30);
+            FontMetrics metr = getFontMetrics(small);
+            g.setColor(Color.black);
+            g.setFont(small);
+            g.drawString(score, 10, 30);
+            
             Toolkit.getDefaultToolkit().sync();
 
         } else {
@@ -156,15 +141,15 @@ public class Board extends JPanel implements ActionListener {
         // END
         
         // Replay
-//        JButton ReplayButton = new JButton();
+        JButton ReplayButton = new JButton();
         
-//        ReplayButton.setBackground(new java.awt.Color(255, 204, 0));
-//        ReplayButton.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24));
-//        ReplayButton.setForeground(new java.awt.Color(204, 51, 0));
-//        ReplayButton.setText("Replay");
-//        ReplayButton.addActionListener(this::ReplayButtonActionPerformed);
-//        add(ReplayButton);
-//        ReplayButton.setBounds((B_WIDTH - metr.stringWidth(msg)) / 2 - 20, B_HEIGHT / 2 + 20, 200, 59);
+        ReplayButton.setBackground(new java.awt.Color(255, 204, 0));
+        ReplayButton.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24));
+        ReplayButton.setForeground(new java.awt.Color(204, 51, 0));
+        ReplayButton.setText("Replay");
+        ReplayButton.addActionListener(this::ReplayButtonActionPerformed);
+        add(ReplayButton);
+        ReplayButton.setBounds((B_WIDTH - metr.stringWidth(msg)) / 2 - 20, B_HEIGHT / 2 + 20, 200, 59);
         
         // Back to menu - In Progess
 //        JButton MenuButton = new javax.swing.JButton();
@@ -182,13 +167,13 @@ public class Board extends JPanel implements ActionListener {
 //        MenuButton.setBounds((B_WIDTH - metr.stringWidth(msg)) / 2 - 20, B_HEIGHT / 2 + 100, 200, 59);
     }
     
-//    private void ReplayButtonActionPerformed(java.awt.event.ActionEvent evt) {                                            
-//        // TODO add your handling code here:
-//        ClassicGame newGame = new ClassicGame();
-//        newGame.setVisible(true);
-//        setVisible(false);
-//                      
-//    }
+    private void ReplayButtonActionPerformed(java.awt.event.ActionEvent evt) {                                            
+        // TODO add your handling code here:
+        ClassicGame newGame = new ClassicGame();
+        newGame.setVisible(true);
+        setVisible(false);
+                      
+    }
     
     private void MenuButtonActionPerformed(java.awt.event.ActionEvent evt) {                                            
         // TODO add your handling code here:
@@ -260,7 +245,7 @@ public class Board extends JPanel implements ActionListener {
         }
         
         if(!inGame) {
-            timer.stop();
+//            timer.stop();
         }
     }
 
@@ -275,14 +260,11 @@ public class Board extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
         if (inGame) {
-
             checkFood();
             checkCollision();
             snake.move();
         }
-
         repaint();
     }
 

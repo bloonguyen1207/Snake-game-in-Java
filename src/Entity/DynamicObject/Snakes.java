@@ -20,6 +20,15 @@ public class Snakes extends DynamicObject{
     private final int x[] = new int[ALL_DOTS];
     private final int y[] = new int[ALL_DOTS];
     private Image head;
+    private boolean isRevert = false;
+
+    public boolean isIsRevert() {
+        return isRevert;
+    }
+
+    public void setIsRevert(boolean isRevert) {
+        this.isRevert = isRevert;
+    }
     
     public Snakes() {
         head = loadImage(head, "res\\Items\\heada.png");
@@ -38,7 +47,7 @@ public class Snakes extends DynamicObject{
         this.length = length;
     }
     
-    public int getDots() {
+    public int getLength() {
         return this.length;
     }
     
@@ -70,13 +79,30 @@ public class Snakes extends DynamicObject{
         setRightDirection(true);
     }
     
+    public void revertDirection() {
+        if (isRevert) {
+            if (leftDirection) {
+                leftDirection = false;
+                rightDirection = true;
+            } else if (rightDirection) {
+                leftDirection = true;
+                rightDirection = false;
+            } else if (upDirection) {
+                upDirection = false;
+                downDirection = true;                
+            } else if (downDirection) {
+                upDirection = true;
+                downDirection = false;
+            }
+        }
+    }
     @Override
     public void move() {
         for (int z = length; z > 0; z--) {
             x[z] = x[(z - 1)];
             y[z] = y[(z - 1)];
         }
-
+                
         if (leftDirection) {
             x[0] -= DOT_SIZE;
         }

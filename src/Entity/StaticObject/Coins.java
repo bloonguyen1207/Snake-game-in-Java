@@ -14,13 +14,13 @@ import java.awt.event.ActionEvent;
  *
  * @author Hanh
  */
-public class TeaLeaf extends StaticObject {
-    public TeaLeaf() {
-        icon = loadImage(icon, "res\\Items\\leaf.png");
-    }
+public class Coins extends StaticObject {
+    public Coins() {
+        icon = loadImage(icon, "res\\Items\\money-bag.png");
+    }   
     
     @Override
     public int specialEffect(Snakes snake) {
-        return 10;
+        return 0;
     }
 }

@@ -26,12 +26,17 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import Entity.DynamicObject.Snakes;
+import Entity.StaticObject.Coffee;
+import Entity.StaticObject.Coins;
+import Entity.StaticObject.Heal;
+import Entity.StaticObject.Revert;
+import Entity.StaticObject.StaticObject;
 import Entity.StaticObject.TeaLeaf;
 import java.awt.BasicStroke;
 import java.awt.Graphics2D;
 import javax.swing.JLabel;
 
-public class Board2 extends JPanel implements ActionListener {
+public class Board3 extends JPanel implements ActionListener {
 
     private static final int B_WIDTH = 1000;
     private static final int B_HEIGHT = 600;
@@ -39,7 +44,7 @@ public class Board2 extends JPanel implements ActionListener {
     public static final int ALL_DOTS = B_WIDTH * B_HEIGHT / DOT_SIZE / DOT_SIZE;
 //    private final int RAND_POS_X = 49;
 //    private final int RAND_POS_Y = 29;
-    private int DELAY = 100;
+    private final int DELAY = 100;
 
 //    private final int x[] = new int[ALL_DOTS];
 //    private final int y[] = new int[ALL_DOTS];
@@ -59,10 +64,10 @@ public class Board2 extends JPanel implements ActionListener {
 //    private Image food;
 //    private Image head;
 
-    static Snakes snake = new Snakes();
-    static TeaLeaf food = new TeaLeaf();
+    Snakes snake = new Snakes();
+    //static TeaLeaf food = new TeaLeaf();
     
-    public Board2() {
+    public Board3() {
         addKeyListener(new TAdapter());
         setBackground(new java.awt.Color(7, 123, 83));
         setFocusable(true);
@@ -94,8 +99,8 @@ public class Board2 extends JPanel implements ActionListener {
         //}
         
         snake.initSnake();
-        food.locateFood();
-
+        //food.locateFood();
+        initMultiFood();
         timer = new Timer(DELAY, this);
         timer.start();
     }
@@ -118,7 +123,12 @@ public class Board2 extends JPanel implements ActionListener {
 //                }
 //            }
             snake.paintComponent(g);
-            food.paintComponent(g);
+            //food.paintComponent(g);
+            for (int i = 0; i < foodsPos.length; i++) {
+                if (foodsPos[i][0] > -1) {
+                    multiFood[i].paintComponent(g);
+                }
+            }
             
             /*Drawing border*/
             for (int z =0; z< B_WIDTH;z++){ /*Drawing width border*/
@@ -177,15 +187,31 @@ public class Board2 extends JPanel implements ActionListener {
         g.drawString(msg, (B_WIDTH - metr.stringWidth(msg)) / 2, B_HEIGHT / 2);
     }
 
-    private void checkFood() {
-
-        if ((snake.getX(0) == food.posX) && (snake.getY(0) == food.posY)) {
-            if (DELAY > 50) {
-                timer.setDelay(timer.getDelay() - food.specialEffect());
-                DELAY -= food.specialEffect();
+    private void checkFood() {                
+        //collision with multifood
+        for (int j = 0; j < foodsPos.length; j++) {
+            if (snake.getX(0) == foodsPos[j][0] && snake.getY(0) == foodsPos[j][1]) {
+                numOnScreen -= 1;
+                fIndex = j;
+                snake.setLength(snake.getLength()+ 1);
+                if (multiFood[fIndex].getClass().equals(Heal.class)) {
+                    timer.setDelay(DELAY);
+                    multiFood[fIndex].specialEffect(snake);
+                } else if (timer.getDelay() <= 20 && multiFood[fIndex].getClass().equals(TeaLeaf.class)) {
+                    timer.setDelay(timer.getDelay() + multiFood[fIndex].specialEffect(snake));
+                } else if (timer.getDelay() >= 200 && multiFood[fIndex].getClass().equals(Coffee.class)) {
+                    timer.setDelay(timer.getDelay() + multiFood[fIndex].specialEffect(snake));
+                } else if (timer.getDelay() > 20 && timer.getDelay() < 200) {
+                    timer.setDelay(timer.getDelay() + multiFood[fIndex].specialEffect(snake));
+                } else {
+                    multiFood[fIndex].specialEffect(snake);
+                }
+                locateMultiFood();
+                break;
+            } else if (fSet < totalFood && j == foodsPos.length - 1){
+                fIndex = fSet;
+                locateMultiFood();
             }
-            snake.setLength(snake.getDots() + 1);
-            food.locateFood();
         }
     }
 
@@ -215,7 +241,7 @@ public class Board2 extends JPanel implements ActionListener {
 */
     private void checkCollision() {
 
-        for (int z = snake.getDots(); z > 0; z--) {
+        for (int z = snake.getLength(); z > 0; z--) {
 
             if ((z > 4) && (snake.getX(0) == snake.getX(z)) && (snake.getY(0) == snake.getY(z))) {
                 inGame = false;
@@ -258,7 +284,6 @@ public class Board2 extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
         if (inGame) {
 
             checkFood();
@@ -276,29 +301,83 @@ public class Board2 extends JPanel implements ActionListener {
         public void keyPressed(KeyEvent e) {
 
             int key = e.getKeyCode();
-
-            if ((key == KeyEvent.VK_LEFT) && (!snake.isRightDirection())) {
+            
+            if ((key == KeyEvent.VK_LEFT) && (
+                    (!snake.isRightDirection() && !snake.isIsRevert())
+                    || (snake.isIsRevert() && !snake.isLeftDirection()))) {
                 snake.setLeftDirection(true);
                 snake.setUpDirection(false);
                 snake.setDownDirection(false);
+                snake.revertDirection();
             }
 
-            if ((key == KeyEvent.VK_RIGHT) && (!snake.isLeftDirection())) {
+            if ((key == KeyEvent.VK_RIGHT) && (
+                    (!snake.isLeftDirection() && !snake.isIsRevert())
+                    || (snake.isIsRevert() && !snake.isRightDirection()))) {
                 snake.setRightDirection(true);
                 snake.setUpDirection(false);
                 snake.setDownDirection(false);
+                snake.revertDirection();
             }
 
-            if ((key == KeyEvent.VK_UP) && (!snake.isDownDirection())) {
+            if ((key == KeyEvent.VK_UP) && (
+                    (!snake.isDownDirection() && !snake.isIsRevert())
+                    || (snake.isIsRevert() && !snake.isUpDirection()))) {
                 snake.setUpDirection(true);
                 snake.setRightDirection(false);
                 snake.setLeftDirection(false);
+                snake.revertDirection();
             }
 
-            if ((key == KeyEvent.VK_DOWN) && (!snake.isUpDirection())) {
+            if ((key == KeyEvent.VK_DOWN) && (
+                    (!snake.isUpDirection() && !snake.isIsRevert())
+                    || (snake.isIsRevert() && !snake.isDownDirection()))) {
                 snake.setDownDirection(true);
                 snake.setRightDirection(false);
                 snake.setLeftDirection(false);
+                snake.revertDirection();
+            }
+        }
+    }
+
+    private int numOnScreen;
+    private int fIndex = 0;
+    private int fSet = 0;
+    private final int totalFood = 10;
+    private StaticObject[] multiFood;
+    public static int[][] foodsPos;
+    private void initMultiFood() {
+        this.numOnScreen = 0;
+        this.fIndex = 0;
+        this.fSet = 0;
+        multiFood = new StaticObject[totalFood];
+        foodsPos = new int[totalFood][2];
+        for (int[] foodPos : foodsPos) {
+            for (int j = 0; j < foodsPos[0].length; j++) {
+                foodPos[j] = -1;
+            }
+        }
+    }
+    private void locateMultiFood() {
+        if (numOnScreen < totalFood) {
+            numOnScreen += 1;
+            int r = (int) (Math.random() * 6);
+            if (r == 2) {
+                multiFood[fIndex] = new TeaLeaf();
+            } else if (r == 0 || r == 1) {
+                multiFood[fIndex] = new Coffee();
+            } else if (r == 3) {
+                multiFood[fIndex] = new Heal();
+            } else if (r == 4) {
+                multiFood[fIndex] = new Coins();
+            } else if (r == 5) {
+                multiFood[fIndex] = new Revert();
+            }
+            multiFood[fIndex].locateFood(snake);
+            foodsPos[fIndex][0] = multiFood[fIndex].getPosX();
+            foodsPos[fIndex][1] = multiFood[fIndex].getPosY();
+            if (fIndex == fSet) {
+                fSet += 1;
             }
         }
     }

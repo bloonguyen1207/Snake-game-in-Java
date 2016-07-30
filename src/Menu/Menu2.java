@@ -5,13 +5,21 @@
  */
 package Menu;
 
-import GamePlay.Snake;
+import GamePlay.ClassicGame;
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.WindowConstants;
 
 /**
  *
  * @author nguyentranngocdiep
  */
-public class Menu2 extends javax.swing.JFrame {
+public class Menu2 extends JFrame {
 
     /**
      * Creates new form Menu
@@ -29,13 +37,13 @@ public class Menu2 extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code"> 
     private void initComponents() {
 
-        ClassicButton = new javax.swing.JButton();
-        TimeButton = new javax.swing.JButton();
-        SnakeLabels = new javax.swing.JLabel();
-        Background = new javax.swing.JLabel();
+        ClassicButton = new JButton();
+        TimeButton = new JButton();
+        SnakeLabels = new JLabel();
+        Background = new JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1000, 600));
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new Dimension(1000, 600));
         setLocationRelativeTo(null);
         setResizable(false);
         setLayout(null);
@@ -44,8 +52,8 @@ public class Menu2 extends javax.swing.JFrame {
         ClassicButton.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
         ClassicButton.setForeground(new java.awt.Color(204, 51, 0));
         ClassicButton.setText("Classic Mode");
-        ClassicButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        ClassicButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 ClassicButtonActionPerformed(evt);
             }
         });
@@ -56,20 +64,20 @@ public class Menu2 extends javax.swing.JFrame {
         TimeButton.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
         TimeButton.setForeground(new java.awt.Color(204, 51, 0));
         TimeButton.setText("Time Mode");
-        TimeButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        TimeButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 TimeButtonActionPerformed(evt);
             }
         });
         add(TimeButton);
         TimeButton.setBounds(400, 350, 200, 59);
 
-        SnakeLabels.setIcon(new javax.swing.ImageIcon("res\\Menu\\snake.png")); // NOI18N
+        SnakeLabels.setIcon(new ImageIcon("res\\Menu\\snake.png")); // NOI18N
         SnakeLabels.setText("Title");
         add(SnakeLabels);
         SnakeLabels.setBounds(370, 80, 250, 143);
 
-        Background.setIcon(new javax.swing.ImageIcon("res\\Menu\\bg1.png")); // NOI18N
+        Background.setIcon(new ImageIcon("res\\Menu\\bg1.png")); // NOI18N
         Background.setText("Background");
         add(Background);
         Background.setBounds(0, 0, 1000, 600);
@@ -77,14 +85,14 @@ public class Menu2 extends javax.swing.JFrame {
         pack();
     }// </editor-fold>                        
 
-    private void ClassicButtonActionPerformed(java.awt.event.ActionEvent evt) {                                              
+    public void ClassicButtonActionPerformed(ActionEvent evt) {                                              
         // TODO add your handling code here:
-        Snake s = new Snake();
+        ClassicGame s = new ClassicGame();
         s.setVisible(true);
         setVisible(false);
     } 
 
-    private void TimeButtonActionPerformed(java.awt.event.ActionEvent evt) {
+    private void TimeButtonActionPerformed(ActionEvent evt) {
         // TODO add your handling code here:
         Menu3 menu3 = new Menu3();
         menu3.setVisible(true);
@@ -128,9 +136,9 @@ public class Menu2 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify
-    private javax.swing.JLabel Background;
-    private javax.swing.JButton ClassicButton;
-    private javax.swing.JLabel SnakeLabels;
-    private javax.swing.JButton TimeButton;
+    public JLabel Background;
+    public static JButton ClassicButton;
+    public JLabel SnakeLabels;
+    public JButton TimeButton;
     // End of variables declaration
 }

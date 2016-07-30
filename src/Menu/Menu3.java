@@ -5,6 +5,8 @@
  */
 package Menu;
 
+import GamePlay.EasyGame;
+
 /**
  *
  * @author nguyentranngocdiep
@@ -111,6 +113,9 @@ public class Menu3 extends javax.swing.JFrame {
 
     private void EasyButtonActionPerformed(java.awt.event.ActionEvent evt) { 
         // TODO add your handling code here:
+        EasyGame s = new EasyGame();
+        s.setVisible(true);
+        setVisible(false);
     } 
 
     private void HardButtonActionPerformed(java.awt.event.ActionEvent evt) { 
@@ -157,7 +162,7 @@ public class Menu3 extends javax.swing.JFrame {
 
     // Variables declaration - do not modify 
     private javax.swing.JLabel Background;
-    private javax.swing.JButton EasyButton;
+    public static javax.swing.JButton EasyButton;
     private javax.swing.JButton ExpertButton;
     public javax.swing.JButton HardButton;
     private javax.swing.JButton NormalButton;

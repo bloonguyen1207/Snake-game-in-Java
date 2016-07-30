@@ -16,11 +16,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 
-public class Snake extends javax.swing.JFrame {
+public class ClassicGame extends JFrame {
 
-    public Snake() {
+    public ClassicGame() {
 
-        add(new Board3());
+        add(new Board());
         setResizable(false);
         pack();
         
@@ -35,7 +35,7 @@ public class Snake extends javax.swing.JFrame {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {                
-                JFrame ex = new Snake();
+                JFrame ex = new ClassicGame();
                 ex.setVisible(true);                
             }
         });

@@ -27,7 +27,7 @@ import javax.swing.Timer;
 
 import Entity.DynamicObject.Snakes;
 import Entity.StaticObject.ClassicFood;
-import GamePlay.Snake;
+import GamePlay.ClassicGame;
 import Menu.Menu;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -156,15 +156,15 @@ public class Board extends JPanel implements ActionListener {
         // END
         
         // Replay
-        JButton ReplayButton = new javax.swing.JButton();
+//        JButton ReplayButton = new JButton();
         
-        ReplayButton.setBackground(new java.awt.Color(255, 204, 0));
-        ReplayButton.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24));
-        ReplayButton.setForeground(new java.awt.Color(204, 51, 0));
-        ReplayButton.setText("Replay");
-        ReplayButton.addActionListener(this::ReplayButtonActionPerformed);
-        add(ReplayButton);
-        ReplayButton.setBounds((B_WIDTH - metr.stringWidth(msg)) / 2 - 20, B_HEIGHT / 2 + 20, 200, 59);
+//        ReplayButton.setBackground(new java.awt.Color(255, 204, 0));
+//        ReplayButton.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24));
+//        ReplayButton.setForeground(new java.awt.Color(204, 51, 0));
+//        ReplayButton.setText("Replay");
+//        ReplayButton.addActionListener(this::ReplayButtonActionPerformed);
+//        add(ReplayButton);
+//        ReplayButton.setBounds((B_WIDTH - metr.stringWidth(msg)) / 2 - 20, B_HEIGHT / 2 + 20, 200, 59);
         
         // Back to menu - In Progess
 //        JButton MenuButton = new javax.swing.JButton();
@@ -182,13 +182,13 @@ public class Board extends JPanel implements ActionListener {
 //        MenuButton.setBounds((B_WIDTH - metr.stringWidth(msg)) / 2 - 20, B_HEIGHT / 2 + 100, 200, 59);
     }
     
-    private void ReplayButtonActionPerformed(java.awt.event.ActionEvent evt) {                                            
-        // TODO add your handling code here:
-        Snake newGame = new Snake();
-        newGame.setVisible(true);
-        setVisible(false);
-                      
-    }
+//    private void ReplayButtonActionPerformed(java.awt.event.ActionEvent evt) {                                            
+//        // TODO add your handling code here:
+//        ClassicGame newGame = new ClassicGame();
+//        newGame.setVisible(true);
+//        setVisible(false);
+//                      
+//    }
     
     private void MenuButtonActionPerformed(java.awt.event.ActionEvent evt) {                                            
         // TODO add your handling code here:

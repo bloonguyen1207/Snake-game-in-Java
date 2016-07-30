@@ -10,7 +10,6 @@ package GamePlay;
  * @author Bloo
  */
 import GamePlay.Classic.Board;
-import GamePlay.TimeAttack.Board2;
 import GamePlay.TimeAttack.Board3;
 import java.awt.EventQueue;
 import javax.swing.JFrame;

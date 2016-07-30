@@ -5,6 +5,7 @@
  */
 package Entity.StaticObject;
 
+import Entity.DynamicObject.Snakes;
 import GamePlay.Classic.Board;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
@@ -19,7 +20,7 @@ public class Coffee extends StaticObject {
     }   
     
     @Override
-    public int specialEffect() {
+    public int specialEffect(Snakes snake) {
         return -10;
     }
 }

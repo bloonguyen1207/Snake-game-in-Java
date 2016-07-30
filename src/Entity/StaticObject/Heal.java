@@ -5,6 +5,7 @@
  */
 package Entity.StaticObject;
 
+import Entity.DynamicObject.Snakes;
 import GamePlay.Classic.Board;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
@@ -19,7 +20,8 @@ public class Heal extends StaticObject {
     }   
     
     @Override
-    public int specialEffect() {
+    public int specialEffect(Snakes snake) {
+        snake.setIsRevert(false);
         return 0;
     }
 }

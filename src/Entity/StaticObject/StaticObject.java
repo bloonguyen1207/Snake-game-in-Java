@@ -51,6 +51,6 @@ public abstract class StaticObject extends Entity {
                 
     }
     
-    abstract public int specialEffect();
+    abstract public int specialEffect(Snakes snake);
     
 }

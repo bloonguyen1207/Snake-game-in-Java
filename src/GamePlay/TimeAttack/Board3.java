@@ -29,6 +29,7 @@ import Entity.DynamicObject.Snakes;
 import Entity.StaticObject.Coffee;
 import Entity.StaticObject.Coins;
 import Entity.StaticObject.Heal;
+import Entity.StaticObject.Revert;
 import Entity.StaticObject.StaticObject;
 import Entity.StaticObject.TeaLeaf;
 import java.awt.BasicStroke;
@@ -195,12 +196,15 @@ public class Board3 extends JPanel implements ActionListener {
                 snake.setLength(snake.getLength()+ 1);
                 if (multiFood[fIndex].getClass().equals(Heal.class)) {
                     timer.setDelay(DELAY);
+                    multiFood[fIndex].specialEffect(snake);
                 } else if (timer.getDelay() <= 20 && multiFood[fIndex].getClass().equals(TeaLeaf.class)) {
-                    timer.setDelay(timer.getDelay() + multiFood[fIndex].specialEffect());
+                    timer.setDelay(timer.getDelay() + multiFood[fIndex].specialEffect(snake));
                 } else if (timer.getDelay() >= 200 && multiFood[fIndex].getClass().equals(Coffee.class)) {
-                    timer.setDelay(timer.getDelay() + multiFood[fIndex].specialEffect());
+                    timer.setDelay(timer.getDelay() + multiFood[fIndex].specialEffect(snake));
                 } else if (timer.getDelay() > 20 && timer.getDelay() < 200) {
-                    timer.setDelay(timer.getDelay() + multiFood[fIndex].specialEffect());
+                    timer.setDelay(timer.getDelay() + multiFood[fIndex].specialEffect(snake));
+                } else {
+                    multiFood[fIndex].specialEffect(snake);
                 }
                 locateMultiFood();
                 break;
@@ -297,29 +301,45 @@ public class Board3 extends JPanel implements ActionListener {
         public void keyPressed(KeyEvent e) {
 
             int key = e.getKeyCode();
-
-            if ((key == KeyEvent.VK_LEFT) && (!snake.isRightDirection())) {
+            
+            if ((key == KeyEvent.VK_LEFT) && (
+                    (!snake.isRightDirection() && !snake.isIsRevert())
+                    || (snake.isIsRevert() && !snake.isLeftDirection()))) {
                 snake.setLeftDirection(true);
                 snake.setUpDirection(false);
                 snake.setDownDirection(false);
+                snake.revertDirection();
             }
 
-            if ((key == KeyEvent.VK_RIGHT) && (!snake.isLeftDirection())) {
+            if ((key == KeyEvent.VK_RIGHT) && (
+                    (!snake.isLeftDirection() && !snake.isIsRevert())
+                    || (snake.isIsRevert() && !snake.isRightDirection()))) {
                 snake.setRightDirection(true);
                 snake.setUpDirection(false);
                 snake.setDownDirection(false);
+                snake.revertDirection();
             }
 
-            if ((key == KeyEvent.VK_UP) && (!snake.isDownDirection())) {
+            if ((key == KeyEvent.VK_UP) && (
+                    (!snake.isDownDirection() && !snake.isIsRevert())
+                    || (snake.isIsRevert() && !snake.isUpDirection()))) {
+                System.out.print("!Down && !revert: ");
+                System.out.println(!snake.isDownDirection() && !snake.isIsRevert());
+                System.out.print("revert && !up: ");
+                System.out.println(snake.isIsRevert() && !snake.isUpDirection());
                 snake.setUpDirection(true);
                 snake.setRightDirection(false);
                 snake.setLeftDirection(false);
+                snake.revertDirection();
             }
 
-            if ((key == KeyEvent.VK_DOWN) && (!snake.isUpDirection())) {
+            if ((key == KeyEvent.VK_DOWN) && (
+                    (!snake.isUpDirection() && !snake.isIsRevert())
+                    || (snake.isIsRevert() && !snake.isDownDirection()))) {
                 snake.setDownDirection(true);
                 snake.setRightDirection(false);
                 snake.setLeftDirection(false);
+                snake.revertDirection();
             }
         }
     }
@@ -344,7 +364,7 @@ public class Board3 extends JPanel implements ActionListener {
     private void locateMultiFood() {
         if (numOnScreen < 10) {
             numOnScreen += 1;
-            int r = (int) (Math.random() * 5);
+            int r = (int) (Math.random() * 6);
             if (r == 2) {
                 multiFood[fIndex] = new TeaLeaf();
             } else if (r == 0 || r == 1) {
@@ -353,6 +373,8 @@ public class Board3 extends JPanel implements ActionListener {
                 multiFood[fIndex] = new Heal();
             } else if (r == 4) {
                 multiFood[fIndex] = new Coins();
+            } else if (r == 5) {
+                multiFood[fIndex] = new Revert();
             }
             multiFood[fIndex].locateFood(snake);
             foodsPos[fIndex][0] = multiFood[fIndex].getPosX();

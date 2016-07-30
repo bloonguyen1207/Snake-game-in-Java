@@ -13,12 +13,10 @@ import javax.swing.JFrame;
  *
  * @author Bloo
  */
-
-public class ClassicLeaderboard {
+public class ClassicLeaderboard extends JFrame{
     private static File highscores;
     private static Scanner readFiles;
     
-
     public static void main(String[] args) throws Exception {
         String[] chc; 
         try {

@@ -5,19 +5,22 @@
  */
 package Menu;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Toolkit;
+import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 import java.util.Scanner;
 import java.io.*;
 import java.util.List;
 import java.util.ArrayList;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 /**
  *
  * @author nguyentranngocdiep
  */
-public class Menu extends javax.swing.JFrame {
+public class Menu extends JFrame {
 
     /**
      * Creates new form Menu
@@ -35,12 +38,12 @@ public class Menu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//
     private void initComponents() {
 
-        StartButton = new javax.swing.JButton();
-        StoreButton = new javax.swing.JButton();
-        LeaderBoardButton = new javax.swing.JButton();
-        ExitButton = new javax.swing.JButton();
-        SnakeLabels = new javax.swing.JLabel();
-        Background = new javax.swing.JLabel();
+        StartButton = new JButton();
+        StoreButton = new JButton();
+        LeaderBoardButton = new JButton();
+        ExitButton = new JButton();
+        SnakeLabels = new JLabel();
+        Background = new JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1000, 600));
@@ -48,9 +51,9 @@ public class Menu extends javax.swing.JFrame {
         setResizable(false);
         setLayout(null);
 
-        StartButton.setBackground(new java.awt.Color(255, 204, 0));
-        StartButton.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24));
-        StartButton.setForeground(new java.awt.Color(204, 51, 0));
+        StartButton.setBackground(new Color(255, 204, 0));
+        StartButton.setFont(new Font("Berlin Sans FB Demi", 1, 24));
+        StartButton.setForeground(new Color(204, 51, 0));
         StartButton.setText("Start");
         StartButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -60,11 +63,11 @@ public class Menu extends javax.swing.JFrame {
         add(StartButton);
         StartButton.setBounds(400, 230, 200, 59);
 
-        StoreButton.setBackground(new java.awt.Color(255, 204, 0));
-        StoreButton.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
-        StoreButton.setForeground(new java.awt.Color(204, 51, 0));
+        StoreButton.setBackground(new Color(255, 204, 0));
+        StoreButton.setFont(new Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
+        StoreButton.setForeground(new Color(204, 51, 0));
         StoreButton.setText("Store");
-        StoreButton.addActionListener(new java.awt.event.ActionListener() {
+        StoreButton.addActionListener(new ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 StoreButtonActionPerformed(evt);
             }

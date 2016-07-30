@@ -323,10 +323,6 @@ public class Board3 extends JPanel implements ActionListener {
             if ((key == KeyEvent.VK_UP) && (
                     (!snake.isDownDirection() && !snake.isIsRevert())
                     || (snake.isIsRevert() && !snake.isUpDirection()))) {
-                System.out.print("!Down && !revert: ");
-                System.out.println(!snake.isDownDirection() && !snake.isIsRevert());
-                System.out.print("revert && !up: ");
-                System.out.println(snake.isIsRevert() && !snake.isUpDirection());
                 snake.setUpDirection(true);
                 snake.setRightDirection(false);
                 snake.setLeftDirection(false);

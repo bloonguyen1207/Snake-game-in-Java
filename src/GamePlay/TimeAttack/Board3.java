@@ -29,6 +29,7 @@ import Entity.StaticObject.Heal;
 import Entity.StaticObject.Revert;
 import Entity.StaticObject.StaticObject;
 import Entity.StaticObject.TeaLeaf;
+import java.awt.Toolkit;
 
 public class Board3 extends JPanel implements ActionListener {
 
@@ -123,6 +124,15 @@ public class Board3 extends JPanel implements ActionListener {
                     g.drawImage(snake.getIcon(), snake.getX(z), snake.getY(z), this);
                 }
             }
+            
+            String score = "Score: " + Integer.toString(SCORE);
+            Font small = new Font("Berlin Sans FB Demi", Font.BOLD, 30);
+            FontMetrics metr = getFontMetrics(small);
+            g.setColor(Color.black);
+            g.setFont(small);
+            g.drawString(score, 10, 30);
+            
+            Toolkit.getDefaultToolkit().sync();
             
             /*Drawing border*/
 //            for (int z =0; z< B_WIDTH;z++){ /*Drawing width border*/
@@ -235,6 +245,7 @@ public class Board3 extends JPanel implements ActionListener {
             if (snake.getX(0) == foodsPos[j][0] && snake.getY(0) == foodsPos[j][1]) {
                 numOnScreen -= 1;
                 fIndex = j;
+                SCORE += multiFood[fIndex].point;
                 snake.setLength(snake.getLength()+ 1);
                 if (multiFood[fIndex].getClass().equals(Heal.class)) {
                     timer.setDelay(DELAY);
@@ -314,15 +325,6 @@ public class Board3 extends JPanel implements ActionListener {
             timer.stop();
         }
     }
-
-    //private void locateFood() {
-
-    //    int r = (int) (Math.random() * RAND_POS_X);
-    //    food_x = ((r * DOT_SIZE));
-
-    //    r = (int) (Math.random() * RAND_POS_Y);
-    //    food_y = ((r * DOT_SIZE));
-    //}
 
     @Override
     public void actionPerformed(ActionEvent e) {

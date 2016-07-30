@@ -14,9 +14,10 @@ import java.awt.event.ActionEvent;
  *
  * @author Hanh
  */
-public class Coins extends StaticObject {
-    public Coins() {
-        icon = loadImage(icon, "res\\Items\\money-bag.png");
+public class Apple extends StaticObject {
+    public Apple() {
+        point = 1;
+        icon = loadImage(icon, "res\\Items\\apple.png");
     }   
     
     @Override

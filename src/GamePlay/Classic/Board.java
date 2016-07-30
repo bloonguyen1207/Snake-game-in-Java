@@ -194,8 +194,6 @@ public class Board extends JPanel implements ActionListener {
         // TODO add your handling code here:
         Menu mainMenu = new Menu();
         mainMenu.setVisible(true);
-        setVisible(false);
-                      
     }
 
     private void checkFood() {

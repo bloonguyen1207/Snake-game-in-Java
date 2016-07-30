@@ -14,27 +14,21 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import Entity.DynamicObject.Snakes;
 import Entity.StaticObject.Coffee;
-import Entity.StaticObject.Coins;
+import Entity.StaticObject.Apple;
 import Entity.StaticObject.Heal;
 import Entity.StaticObject.Revert;
 import Entity.StaticObject.StaticObject;
 import Entity.StaticObject.TeaLeaf;
-import java.awt.BasicStroke;
-import java.awt.Graphics2D;
-import javax.swing.JLabel;
 
 public class Board3 extends JPanel implements ActionListener {
 
@@ -45,6 +39,7 @@ public class Board3 extends JPanel implements ActionListener {
 //    private final int RAND_POS_X = 49;
 //    private final int RAND_POS_Y = 29;
     private final int DELAY = 100;
+    public int SCORE = 0;
 
 //    private final int x[] = new int[ALL_DOTS];
 //    private final int y[] = new int[ALL_DOTS];
@@ -97,7 +92,6 @@ public class Board3 extends JPanel implements ActionListener {
         //    x[z] = 50 - z * 10;
         //    y[z] = 50;
         //}
-        
         snake.initSnake();
         //food.locateFood();
         initMultiFood();
@@ -114,15 +108,7 @@ public class Board3 extends JPanel implements ActionListener {
     private void doDrawing(Graphics g) {
         if (inGame) {
             //g.drawImage(food.getIcon(), food.getPosX(), food.getPosY(), this);
-
-//            for (int z = 0; z < snake.getDots(); z++) {
-//                if (z == 0) {
-//                    g.drawImage(snake.getHead(), snake.getX(z), snake.getY(z), this);
-//                } else {
-//                    g.drawImage(snake.getIcon(), snake.getX(z), snake.getY(z), this);
-//                }
-//            }
-            snake.paintComponent(g);
+//            snake.paintComponent(g);
             //food.paintComponent(g);
             for (int i = 0; i < foodsPos.length; i++) {
                 if (foodsPos[i][0] > -1) {
@@ -130,46 +116,54 @@ public class Board3 extends JPanel implements ActionListener {
                 }
             }
             
+            for (int z = 0; z < snake.getLength(); z++) {
+                if (z == 0) {
+                    g.drawImage(snake.getHead(), snake.getX(z), snake.getY(z), this);
+                } else {
+                    g.drawImage(snake.getIcon(), snake.getX(z), snake.getY(z), this);
+                }
+            }
+            
             /*Drawing border*/
-            for (int z =0; z< B_WIDTH;z++){ /*Drawing width border*/
-            g.setColor(new Color(105,46,4));
-            g.fillRect(z, 0, 20, 20); /*Top Border*/
-            g.fillRect(z, B_HEIGHT-20, 20, 20); /*Bottom Border*/
-            
-            g.fillRect(B_WIDTH-740,20, 20, 20);
-            g.fillRect(B_WIDTH-740,40, 20, 20);
-            
-            g.fillRect(B_WIDTH-600,20, 20, 20);
-            g.fillRect(B_WIDTH-600,40, 20, 20);
-            g.fillRect(B_WIDTH-600,60, 20, 20);
-            g.fillRect(B_WIDTH-580,60, 20, 20);
-            
-            g.fillRect(B_WIDTH-300,20, 20, 20);
-            g.fillRect(B_WIDTH-300,40, 20, 20);
-            
-            g.fillRect(B_WIDTH-320,B_HEIGHT-40, 20, 20);
-            g.fillRect(B_WIDTH-320,B_HEIGHT-60, 20, 20);
-            g.fillRect(B_WIDTH-320,B_HEIGHT-80, 20, 20);
-            g.fillRect(B_WIDTH-300,B_HEIGHT-80, 20, 20);
-            
-            g.fillRect(B_WIDTH-720,B_HEIGHT-40, 20, 20);
-            g.fillRect(B_WIDTH-720,B_HEIGHT-60, 20, 20);
-            
-            }
-            for (int z =0; z< B_HEIGHT;z++){ /*Drawing height border*/
-            g.setColor(new Color(105,46,4));
-            g.fillRect(0, z, 20, 20); /*Left Border*/
-            g.fillRect(B_WIDTH-20, z, 20, 20); /*Right Border*/
-            
-            g.fillRect(B_WIDTH-40,120, 20, 20);
-            g.fillRect(B_WIDTH-60,120, 20, 20);
-            g.fillRect(B_WIDTH-80,120, 20, 20);
-            g.fillRect(B_WIDTH-80,100, 20, 20);
-            
-            g.fillRect(B_WIDTH-980,200, 20, 20);
-            g.fillRect(B_WIDTH-960,200, 20, 20);
-            }
-            Toolkit.getDefaultToolkit().sync();
+//            for (int z =0; z< B_WIDTH;z++){ /*Drawing width border*/
+//            g.setColor(new Color(105,46,4));
+//            g.fillRect(z, 0, 20, 20); /*Top Border*/
+//            g.fillRect(z, B_HEIGHT-20, 20, 20); /*Bottom Border*/
+//            
+//            g.fillRect(B_WIDTH-740,20, 20, 20);
+//            g.fillRect(B_WIDTH-740,40, 20, 20);
+//            
+//            g.fillRect(B_WIDTH-600,20, 20, 20);
+//            g.fillRect(B_WIDTH-600,40, 20, 20);
+//            g.fillRect(B_WIDTH-600,60, 20, 20);
+//            g.fillRect(B_WIDTH-580,60, 20, 20);
+//            
+//            g.fillRect(B_WIDTH-300,20, 20, 20);
+//            g.fillRect(B_WIDTH-300,40, 20, 20);
+//            
+//            g.fillRect(B_WIDTH-320,B_HEIGHT-40, 20, 20);
+//            g.fillRect(B_WIDTH-320,B_HEIGHT-60, 20, 20);
+//            g.fillRect(B_WIDTH-320,B_HEIGHT-80, 20, 20);
+//            g.fillRect(B_WIDTH-300,B_HEIGHT-80, 20, 20);
+//            
+//            g.fillRect(B_WIDTH-720,B_HEIGHT-40, 20, 20);
+//            g.fillRect(B_WIDTH-720,B_HEIGHT-60, 20, 20);
+//            
+//            }
+//            for (int z =0; z< B_HEIGHT;z++){ /*Drawing height border*/
+//            g.setColor(new Color(105,46,4));
+//            g.fillRect(0, z, 20, 20); /*Left Border*/
+//            g.fillRect(B_WIDTH-20, z, 20, 20); /*Right Border*/
+//            
+//            g.fillRect(B_WIDTH-40,120, 20, 20);
+//            g.fillRect(B_WIDTH-60,120, 20, 20);
+//            g.fillRect(B_WIDTH-80,120, 20, 20);
+//            g.fillRect(B_WIDTH-80,100, 20, 20);
+//            
+//            g.fillRect(B_WIDTH-980,200, 20, 20);
+//            g.fillRect(B_WIDTH-960,200, 20, 20);
+//            }
+//            Toolkit.getDefaultToolkit().sync();
 
         } else {
             gameOver(g);
@@ -179,13 +173,61 @@ public class Board3 extends JPanel implements ActionListener {
     private void gameOver(Graphics g) {
         
         String msg = "Game Over";
-        Font small = new Font("Helvetica", Font.BOLD, 20);
+        Font small = new Font("Berlin Sans FB Demi", Font.BOLD, 30);
         FontMetrics metr = getFontMetrics(small);
 
-        g.setColor(Color.red);
+        g.setColor(Color.orange);
         g.setFont(small);
-        g.drawString(msg, (B_WIDTH - metr.stringWidth(msg)) / 2, B_HEIGHT / 2);
+        g.drawString(msg, (B_WIDTH - metr.stringWidth(msg)) / 2, B_HEIGHT / 2 - 150);
+        
+        String score = "Score: " + Integer.toString(SCORE);
+
+        g.setColor(Color.black);
+        g.setFont(small);
+        g.drawString(score, (B_WIDTH - metr.stringWidth(msg)) / 2 + 20, B_HEIGHT / 2 - 90);
+        
+        //TODO: Delete when done
+        String speed = "Speed: " + Integer.toString(timer.getDelay());
+
+        g.setColor(Color.black);
+        g.setFont(small);
+        g.drawString(speed, (B_WIDTH - metr.stringWidth(msg)) / 2 + 20, B_HEIGHT / 2 - 30);
+        // END
+        
+        // Replay
+//        JButton ReplayButton = new JButton();
+        
+//        ReplayButton.setBackground(new java.awt.Color(255, 204, 0));
+//        ReplayButton.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24));
+//        ReplayButton.setForeground(new java.awt.Color(204, 51, 0));
+//        ReplayButton.setText("Replay");
+//        ReplayButton.addActionListener(this::ReplayButtonActionPerformed);
+//        add(ReplayButton);
+//        ReplayButton.setBounds((B_WIDTH - metr.stringWidth(msg)) / 2 - 20, B_HEIGHT / 2 + 20, 200, 59);
+        
+        // Back to menu - In Progess
+//        JButton MenuButton = new javax.swing.JButton();
+//        
+//        MenuButton.setBackground(new java.awt.Color(255, 204, 0));
+//        MenuButton.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24));
+//        MenuButton.setForeground(new java.awt.Color(204, 51, 0));
+//        MenuButton.setText("Back to menu");
+//        MenuButton.addActionListener(new java.awt.event.ActionListener() {
+//            public void actionPerformed(java.awt.event.ActionEvent evt) {
+//                MenuButtonActionPerformed(evt);
+//            }
+//        });
+//        add(MenuButton);
+//        MenuButton.setBounds((B_WIDTH - metr.stringWidth(msg)) / 2 - 20, B_HEIGHT / 2 + 100, 200, 59);
     }
+    
+//    private void ReplayButtonActionPerformed(java.awt.event.ActionEvent evt) {                                            
+//        // TODO add your handling code here:
+//        ClassicGame newGame = new ClassicGame();
+//        newGame.setVisible(true);
+//        setVisible(false);
+//                      
+//    }
 
     private void checkFood() {                
         //collision with multifood
@@ -369,7 +411,7 @@ public class Board3 extends JPanel implements ActionListener {
             } else if (r == 3) {
                 multiFood[fIndex] = new Heal();
             } else if (r == 4) {
-                multiFood[fIndex] = new Coins();
+                multiFood[fIndex] = new Apple();
             } else if (r == 5) {
                 multiFood[fIndex] = new Revert();
             }

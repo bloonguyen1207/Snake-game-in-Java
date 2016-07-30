@@ -21,19 +21,18 @@ public class ClassicFood extends StaticObject {
     }
     
     public void locateFood(Snakes snake) {
-int x, y;
         boolean isCorrect = false;   
         while (!isCorrect) {
             int checkFood = 0;
             int checkSnake = 0;
-            x = (int) (Math.random() * RAND_POS_X);
-            posX = ((x * DOT_SIZE));
+            int r = (int) (Math.random() * RAND_POS_X);
+            posX = ((r * DOT_SIZE));
 
-            y = (int) (Math.random() * RAND_POS_Y);
-            posY = ((y * DOT_SIZE));
+            r = (int) (Math.random() * RAND_POS_Y);
+            posY = ((r * DOT_SIZE));
            
             for (int z = 0; z < snake.getLength(); z++) {
-                if (!(x == snake.getX(z) && y == snake.getY(z))) {
+                if (!(posX == snake.getX(z) && posY == snake.getY(z))) {
                     checkSnake += 1;
                 }
             }

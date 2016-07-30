@@ -208,7 +208,7 @@ public class Board3 extends JPanel implements ActionListener {
                 }
                 locateMultiFood();
                 break;
-            } else if (fSet < 10 && j == foodsPos.length - 1){
+            } else if (fSet < totalFood && j == foodsPos.length - 1){
                 fIndex = fSet;
                 locateMultiFood();
             }
@@ -343,14 +343,15 @@ public class Board3 extends JPanel implements ActionListener {
     private int numOnScreen;
     private int fIndex = 0;
     private int fSet = 0;
+    private final int totalFood = 10;
     private StaticObject[] multiFood;
     public static int[][] foodsPos;
     private void initMultiFood() {
         this.numOnScreen = 0;
         this.fIndex = 0;
         this.fSet = 0;
-        multiFood = new StaticObject[10];
-        foodsPos = new int[10][2];
+        multiFood = new StaticObject[totalFood];
+        foodsPos = new int[totalFood][2];
         for (int[] foodPos : foodsPos) {
             for (int j = 0; j < foodsPos[0].length; j++) {
                 foodPos[j] = -1;
@@ -358,7 +359,7 @@ public class Board3 extends JPanel implements ActionListener {
         }
     }
     private void locateMultiFood() {
-        if (numOnScreen < 10) {
+        if (numOnScreen < totalFood) {
             numOnScreen += 1;
             int r = (int) (Math.random() * 6);
             if (r == 2) {

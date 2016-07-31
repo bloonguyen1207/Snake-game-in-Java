@@ -19,7 +19,7 @@ import javax.swing.JLabel;
 public class ClassicGame extends JFrame {
 
     public ClassicGame() {
-        add(new Board());
+        add(new Board(this));
         setResizable(false);
         pack();
         

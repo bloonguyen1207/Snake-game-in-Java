@@ -29,7 +29,11 @@ import Entity.StaticObject.Heal;
 import Entity.StaticObject.Revert;
 import Entity.StaticObject.StaticObject;
 import Entity.StaticObject.TeaLeaf;
+import GamePlay.EasyGame;
+import Menu.Menu;
 import java.awt.Toolkit;
+import javax.swing.JButton;
+import javax.swing.JFrame;
 
 public class Board3 extends JPanel implements ActionListener {
 
@@ -41,6 +45,7 @@ public class Board3 extends JPanel implements ActionListener {
 //    private final int RAND_POS_Y = 29;
     private final int DELAY = 100;
     public int SCORE = 0;
+    public JFrame Game;
 
 //    private final int x[] = new int[ALL_DOTS];
 //    private final int y[] = new int[ALL_DOTS];
@@ -63,7 +68,8 @@ public class Board3 extends JPanel implements ActionListener {
     Snakes snake = new Snakes();
     //static TeaLeaf food = new TeaLeaf();
     
-    public Board3() {
+    public Board3(JFrame Game) {
+        this.Game = Game;
         addKeyListener(new TAdapter());
         setBackground(new Color(7, 123, 83));
         setFocusable(true);
@@ -71,6 +77,10 @@ public class Board3 extends JPanel implements ActionListener {
         setPreferredSize(new Dimension(B_WIDTH, B_HEIGHT));
         //loadImages();
         initGame();
+    }
+    
+    public JFrame getContainer() {
+        return this.Game;
     }
 
     //private void loadImages() {
@@ -205,39 +215,46 @@ public class Board3 extends JPanel implements ActionListener {
         // END
         
         // Replay
-//        JButton ReplayButton = new JButton();
+        JButton ReplayButton = new JButton();
         
-//        ReplayButton.setBackground(new java.awt.Color(255, 204, 0));
-//        ReplayButton.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24));
-//        ReplayButton.setForeground(new java.awt.Color(204, 51, 0));
-//        ReplayButton.setText("Replay");
-//        ReplayButton.addActionListener(this::ReplayButtonActionPerformed);
-//        add(ReplayButton);
-//        ReplayButton.setBounds((B_WIDTH - metr.stringWidth(msg)) / 2 - 20, B_HEIGHT / 2 + 20, 200, 59);
+        ReplayButton.setBackground(new java.awt.Color(255, 204, 0));
+        ReplayButton.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24));
+        ReplayButton.setForeground(new java.awt.Color(204, 51, 0));
+        ReplayButton.setText("Replay");
+        ReplayButton.addActionListener(this::ReplayButtonActionPerformed);
+        add(ReplayButton);
+        ReplayButton.setBounds((B_WIDTH - metr.stringWidth(msg)) / 2 - 20, B_HEIGHT / 2 + 20, 200, 59);
         
         // Back to menu - In Progess
-//        JButton MenuButton = new javax.swing.JButton();
+        JButton MenuButton = new JButton();
 //        
-//        MenuButton.setBackground(new java.awt.Color(255, 204, 0));
-//        MenuButton.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24));
-//        MenuButton.setForeground(new java.awt.Color(204, 51, 0));
-//        MenuButton.setText("Back to menu");
-//        MenuButton.addActionListener(new java.awt.event.ActionListener() {
-//            public void actionPerformed(java.awt.event.ActionEvent evt) {
-//                MenuButtonActionPerformed(evt);
-//            }
-//        });
-//        add(MenuButton);
-//        MenuButton.setBounds((B_WIDTH - metr.stringWidth(msg)) / 2 - 20, B_HEIGHT / 2 + 100, 200, 59);
+        MenuButton.setBackground(new java.awt.Color(255, 204, 0));
+        MenuButton.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24));
+        MenuButton.setForeground(new java.awt.Color(204, 51, 0));
+        MenuButton.setText("Back to menu");
+        MenuButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuButtonActionPerformed(evt);
+            }
+        });
+        add(MenuButton);
+        MenuButton.setBounds((B_WIDTH - metr.stringWidth(msg)) / 2 - 20, B_HEIGHT / 2 + 100, 200, 59);
     }
     
-//    private void ReplayButtonActionPerformed(java.awt.event.ActionEvent evt) {                                            
-//        // TODO add your handling code here:
-//        ClassicGame newGame = new ClassicGame();
-//        newGame.setVisible(true);
-//        setVisible(false);
-//                      
-//    }
+    private void ReplayButtonActionPerformed(ActionEvent evt) {                                            
+        // TODO add your handling code here:
+        EasyGame newGame = new EasyGame();
+        newGame.setVisible(true);
+        this.getContainer().setVisible(false);
+                      
+    }
+    
+    private void MenuButtonActionPerformed(ActionEvent evt) {                                            
+        // TODO add your handling code here:
+        Menu mainMenu = new Menu();
+        mainMenu.setVisible(true);
+        this.getContainer().setVisible(false);
+    }
 
     private void checkFood() {                
         //collision with multifood
@@ -405,18 +422,40 @@ public class Board3 extends JPanel implements ActionListener {
     private void locateMultiFood() {
         if (numOnScreen < totalFood) {
             numOnScreen += 1;
-            int r = (int) (Math.random() * 6);
-            if (r == 2) {
-                multiFood[fIndex] = new TeaLeaf();
-            } else if (r == 0 || r == 1) {
-                multiFood[fIndex] = new Coffee();
-            } else if (r == 3) {
-                multiFood[fIndex] = new Heal();
-            } else if (r == 4) {
-                multiFood[fIndex] = new Apple();
-            } else if (r == 5) {
-                multiFood[fIndex] = new Revert();
+            int r = (int) (Math.random() * 5);
+            int i = (int) ((Math.random() * 4));
+            switch (r) {
+                case 0: multiFood[fIndex] = new Apple();
+                    break;
+                case 1: multiFood[fIndex] = new Apple();
+                    break;
+                case 2: multiFood[fIndex] = new Apple();
+                    break;
+                case 3: multiFood[fIndex] = new Apple();
+                    break;
+                case 4: switch(i) {
+                    case 0: multiFood[fIndex] = new TeaLeaf();
+                        break;
+                    case 1: multiFood[fIndex] = new Coffee();
+                        break;
+                    case 2: multiFood[fIndex] = new Revert();
+                        break;
+                    case 3: multiFood[fIndex] = new Heal();
+                        break;
+                }
+                    break;
             }
+//            if (r == 0 || r == 1 || r = 2 || r = 3) {
+//                multiFood[fIndex] = new Apple();
+//            } else if (r == 0 || r == 1) {
+//                multiFood[fIndex] = new TeaLeaf();
+//            } else if (r == 3) {
+//                multiFood[fIndex] = new Heal();
+//            } else if (r == 4) {
+//                multiFood[fIndex] = new Coffee();
+//            } else if (r == 5) {
+//                multiFood[fIndex] = new Revert();
+//            }
             multiFood[fIndex].locateFood(snake);
             foodsPos[fIndex][0] = multiFood[fIndex].getPosX();
             foodsPos[fIndex][1] = multiFood[fIndex].getPosY();

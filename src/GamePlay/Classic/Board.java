@@ -27,8 +27,12 @@ import Entity.DynamicObject.Snakes;
 import Entity.StaticObject.ClassicFood;
 import GamePlay.ClassicGame;
 import Menu.Menu;
+import java.awt.Image;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 public class Board extends JPanel implements ActionListener {
 
@@ -123,32 +127,51 @@ public class Board extends JPanel implements ActionListener {
     private void gameOver(Graphics g) {
         
         String msg = "Game Over";
-        Font small = new Font("Berlin Sans FB Demi", Font.BOLD, 30);
-        FontMetrics metr = getFontMetrics(small);
+        Font text = new Font("Berlin Sans FB Demi", Font.BOLD, 30);
+        Font buttons = new Font("Berlin Sans FB Demi", 1, 24);
+        FontMetrics metr = getFontMetrics(text);
 
         g.setColor(Color.orange);
-        g.setFont(small);
+        g.setFont(text);
         g.drawString(msg, (B_WIDTH - metr.stringWidth(msg)) / 2, B_HEIGHT / 2 - 150);
         
         String score = "Score: " + Integer.toString(SCORE);
 
         g.setColor(Color.black);
-        g.setFont(small);
+        g.setFont(text);
         g.drawString(score, (B_WIDTH - metr.stringWidth(msg)) / 2 + 20, B_HEIGHT / 2 - 90);
         
+        JTextField name = new JTextField(10);
+        name.setBackground(new Color(255, 204, 0));
+        name.setFont(text);
+        name.setText("AAA");
+        name.setBounds((B_WIDTH - metr.stringWidth(msg)) / 2 - 20, B_HEIGHT / 2 - 70, 150, 50);
+        add(name);
+        
         //TODO: Delete when done
-        String speed = "Speed: " + Integer.toString(timer.getDelay());
-
-        g.setColor(Color.black);
-        g.setFont(small);
-        g.drawString(speed, (B_WIDTH - metr.stringWidth(msg)) / 2 + 20, B_HEIGHT / 2 - 30);
+//        String speed = "Speed: " + Integer.toString(timer.getDelay());
+//
+//        g.setColor(Color.black);
+//        g.setFont(text);
+//        g.drawString(speed, (B_WIDTH - metr.stringWidth(msg)) / 2 + 20, B_HEIGHT / 2 - 30);
         // END
+        
+        // Submit
+        JButton SubmitButton = new JButton();
+        
+        SubmitButton.setBackground(new Color(255, 204, 0));
+        SubmitButton.setFont(buttons);
+        SubmitButton.setForeground(new Color(204, 51, 0));
+        SubmitButton.setIcon(new ImageIcon(new ImageIcon("res\\Menu\\submit.png").getImage().getScaledInstance(BLOCK_SIZE, BLOCK_SIZE, Image.SCALE_DEFAULT)));
+//        SubmitButton.addActionListener(this::ReplayButtonActionPerformed);
+        add(SubmitButton);
+        SubmitButton.setBounds((B_WIDTH - metr.stringWidth(msg)) / 2 + 130, B_HEIGHT / 2 - 70, 50, 50);
         
         // Replay
         JButton ReplayButton = new JButton();
         
         ReplayButton.setBackground(new Color(255, 204, 0));
-        ReplayButton.setFont(new Font("Berlin Sans FB Demi", 1, 24));
+        ReplayButton.setFont(buttons);
         ReplayButton.setForeground(new Color(204, 51, 0));
         ReplayButton.setText("Replay");
         ReplayButton.addActionListener(this::ReplayButtonActionPerformed);
@@ -159,7 +182,7 @@ public class Board extends JPanel implements ActionListener {
         JButton MenuButton = new JButton();
         
         MenuButton.setBackground(new Color(255, 204, 0));
-        MenuButton.setFont(new Font("Berlin Sans FB Demi", 1, 24));
+        MenuButton.setFont(buttons);
         MenuButton.setForeground(new Color(204, 51, 0));
         MenuButton.setText("Back to menu");
         MenuButton.addActionListener(new ActionListener() {

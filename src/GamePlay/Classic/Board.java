@@ -14,12 +14,14 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -28,7 +30,7 @@ import Entity.StaticObject.ClassicFood;
 import GamePlay.ClassicGame;
 import Menu.Menu;
 import javax.swing.JButton;
-import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 public class Board extends JPanel implements ActionListener {
 
@@ -40,7 +42,6 @@ public class Board extends JPanel implements ActionListener {
 //    private final int RAND_POS_Y = 29;
     public int DELAY = 50;
     public int SCORE = 0;
-    public JFrame Game;
 
 //    private final int x[] = new int[LENGTH];
 //    private final int y[] = new int[LENGTH];
@@ -60,18 +61,13 @@ public class Board extends JPanel implements ActionListener {
     static Snakes snake = new Snakes();
     static ClassicFood food = new ClassicFood();
     
-    public Board(JFrame Game) {
-        this.Game = Game;
+    public Board() {
         addKeyListener(new TAdapter());
         setBackground(new Color(7, 123, 83));
         setFocusable(true);
         setPreferredSize(new Dimension(B_WIDTH, B_HEIGHT));
         //loadImages();
         initGame();
-    }
-    
-    public JFrame getContainer() {
-        return this.Game;
     }
 
     private void initGame() {
@@ -147,43 +143,42 @@ public class Board extends JPanel implements ActionListener {
         // Replay
         JButton ReplayButton = new JButton();
         
-        ReplayButton.setBackground(new Color(255, 204, 0));
-        ReplayButton.setFont(new Font("Berlin Sans FB Demi", 1, 24));
-        ReplayButton.setForeground(new Color(204, 51, 0));
+        ReplayButton.setBackground(new java.awt.Color(255, 204, 0));
+        ReplayButton.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24));
+        ReplayButton.setForeground(new java.awt.Color(204, 51, 0));
         ReplayButton.setText("Replay");
         ReplayButton.addActionListener(this::ReplayButtonActionPerformed);
         add(ReplayButton);
         ReplayButton.setBounds((B_WIDTH - metr.stringWidth(msg)) / 2 - 20, B_HEIGHT / 2 + 20, 200, 59);
         
         // Back to menu - In Progess
-        JButton MenuButton = new JButton();
-        
-        MenuButton.setBackground(new Color(255, 204, 0));
-        MenuButton.setFont(new Font("Berlin Sans FB Demi", 1, 24));
-        MenuButton.setForeground(new Color(204, 51, 0));
-        MenuButton.setText("Back to menu");
-        MenuButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                MenuButtonActionPerformed(evt);
-            }
-        });
-        add(MenuButton);
-        MenuButton.setBounds((B_WIDTH - metr.stringWidth(msg)) / 2 - 20, B_HEIGHT / 2 + 100, 200, 59);
+//        JButton MenuButton = new javax.swing.JButton();
+//        
+//        MenuButton.setBackground(new java.awt.Color(255, 204, 0));
+//        MenuButton.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24));
+//        MenuButton.setForeground(new java.awt.Color(204, 51, 0));
+//        MenuButton.setText("Back to menu");
+//        MenuButton.addActionListener(new java.awt.event.ActionListener() {
+//            public void actionPerformed(java.awt.event.ActionEvent evt) {
+//                MenuButtonActionPerformed(evt);
+//            }
+//        });
+//        add(MenuButton);
+//        MenuButton.setBounds((B_WIDTH - metr.stringWidth(msg)) / 2 - 20, B_HEIGHT / 2 + 100, 200, 59);
     }
     
-    private void ReplayButtonActionPerformed(ActionEvent evt) {                                            
+    private void ReplayButtonActionPerformed(java.awt.event.ActionEvent evt) {                                            
         // TODO add your handling code here:
         ClassicGame newGame = new ClassicGame();
         newGame.setVisible(true);
-        this.getContainer().setVisible(false);
+        setVisible(false);
                       
     }
     
-    private void MenuButtonActionPerformed(ActionEvent evt) {                                            
+    private void MenuButtonActionPerformed(java.awt.event.ActionEvent evt) {                                            
         // TODO add your handling code here:
         Menu mainMenu = new Menu();
         mainMenu.setVisible(true);
-        this.getContainer().setVisible(false);
     }
 
     private void checkFood() {

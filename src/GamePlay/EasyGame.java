@@ -16,7 +16,7 @@ import javax.swing.JFrame;
 public class EasyGame extends JFrame{
     public EasyGame() {
 
-        add(new Board3(this));
+        add(new Board3());
         setResizable(false);
         pack();
         

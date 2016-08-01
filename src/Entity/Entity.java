@@ -24,8 +24,8 @@ public abstract class Entity extends JPanel{
     public Image icon;
     public int delay;
     public int point;
-    public Timer duration;
-    public Timer timer;
+    public long currentTime;
+    public long previousTime;
     public int posX;
     public int posY;
 

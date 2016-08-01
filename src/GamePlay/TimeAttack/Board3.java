@@ -184,7 +184,6 @@ public class Board3 extends JPanel implements ActionListener {
 //            g.fillRect(B_WIDTH-960,200, 20, 20);
 //            }
 //            Toolkit.getDefaultToolkit().sync();
-
         } else {
             gameOver(g);
         }        
@@ -369,6 +368,7 @@ public class Board3 extends JPanel implements ActionListener {
                 snake.setLeftDirection(true);
                 snake.setUpDirection(false);
                 snake.setDownDirection(false);
+                snake.setRightDirection(false);
                 snake.revertDirection();
             }
 
@@ -378,6 +378,7 @@ public class Board3 extends JPanel implements ActionListener {
                 snake.setRightDirection(true);
                 snake.setUpDirection(false);
                 snake.setDownDirection(false);
+                snake.setLeftDirection(false);
                 snake.revertDirection();
             }
 
@@ -387,6 +388,7 @@ public class Board3 extends JPanel implements ActionListener {
                 snake.setUpDirection(true);
                 snake.setRightDirection(false);
                 snake.setLeftDirection(false);
+                snake.setDownDirection(false);
                 snake.revertDirection();
             }
 
@@ -396,6 +398,7 @@ public class Board3 extends JPanel implements ActionListener {
                 snake.setDownDirection(true);
                 snake.setRightDirection(false);
                 snake.setLeftDirection(false);
+                snake.setUpDirection(false);
                 snake.revertDirection();
             }
         }
@@ -424,16 +427,10 @@ public class Board3 extends JPanel implements ActionListener {
             numOnScreen += 1;
             int r = (int) (Math.random() * 5);
             int i = (int) ((Math.random() * 4));
-            switch (r) {
-                case 0: multiFood[fIndex] = new Apple();
-                    break;
-                case 1: multiFood[fIndex] = new Apple();
-                    break;
-                case 2: multiFood[fIndex] = new Apple();
-                    break;
-                case 3: multiFood[fIndex] = new Apple();
-                    break;
-                case 4: switch(i) {
+            if (r <= 1) {
+                multiFood[fIndex] = new Apple();
+            } else {
+                switch(i) {
                     case 0: multiFood[fIndex] = new TeaLeaf();
                         break;
                     case 1: multiFood[fIndex] = new Coffee();
@@ -443,7 +440,6 @@ public class Board3 extends JPanel implements ActionListener {
                     case 3: multiFood[fIndex] = new Heal();
                         break;
                 }
-                    break;
             }
 //            if (r == 0 || r == 1 || r = 2 || r = 3) {
 //                multiFood[fIndex] = new Apple();

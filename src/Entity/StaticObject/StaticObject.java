@@ -19,7 +19,7 @@ public abstract class StaticObject extends Entity {
     public final int RAND_POS_X = 49;
     public final int RAND_POS_Y = 29;
     
-    public void locateFood(Snakes snake ) {
+    public void locateFood(Snakes snake) {
         boolean isCorrect = false;   
         while (!isCorrect) {
             int checkFood = 0;

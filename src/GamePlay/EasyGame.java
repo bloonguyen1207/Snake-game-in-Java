@@ -31,7 +31,7 @@ public class EasyGame extends JFrame{
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {                
-                JFrame ex = new ClassicGame();
+                JFrame ex = new EasyGame();
                 ex.setVisible(true);                
             }
         });

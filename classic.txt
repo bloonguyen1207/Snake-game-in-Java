@@ -5,6 +5,6 @@ C 30
 D 24
 E 23
 F 20
-G 5
-H 3
-I 1
+AAA 9
+AAA 7
+AAA 5

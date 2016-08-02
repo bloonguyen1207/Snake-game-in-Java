@@ -16,6 +16,7 @@ import java.awt.event.ActionEvent;
  */
 public class Heal extends StaticObject {
     public Heal() {
+        point = 1;
         icon = loadImage(icon, "res\\Items\\heal.png");
     }   
     

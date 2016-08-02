@@ -16,6 +16,7 @@ import java.awt.event.ActionEvent;
  */
 public class TeaLeaf extends StaticObject {
     public TeaLeaf() {
+        point = 1;
         icon = loadImage(icon, "res\\Items\\leaf.png");
     }
     

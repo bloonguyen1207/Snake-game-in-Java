@@ -27,7 +27,15 @@ import Entity.DynamicObject.Snakes;
 import Entity.StaticObject.ClassicFood;
 import GamePlay.ClassicGame;
 import Menu.Menu;
+import Player.Player;
 import java.awt.Image;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -36,13 +44,16 @@ import javax.swing.JTextField;
 
 public class Board extends JPanel implements ActionListener {
 
-    public static final int B_WIDTH = 1000;
-    public static final int B_HEIGHT = 600;
+    private static final int B_WIDTH = 1000;
+    private static final int B_HEIGHT = 600;
+    private static File highscores;
+    private static Scanner readFiles;
+    private static BufferedWriter writeFiles;
     public static final int BLOCK_SIZE = 20;
     public static final int LENGTH = B_WIDTH * B_HEIGHT / BLOCK_SIZE / BLOCK_SIZE;
 //    private final int RAND_POS_X = 49;
 //    private final int RAND_POS_Y = 29;
-    public int DELAY = 50;
+    public int DELAY = 100;
     public int SCORE = 0;
     public JFrame Game;
 
@@ -93,10 +104,14 @@ public class Board extends JPanel implements ActionListener {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        doDrawing(g);
+        try {
+            doDrawing(g);
+        } catch (Exception ex) {
+            Logger.getLogger(Board.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
-    private void doDrawing(Graphics g) {
+    private void doDrawing(Graphics g) throws Exception {
         
         if (inGame) {
             g.drawImage(food.getIcon(), food.getPosX(), food.getPosY(), this);
@@ -124,7 +139,7 @@ public class Board extends JPanel implements ActionListener {
         }        
     }
 
-    private void gameOver(Graphics g) {
+    private void gameOver(Graphics g) throws Exception {
         
         String msg = "Game Over";
         Font text = new Font("Berlin Sans FB Demi", Font.BOLD, 30);
@@ -141,32 +156,58 @@ public class Board extends JPanel implements ActionListener {
         g.setFont(text);
         g.drawString(score, (B_WIDTH - metr.stringWidth(msg)) / 2 + 20, B_HEIGHT / 2 - 90);
         
-        JTextField name = new JTextField(10);
-        name.setBackground(new Color(255, 204, 0));
-        name.setFont(text);
-        name.setText("AAA");
-        name.setBounds((B_WIDTH - metr.stringWidth(msg)) / 2 - 20, B_HEIGHT / 2 - 70, 150, 50);
-        add(name);
-        
-        //TODO: Delete when done
-//        String speed = "Speed: " + Integer.toString(timer.getDelay());
-//
-//        g.setColor(Color.black);
-//        g.setFont(text);
-//        g.drawString(speed, (B_WIDTH - metr.stringWidth(msg)) / 2 + 20, B_HEIGHT / 2 - 30);
-        // END
-        
-        // Submit
-        JButton SubmitButton = new JButton();
-        
-        SubmitButton.setBackground(new Color(255, 204, 0));
-        SubmitButton.setFont(buttons);
-        SubmitButton.setForeground(new Color(204, 51, 0));
-        SubmitButton.setIcon(new ImageIcon(new ImageIcon("res\\Menu\\submit.png").getImage().getScaledInstance(BLOCK_SIZE, BLOCK_SIZE, Image.SCALE_DEFAULT)));
-//        SubmitButton.addActionListener(this::ReplayButtonActionPerformed);
-        add(SubmitButton);
-        SubmitButton.setBounds((B_WIDTH - metr.stringWidth(msg)) / 2 + 130, B_HEIGHT / 2 - 70, 50, 50);
-        
+        if (newHighScore() > -1) {
+            JTextField name = new JTextField(10);
+            name.setBackground(new Color(255, 204, 0));
+            name.setFont(text);
+            name.setText("AAA");
+            name.setBounds((B_WIDTH - metr.stringWidth(msg)) / 2 - 20, B_HEIGHT / 2 - 70, 150, 50);
+            add(name);
+
+            //TODO: Delete when done
+            String newHighScore = "NEW HIGHSCORE!!!";
+    
+            g.setColor(Color.yellow);
+            g.setFont(text);
+            g.drawString(newHighScore, (B_WIDTH - metr.stringWidth(msg)) / 2 - 50, B_HEIGHT / 2 - 200);
+            // END
+
+            // Submit
+            JButton SubmitButton = new JButton();
+
+            SubmitButton.setBackground(new Color(255, 204, 0));
+            SubmitButton.setFont(buttons);
+            SubmitButton.setForeground(new Color(204, 51, 0));
+            SubmitButton.setIcon(new ImageIcon(new ImageIcon("res\\Menu\\submit.png").getImage().getScaledInstance(BLOCK_SIZE, BLOCK_SIZE, Image.SCALE_DEFAULT)));
+            SubmitButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent evt){
+                    try {
+                        int index;
+                        index = newHighScore();
+                        ArrayList<String> infos = readFile();
+                        for (int i = 9; i > index; i--) {
+                            infos.set(i, infos.get(i - 1));
+                        }
+                        infos.set(index, name.getText() + " " + Integer.toString(SCORE));
+                        for (int i = 0; i < 10; i++) {
+                            System.out.println(infos.get(i));
+                        }
+                    } catch (Exception ex) {
+                        Logger.getLogger(Board.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+//                    String data="";
+//                    try {
+//                    } catch (Exception ex) {
+//                        Logger.getLogger(Board.class.getName()).log(Level.SEVERE, null, ex);
+//                    }
+//                    System.out.print(data);
+                    SubmitButton.setEnabled(false);
+                }   
+            });
+            add(SubmitButton);
+            SubmitButton.setBounds((B_WIDTH - metr.stringWidth(msg)) / 2 + 130, B_HEIGHT / 2 - 70, 50, 50);
+        }
         // Replay
         JButton ReplayButton = new JButton();
         
@@ -185,11 +226,7 @@ public class Board extends JPanel implements ActionListener {
         MenuButton.setFont(buttons);
         MenuButton.setForeground(new Color(204, 51, 0));
         MenuButton.setText("Back to menu");
-        MenuButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                MenuButtonActionPerformed(evt);
-            }
-        });
+        MenuButton.addActionListener(this::MenuButtonActionPerformed);
         add(MenuButton);
         MenuButton.setBounds((B_WIDTH - metr.stringWidth(msg)) / 2 - 20, B_HEIGHT / 2 + 100, 200, 59);
     }
@@ -218,31 +255,6 @@ public class Board extends JPanel implements ActionListener {
         }
     }
     
-
-/*    private void move() {
-
-        for (int z = snake.getDots(); z > 0; z--) {
-            x[z] = x[(z - 1)];
-            y[z] = y[(z - 1)];
-        }
-
-        if (leftDirection) {
-            x[0] -= DOT_SIZE;
-        }
-
-        if (rightDirection) {
-            x[0] += DOT_SIZE;
-        }
-
-        if (upDirection) {
-            y[0] -= DOT_SIZE;
-        }
-
-        if (downDirection) {
-            y[0] += DOT_SIZE;
-        }
-    }
-*/
     private void checkCollision() {
 
         for (int z = snake.getLength(); z > 0; z--) {
@@ -273,7 +285,7 @@ public class Board extends JPanel implements ActionListener {
         }
         
         if(!inGame) {
-//            timer.stop();
+            timer.stop();
         }
     }
 
@@ -327,5 +339,47 @@ public class Board extends JPanel implements ActionListener {
                 snake.setLeftDirection(false);
             }
         }
+    }
+    
+    // Don't touch this
+    public int newHighScore() throws Exception {
+        String info;
+        int counter = -1;
+//        ArrayList<Player> players = new ArrayList<Player>(10);
+        if (!inGame) {
+            try {
+                highscores = new File(System.getProperty("user.dir") + ("/classic.txt"));
+                readFiles = new Scanner(highscores);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+
+            while (readFiles.hasNext()) {
+                counter++;
+                info = readFiles.nextLine();
+                String[] piece = info.split(" ");
+                if (SCORE >= Integer.parseInt(piece[1])) {
+                    return counter;
+                }
+            }
+        }
+        return counter;
+    }
+    
+    public ArrayList readFile() throws Exception {
+        ArrayList<String> infos = new ArrayList<>(10);
+        if (!inGame) {
+            try {
+                highscores = new File(System.getProperty("user.dir") + ("/classic.txt"));
+                readFiles = new Scanner(highscores);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+
+            while (readFiles.hasNext()) {
+                infos.add(readFiles.nextLine());
+            }
+        }
+        return infos;
     }
 }

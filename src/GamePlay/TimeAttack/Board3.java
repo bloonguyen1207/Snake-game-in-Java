@@ -285,8 +285,8 @@ public class Board3 extends JPanel implements ActionListener {
         
         for (int i = 0; i < mice.size(); i++) {
             if (snake.getX(0) == mice.get(i).getPosX() && snake.getY(0) == mice.get(i).getPosY()) {
-                mice.remove(i);
                 SCORE += mice.get(i).point;
+                mice.remove(i);
             }
         }
     }

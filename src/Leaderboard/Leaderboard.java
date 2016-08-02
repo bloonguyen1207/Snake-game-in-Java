@@ -58,6 +58,7 @@ public class Leaderboard extends JFrame{
 
         Title.setText("Leaderboard");
         Title.setFont(big);
+        Title.setForeground(Color.white);
         add(Title);
         Title.setBounds(420, 0, 300, 100);
         
@@ -73,6 +74,7 @@ public class Leaderboard extends JFrame{
             Info = new JLabel();
             Info.setText(Integer.toString(counter) + ". " + readFiles.nextLine());
             Info.setFont(big);
+            Info.setForeground(new Color(255, 204, 0));
             if (counter <= 5) {
                 Info.setBounds(300, counter * 80, 300, 100);
             } else {
@@ -80,10 +82,11 @@ public class Leaderboard extends JFrame{
             }
             add(Info);
         }
+        readFiles.close();
         
-        BackButton.setBackground(new java.awt.Color(255, 204, 0));
-        BackButton.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
-        BackButton.setForeground(new java.awt.Color(204, 51, 0));
+        BackButton.setBackground(new Color(255, 204, 0));
+        BackButton.setFont(new Font("Berlin Sans FB Demi", 1, 24)); // NOI18N
+        BackButton.setForeground(new Color(204, 51, 0));
         BackButton.setText("Back");
         BackButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {

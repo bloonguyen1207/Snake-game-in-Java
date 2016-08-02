@@ -10,7 +10,6 @@ package Leaderboard;
  * @author Bloo
  */
 
-import GamePlay.ClassicGame;
 import Menu.Menu;
 import java.awt.Color;
 import java.awt.Dimension;

@@ -36,8 +36,8 @@ import javax.swing.JTextField;
 
 public class Board extends JPanel implements ActionListener {
 
-    private static final int B_WIDTH = 1000;
-    private static final int B_HEIGHT = 600;
+    public static final int B_WIDTH = 1000;
+    public static final int B_HEIGHT = 600;
     public static final int BLOCK_SIZE = 20;
     public static final int LENGTH = B_WIDTH * B_HEIGHT / BLOCK_SIZE / BLOCK_SIZE;
 //    private final int RAND_POS_X = 49;

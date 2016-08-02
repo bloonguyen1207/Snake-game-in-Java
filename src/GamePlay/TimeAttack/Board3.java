@@ -25,6 +25,7 @@ import javax.swing.Timer;
 import Entity.DynamicObject.Snakes;
 import Entity.StaticObject.Coffee;
 import Entity.StaticObject.Apple;
+import Entity.StaticObject.Border;
 import Entity.StaticObject.Heal;
 import Entity.StaticObject.Revert;
 import Entity.StaticObject.StaticObject;
@@ -37,8 +38,8 @@ import javax.swing.JFrame;
 
 public class Board3 extends JPanel implements ActionListener {
 
-    private static final int B_WIDTH = 1000;
-    private static final int B_HEIGHT = 600;
+    public static final int B_WIDTH = 1000;
+    public static final int B_HEIGHT = 600;
     public static final int DOT_SIZE = 20;
     public static final int ALL_DOTS = B_WIDTH * B_HEIGHT / DOT_SIZE / DOT_SIZE;
 //    private final int RAND_POS_X = 49;
@@ -66,6 +67,8 @@ public class Board3 extends JPanel implements ActionListener {
 //    private Image head;
 
     Snakes snake = new Snakes();
+    Border border = new Border();
+    
     //static TeaLeaf food = new TeaLeaf();
     
     public Board3(JFrame Game) {
@@ -121,6 +124,7 @@ public class Board3 extends JPanel implements ActionListener {
             //g.drawImage(food.getIcon(), food.getPosX(), food.getPosY(), this);
 //            snake.paintComponent(g);
             //food.paintComponent(g);
+           border.drawBorder(g);
             for (int i = 0; i < foodsPos.length; i++) {
                 if (foodsPos[i][0] > -1) {
                     multiFood[i].paintComponent(g);
@@ -143,47 +147,6 @@ public class Board3 extends JPanel implements ActionListener {
             g.drawString(score, 10, 30);
             
             Toolkit.getDefaultToolkit().sync();
-            
-            /*Drawing border*/
-//            for (int z =0; z< B_WIDTH;z++){ /*Drawing width border*/
-//            g.setColor(new Color(105,46,4));
-//            g.fillRect(z, 0, 20, 20); /*Top Border*/
-//            g.fillRect(z, B_HEIGHT-20, 20, 20); /*Bottom Border*/
-//            
-//            g.fillRect(B_WIDTH-740,20, 20, 20);
-//            g.fillRect(B_WIDTH-740,40, 20, 20);
-//            
-//            g.fillRect(B_WIDTH-600,20, 20, 20);
-//            g.fillRect(B_WIDTH-600,40, 20, 20);
-//            g.fillRect(B_WIDTH-600,60, 20, 20);
-//            g.fillRect(B_WIDTH-580,60, 20, 20);
-//            
-//            g.fillRect(B_WIDTH-300,20, 20, 20);
-//            g.fillRect(B_WIDTH-300,40, 20, 20);
-//            
-//            g.fillRect(B_WIDTH-320,B_HEIGHT-40, 20, 20);
-//            g.fillRect(B_WIDTH-320,B_HEIGHT-60, 20, 20);
-//            g.fillRect(B_WIDTH-320,B_HEIGHT-80, 20, 20);
-//            g.fillRect(B_WIDTH-300,B_HEIGHT-80, 20, 20);
-//            
-//            g.fillRect(B_WIDTH-720,B_HEIGHT-40, 20, 20);
-//            g.fillRect(B_WIDTH-720,B_HEIGHT-60, 20, 20);
-//            
-//            }
-//            for (int z =0; z< B_HEIGHT;z++){ /*Drawing height border*/
-//            g.setColor(new Color(105,46,4));
-//            g.fillRect(0, z, 20, 20); /*Left Border*/
-//            g.fillRect(B_WIDTH-20, z, 20, 20); /*Right Border*/
-//            
-//            g.fillRect(B_WIDTH-40,120, 20, 20);
-//            g.fillRect(B_WIDTH-60,120, 20, 20);
-//            g.fillRect(B_WIDTH-80,120, 20, 20);
-//            g.fillRect(B_WIDTH-80,100, 20, 20);
-//            
-//            g.fillRect(B_WIDTH-980,200, 20, 20);
-//            g.fillRect(B_WIDTH-960,200, 20, 20);
-//            }
-//            Toolkit.getDefaultToolkit().sync();
         } else {
             gameOver(g);
         }        
@@ -317,24 +280,24 @@ public class Board3 extends JPanel implements ActionListener {
             }
         }
 
-        if (snake.getY(0) >= B_HEIGHT) {
-            //inGame = false;
-            snake.setY(0, 0);
+        if (snake.getY(0) == B_HEIGHT-20) {
+            inGame = false;
+            //snake.setY(0, 0);
         }
 
-        if (snake.getY(0) < 0) {
-            //inGame = false;
-            snake.setY(0, B_HEIGHT);
+        if (snake.getY(0) < 20) {
+            inGame = false;
+            //snake.setY(0, B_HEIGHT);
         }
 
-        if (snake.getX(0) >= B_WIDTH) {
-            //inGame = false;
-            snake.setX(0, 0);
+        if (snake.getX(0) == B_WIDTH-20) {
+            inGame = false;
+            //snake.setX(0, 0);
         }
 
-        if (snake.getX(0) < 0) {
-            //inGame = false;
-            snake.setX(0, B_WIDTH);
+        if (snake.getX(0) < 20) {
+            inGame = false;
+            //snake.setX(0, B_WIDTH);
         }
         
         if(!inGame) {

@@ -16,6 +16,7 @@ import java.awt.event.ActionEvent;
  */
 public class Coffee extends StaticObject {
     public Coffee() {
+        point = 1;
         icon = loadImage(icon, "res\\Items\\coffee-bean.png");
     }   
     

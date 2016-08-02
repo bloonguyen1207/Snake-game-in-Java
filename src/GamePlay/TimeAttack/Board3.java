@@ -9,6 +9,7 @@ package GamePlay.TimeAttack;
  *
  * @author Bloo
  */
+import Entity.DynamicObject.Mouse;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -32,13 +33,14 @@ import Entity.StaticObject.TeaLeaf;
 import GamePlay.EasyGame;
 import Menu.Menu;
 import java.awt.Toolkit;
+import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
 public class Board3 extends JPanel implements ActionListener {
 
-    private static final int B_WIDTH = 1000;
-    private static final int B_HEIGHT = 600;
+    public static final int B_WIDTH = 1000;
+    public static final int B_HEIGHT = 600;
     public static final int DOT_SIZE = 20;
     public static final int ALL_DOTS = B_WIDTH * B_HEIGHT / DOT_SIZE / DOT_SIZE;
 //    private final int RAND_POS_X = 49;
@@ -127,13 +129,11 @@ public class Board3 extends JPanel implements ActionListener {
                 }
             }
             
-            for (int z = 0; z < snake.getLength(); z++) {
-                if (z == 0) {
-                    g.drawImage(snake.getHead(), snake.getX(z), snake.getY(z), this);
-                } else {
-                    g.drawImage(snake.getIcon(), snake.getX(z), snake.getY(z), this);
-                }
+            for (int i = 0; i < mice.size(); i++) {
+                    mice.get(i).paintComponent(g);
             }
+            
+            snake.paintComponent(g);
             
             String score = "Score: " + Integer.toString(SCORE);
             Font small = new Font("Berlin Sans FB Demi", Font.BOLD, 30);
@@ -259,7 +259,7 @@ public class Board3 extends JPanel implements ActionListener {
         //collision with multifood
         for (int j = 0; j < foodsPos.length; j++) {
             if (snake.getX(0) == foodsPos[j][0] && snake.getY(0) == foodsPos[j][1]) {
-                numOnScreen -= 1;
+                foodOnScreen -= 1;
                 fIndex = j;
                 SCORE += multiFood[fIndex].point;
                 snake.setLength(snake.getLength()+ 1);
@@ -280,6 +280,13 @@ public class Board3 extends JPanel implements ActionListener {
             } else if (fSet < totalFood && j == foodsPos.length - 1){
                 fIndex = fSet;
                 locateMultiFood();
+            }
+        }
+        
+        for (int i = 0; i < mice.size(); i++) {
+            if (snake.getX(0) == mice.get(i).getPosX() && snake.getY(0) == mice.get(i).getPosY()) {
+                mice.remove(i);
+                SCORE += mice.get(i).point;
             }
         }
     }
@@ -321,7 +328,7 @@ public class Board3 extends JPanel implements ActionListener {
             //inGame = false;
             snake.setY(0, 0);
         }
-
+ 
         if (snake.getY(0) < 0) {
             //inGame = false;
             snake.setY(0, B_HEIGHT);
@@ -349,6 +356,12 @@ public class Board3 extends JPanel implements ActionListener {
             checkFood();
             checkCollision();
             snake.move();
+            locateMice();
+            for (int i = 0; i < mice.size(); i++) {
+                //mice.get(i).avoidSnake(snake);
+                mice.get(i).avoidBoarder();
+                mice.get(i).move();
+            }
           
         }
 
@@ -404,17 +417,21 @@ public class Board3 extends JPanel implements ActionListener {
         }
     }
 
-    private int numOnScreen;
+    private int foodOnScreen;
     private int fIndex = 0;
     private int fSet = 0;
     private final int totalFood = 10;
     private StaticObject[] multiFood;
+    private ArrayList<Mouse> mice;
     public static int[][] foodsPos;
+    private int awardMouse = 1;
+    
     private void initMultiFood() {
-        this.numOnScreen = 0;
+        this.foodOnScreen = 0;
         this.fIndex = 0;
         this.fSet = 0;
         multiFood = new StaticObject[totalFood];
+        mice = new ArrayList();
         foodsPos = new int[totalFood][2];
         for (int[] foodPos : foodsPos) {
             for (int j = 0; j < foodsPos[0].length; j++) {
@@ -422,9 +439,21 @@ public class Board3 extends JPanel implements ActionListener {
             }
         }
     }
+    
+    private void locateMice() {
+        //System.out.println(awardMouse);
+        //System.out.println(SCORE);
+        if (SCORE >= 10 * awardMouse) {
+            Mouse temp = new Mouse();
+            temp.locateMouse(snake);
+            mice.add(temp);
+            awardMouse++;
+        }
+    }
+    
     private void locateMultiFood() {
-        if (numOnScreen < totalFood) {
-            numOnScreen += 1;
+        if (foodOnScreen < totalFood) {
+            foodOnScreen += 1;
             int r = (int) (Math.random() * 5);
             int i = (int) ((Math.random() * 4));
             if (r <= 1) {
@@ -441,17 +470,7 @@ public class Board3 extends JPanel implements ActionListener {
                         break;
                 }
             }
-//            if (r == 0 || r == 1 || r = 2 || r = 3) {
-//                multiFood[fIndex] = new Apple();
-//            } else if (r == 0 || r == 1) {
-//                multiFood[fIndex] = new TeaLeaf();
-//            } else if (r == 3) {
-//                multiFood[fIndex] = new Heal();
-//            } else if (r == 4) {
-//                multiFood[fIndex] = new Coffee();
-//            } else if (r == 5) {
-//                multiFood[fIndex] = new Revert();
-//            }
+
             multiFood[fIndex].locateFood(snake);
             foodsPos[fIndex][0] = multiFood[fIndex].getPosX();
             foodsPos[fIndex][1] = multiFood[fIndex].getPosY();

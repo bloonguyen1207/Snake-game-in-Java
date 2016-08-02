@@ -16,6 +16,7 @@ import java.awt.event.ActionEvent;
  */
 public class Revert extends StaticObject {
     public Revert() {
+        point = 3;
         icon = loadImage(icon, "res\\Items\\revert.png");
     }
     

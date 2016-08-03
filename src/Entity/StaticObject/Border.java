@@ -20,8 +20,6 @@ import java.awt.Image;
  */
 public class Border extends StaticObject {
         //private int i = 0;
-        private final int x[]  = new int[B_WIDTH];
-        private final int y[]= new int[B_HEIGHT];
         private Image brick;
     public Border(){
           brick = loadImage(brick, "res\\Items\\brick.png");

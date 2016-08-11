@@ -1,5 +1,6 @@
 Bloo 50
 A 47
+Elise 39
 B 32
 C 30
 D 24
@@ -7,4 +8,3 @@ E 23
 F 20
 AAA 9
 AAA 7
-AAA 5

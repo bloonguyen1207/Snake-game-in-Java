@@ -64,9 +64,6 @@ public class Board3 extends JPanel implements ActionListener {
     private boolean inGame = true;
 
     private Timer timer;
-//    private Image ball;
-//    private Image food;
-//    private Image head;
 
     Snakes snake = new Snakes();
     Border border = new Border();
@@ -102,12 +99,6 @@ public class Board3 extends JPanel implements ActionListener {
 
     private void initGame() {
 
-        //dots = 3;
-
-        //for (int z = 0; z < dots; z++) {
-        //    x[z] = 50 - z * 10;
-        //    y[z] = 50;
-        //}
         snake.initSnake();
         //food.locateFood();
         initMultiFood();
@@ -126,7 +117,10 @@ public class Board3 extends JPanel implements ActionListener {
             //g.drawImage(food.getIcon(), food.getPosX(), food.getPosY(), this);
 //            snake.paintComponent(g);
             //food.paintComponent(g);
-           border.drawBorder(g);
+            
+            snake.paintComponent(g);
+            
+            border.drawBorder(g);
             for (int i = 0; i < foodsPos.length; i++) {
                 if (foodsPos[i][0] > -1) {
                     multiFood[i].paintComponent(g);
@@ -136,9 +130,6 @@ public class Board3 extends JPanel implements ActionListener {
             for (int i = 0; i < mice.size(); i++) {
                     mice.get(i).paintComponent(g);
             }
-            
-            snake.paintComponent(g);
-            
             String score = "Score: " + Integer.toString(SCORE);
             Font small = new Font("Berlin Sans FB Demi", Font.BOLD, 30);
             FontMetrics metr = getFontMetrics(small);

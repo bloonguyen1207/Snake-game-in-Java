@@ -130,8 +130,6 @@ public class Snakes extends DynamicObject{
     
     @Override
     public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        
         for (int z = 0; z < length; z++) {
             if (z == 0) {
                 g.drawImage(head, x[z], y[z], this);

@@ -27,6 +27,7 @@ import Entity.DynamicObject.Snakes;
 import Entity.StaticObject.Coffee;
 import Entity.StaticObject.Apple;
 import Entity.StaticObject.Border;
+import static Entity.StaticObject.Border.setBorders;
 import Entity.StaticObject.Heal;
 import Entity.StaticObject.Revert;
 import Entity.StaticObject.StaticObject;
@@ -69,7 +70,7 @@ public class Board3 extends JPanel implements ActionListener {
 //    private Image head;
 
     Snakes snake = new Snakes();
-    Border border = new Border();
+    //Border border = new Border();
     
     //static TeaLeaf food = new TeaLeaf();
     
@@ -113,6 +114,7 @@ public class Board3 extends JPanel implements ActionListener {
         initMultiFood();
         timer = new Timer(DELAY, this);
         timer.start();
+        setAllBorders();
     }
 
     @Override
@@ -126,7 +128,11 @@ public class Board3 extends JPanel implements ActionListener {
             //g.drawImage(food.getIcon(), food.getPosX(), food.getPosY(), this);
 //            snake.paintComponent(g);
             //food.paintComponent(g);
-           border.drawBorder(g);
+            //border.drawBorder1(g);
+            for (Border border : borders) {
+                border.drawBorder(g);
+            }
+            
             for (int i = 0; i < foodsPos.length; i++) {
                 if (foodsPos[i][0] > -1) {
                     multiFood[i].paintComponent(g);
@@ -194,7 +200,8 @@ public class Board3 extends JPanel implements ActionListener {
         MenuButton.setFont(new java.awt.Font("Berlin Sans FB Demi", 1, 24));
         MenuButton.setForeground(new java.awt.Color(204, 51, 0));
         MenuButton.setText("Back to menu");
-        MenuButton.addActionListener(new java.awt.event.ActionListener() {
+        MenuButton.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 MenuButtonActionPerformed(evt);
             }
@@ -284,94 +291,96 @@ public class Board3 extends JPanel implements ActionListener {
 
             if ((z > 4) && (snake.getX(0) == snake.getX(z)) && (snake.getY(0) == snake.getY(z))) {
                 inGame = false;
+                break;
             }
         }
 
-        if (snake.getY(0) == B_HEIGHT-20) {
-            inGame = false;
-            //snake.setY(0, 0);
+        for (Border border: borders) {
+            if (snake.getX(0) == border.getPosX() && snake.getY(0) == border.getPosY()) {
+                inGame = false;
+                break;
+            }
         }
-
-        if (snake.getY(0) < 20) {
-            inGame = false;
-            //snake.setY(0, B_HEIGHT);
-        }
-
-        if (snake.getX(0) == B_WIDTH-20) {
-            inGame = false;
-            //snake.setX(0, 0);
-        }
-
-        if (snake.getX(0) < 20) {
-            inGame = false;
-            //snake.setX(0, B_WIDTH);
-        }
-        if (snake.getX(0) == B_WIDTH-740 && snake.getY(0) == B_HEIGHT-580) {
-            inGame = false;
-        }
-        if (snake.getX(0) == B_WIDTH-740 && snake.getY(0) == B_HEIGHT-560) {
-            inGame = false;
-        }
-        if (snake.getX(0) == B_WIDTH-600 && snake.getY(0) == B_HEIGHT-580) {
-            inGame = false;
-        }
-         if (snake.getX(0) == B_WIDTH-600 && snake.getY(0) == B_HEIGHT-560) {
-            inGame = false;
-        }
-        if (snake.getX(0) == B_WIDTH-600 && snake.getY(0) == B_HEIGHT-540) {
-            inGame = false;
-        }
-        if (snake.getX(0) == B_WIDTH-580 && snake.getY(0) == B_HEIGHT-540) {
-            inGame = false;
-        }
-        if (snake.getX(0) == B_WIDTH-300 && snake.getY(0) == B_HEIGHT-580) {
-            inGame = false;
-        }
-        if (snake.getX(0) == B_WIDTH-300 && snake.getY(0) == B_HEIGHT-560) {
-            inGame = false;
-        }
-        if (snake.getX(0) == B_WIDTH-320 && snake.getY(0) == B_HEIGHT-40) {
-            inGame = false;
-        }
-        if (snake.getX(0) == B_WIDTH-320 && snake.getY(0) == B_HEIGHT-60) {
-            inGame = false;
-        }
-        if (snake.getX(0) == B_WIDTH-320 && snake.getY(0) == B_HEIGHT-80) {
-            inGame = false;
-        }
-        if (snake.getX(0) == B_WIDTH-300 && snake.getY(0) == B_HEIGHT-80) {
-            inGame = false;
-        }
-        if (snake.getX(0) == B_WIDTH-720 && snake.getY(0) == B_HEIGHT-40) {
-            inGame = false;
-        }
-         if (snake.getX(0) == B_WIDTH-720 && snake.getY(0) == B_HEIGHT-60) {
-            inGame = false;
-        }
-          if (snake.getX(0) == B_WIDTH-40 && snake.getY(0) == B_HEIGHT-480) {
-            inGame = false;
-        }
-           if (snake.getX(0) == B_WIDTH-60 && snake.getY(0) == B_HEIGHT-480) {
-            inGame = false;
-        }
-            if (snake.getX(0) == B_WIDTH-80 && snake.getY(0) == B_HEIGHT-480) {
-            inGame = false;
-        }
-             if (snake.getX(0) == B_WIDTH-80 && snake.getY(0) == B_HEIGHT-500) {
-            inGame = false;
-        }
-             if (snake.getX(0) == B_WIDTH-980 && snake.getY(0) == B_HEIGHT-400) {
-            inGame = false;
-        }
-             if (snake.getX(0) == B_WIDTH-960 && snake.getY(0) == B_HEIGHT-400) {
-            inGame = false;
-        }
-             
-        
-        
-        
-        
-        
+//        if (snake.getY(0) == B_HEIGHT-20) {
+//            inGame = false;
+//            //snake.setY(0, 0);
+//        }
+//
+//        if (snake.getY(0) < 20) {
+//            inGame = false;
+//            //snake.setY(0, B_HEIGHT);
+//        }
+//
+//        if (snake.getX(0) == B_WIDTH-20) {
+//            inGame = false;
+//            //snake.setX(0, 0);
+//        }
+//
+//        if (snake.getX(0) < 20) {
+//            inGame = false;
+//            //snake.setX(0, B_WIDTH);
+//        }
+//        if (snake.getX(0) == B_WIDTH-740 && snake.getY(0) == B_HEIGHT-580) {
+//            inGame = false;
+//        }
+//        if (snake.getX(0) == B_WIDTH-740 && snake.getY(0) == B_HEIGHT-560) {
+//            inGame = false;
+//        }
+//        if (snake.getX(0) == B_WIDTH-600 && snake.getY(0) == B_HEIGHT-580) {
+//            inGame = false;
+//        }
+//         if (snake.getX(0) == B_WIDTH-600 && snake.getY(0) == B_HEIGHT-560) {
+//            inGame = false;
+//        }
+//        if (snake.getX(0) == B_WIDTH-600 && snake.getY(0) == B_HEIGHT-540) {
+//            inGame = false;
+//        }
+//        if (snake.getX(0) == B_WIDTH-580 && snake.getY(0) == B_HEIGHT-540) {
+//            inGame = false;
+//        }
+//        if (snake.getX(0) == B_WIDTH-300 && snake.getY(0) == B_HEIGHT-580) {
+//            inGame = false;
+//        }
+//        if (snake.getX(0) == B_WIDTH-300 && snake.getY(0) == B_HEIGHT-560) {
+//            inGame = false;
+//        }
+//        if (snake.getX(0) == B_WIDTH-320 && snake.getY(0) == B_HEIGHT-40) {
+//            inGame = false;
+//        }
+//        if (snake.getX(0) == B_WIDTH-320 && snake.getY(0) == B_HEIGHT-60) {
+//            inGame = false;
+//        }
+//        if (snake.getX(0) == B_WIDTH-320 && snake.getY(0) == B_HEIGHT-80) {
+//            inGame = false;
+//        }
+//        if (snake.getX(0) == B_WIDTH-300 && snake.getY(0) == B_HEIGHT-80) {
+//            inGame = false;
+//        }
+//        if (snake.getX(0) == B_WIDTH-720 && snake.getY(0) == B_HEIGHT-40) {
+//            inGame = false;
+//        }
+//         if (snake.getX(0) == B_WIDTH-720 && snake.getY(0) == B_HEIGHT-60) {
+//            inGame = false;
+//        }
+//          if (snake.getX(0) == B_WIDTH-40 && snake.getY(0) == B_HEIGHT-480) {
+//            inGame = false;
+//        }
+//           if (snake.getX(0) == B_WIDTH-60 && snake.getY(0) == B_HEIGHT-480) {
+//            inGame = false;
+//        }
+//            if (snake.getX(0) == B_WIDTH-80 && snake.getY(0) == B_HEIGHT-480) {
+//            inGame = false;
+//        }
+//             if (snake.getX(0) == B_WIDTH-80 && snake.getY(0) == B_HEIGHT-500) {
+//            inGame = false;
+//        }
+//             if (snake.getX(0) == B_WIDTH-980 && snake.getY(0) == B_HEIGHT-400) {
+//            inGame = false;
+//        }
+//             if (snake.getX(0) == B_WIDTH-960 && snake.getY(0) == B_HEIGHT-400) {
+//            inGame = false;
+//        }
+                     
         if(!inGame) {
             timer.stop();
         }
@@ -499,12 +508,38 @@ public class Board3 extends JPanel implements ActionListener {
                 }
             }
 
-            multiFood[fIndex].locateFood(snake);
+            multiFood[fIndex].locateFood(snake, borders);
             foodsPos[fIndex][0] = multiFood[fIndex].getPosX();
             foodsPos[fIndex][1] = multiFood[fIndex].getPosY();
             if (fIndex == fSet) {
                 fSet += 1;
             }
         }
+    }
+    
+    ArrayList<Border> borders = new ArrayList();
+    
+    private void setAllBorders() {
+        borders = setBorders(borders, 0, B_WIDTH, 0, 0);
+        borders = setBorders(borders, 0, B_WIDTH, B_HEIGHT - 20, B_HEIGHT - 20);
+        borders = setBorders(borders, 0, 0, 0, B_HEIGHT);  
+        borders = setBorders(borders, B_WIDTH - 20, B_WIDTH - 20, 0, B_HEIGHT);
+      
+        borders = setBorders(borders, 260, 260, 20, 60);
+        
+        borders = setBorders(borders, 400, 400, 20, 60);
+        borders = setBorders(borders, 400, 440, 60, 60);
+        
+        borders = setBorders(borders, 700, 700, 20, 60);
+        
+        borders = setBorders(borders, 680, 680, 540, 580);
+        borders = setBorders(borders, 680, 720, 520, 520);
+        
+        borders = setBorders(borders, 280, 280, 540, 580);
+        
+        borders = setBorders(borders, 940, B_WIDTH, 120, 120);
+        borders = setBorders(borders, 920, 920, 100, 140);        
+        
+        borders = setBorders(borders, 20, 60, 200, 200);
     }
 }

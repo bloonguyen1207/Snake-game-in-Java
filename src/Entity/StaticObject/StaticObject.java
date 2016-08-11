@@ -10,6 +10,7 @@ import Entity.Entity;
 import static GamePlay.Classic.Board.BLOCK_SIZE;
 import static GamePlay.TimeAttack.Board3.foodsPos;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 /**
  *
@@ -19,11 +20,12 @@ public abstract class StaticObject extends Entity {
     public static final int RAND_POS_X = 49;
     public static final int RAND_POS_Y = 29;
     
-    public void locateFood(Snakes snake) {
+    public void locateFood(Snakes snake, ArrayList<Border> borders) {
         boolean isCorrect = false;   
         while (!isCorrect) {
             int checkFood = 0;
             int checkSnake = 0;
+            int checkBorder = 0;
             int r = (int) (Math.random() * RAND_POS_X);
             posX = ((r * BLOCK_SIZE));
 
@@ -41,8 +43,15 @@ public abstract class StaticObject extends Entity {
                     checkSnake += 1;
                 }
             }
+            
+            for (Border border: borders) {
+                if (!(posX == border.getPosX() && posY == border.getPosY())) {
+                    checkBorder += 1;
+                }
+            }
                     
-            if (checkFood == foodsPos.length && checkSnake == snake.getLength()) {
+            if (checkFood == foodsPos.length && checkSnake == snake.getLength() 
+                    && checkBorder == borders.size()) {
                 isCorrect = true;
             }
             

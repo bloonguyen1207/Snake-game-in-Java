@@ -8,7 +8,10 @@ package Entity.StaticObject;
 import Entity.DynamicObject.Snakes;
 import Entity.Entity;
 import static GamePlay.Classic.Board.BLOCK_SIZE;
-import static GamePlay.TimeAttack.Board3.foodsPos;
+import static GamePlay.TimeAttack.HardBoard.foodsPos;
+import static GamePlay.TimeAttack.EasyBoard.foodsPos;
+//import static GamePlay.TimeAttack.EasyBoard.foodsPos;
+
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
@@ -20,7 +23,7 @@ public abstract class StaticObject extends Entity {
     public static final int RAND_POS_X = 49;
     public static final int RAND_POS_Y = 29;
     
-    public void locateFood(Snakes snake, ArrayList<Border> borders) {
+    public void locateFood(Snakes snake, ArrayList<Border> borders, int[][]foodsPos) {
         boolean isCorrect = false;   
         while (!isCorrect) {
             int checkFood = 0;
@@ -58,7 +61,7 @@ public abstract class StaticObject extends Entity {
         }       
                 
     }
-    
+       
     abstract public int specialEffect(Snakes snake);
     
 }

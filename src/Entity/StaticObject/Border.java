@@ -9,8 +9,8 @@ import Entity.DynamicObject.Snakes;
 import Entity.Entity;
 import java.awt.Color;
 import java.awt.Graphics;
-import static GamePlay.TimeAttack.Board3.B_HEIGHT;
-import static GamePlay.TimeAttack.Board3.B_WIDTH;
+import static GamePlay.TimeAttack.HardBoard.B_HEIGHT;
+import static GamePlay.TimeAttack.HardBoard.B_WIDTH;
 import java.awt.Image;
 import java.util.ArrayList;
 

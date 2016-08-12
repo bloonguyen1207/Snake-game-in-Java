@@ -5,7 +5,7 @@
  */
 package GamePlay;
 
-import GamePlay.TimeAttack.EasyBoard;
+import GamePlay.TimeAttack.HardBoard;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 
@@ -13,10 +13,10 @@ import javax.swing.JFrame;
  *
  * @author Bloo
  */
-public class EasyGame extends JFrame{
-    public EasyGame() {
+public class HardGame extends JFrame{
+    public HardGame() {
 
-        add(new EasyBoard(this));
+        add(new HardBoard(this));
         setResizable(false);
         pack();
         
@@ -31,7 +31,7 @@ public class EasyGame extends JFrame{
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {                
-                JFrame ex = new EasyGame();
+                JFrame ex = new HardGame();
                 ex.setVisible(true);                
             }
         });

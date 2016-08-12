@@ -48,6 +48,7 @@ public class Board extends JPanel implements ActionListener {
     private static final int B_HEIGHT = 600;
     private static File highscores;
     private static Scanner readFiles;
+    private static FileWriter output;
     private static BufferedWriter writeFiles;
     public static final int BLOCK_SIZE = 20;
     public static final int LENGTH = B_WIDTH * B_HEIGHT / BLOCK_SIZE / BLOCK_SIZE;
@@ -183,25 +184,31 @@ public class Board extends JPanel implements ActionListener {
                 @Override
                 public void actionPerformed(ActionEvent evt){
                     try {
-                        int index;
-                        index = newHighScore();
+                        StringBuilder data = new StringBuilder();
+                        int index = newHighScore();
                         ArrayList<String> infos = readFile();
                         for (int i = 9; i > index; i--) {
                             infos.set(i, infos.get(i - 1));
                         }
                         infos.set(index, name.getText() + " " + Integer.toString(SCORE));
+                        try {
+                            output = new FileWriter(highscores, false);
+                            writeFiles = new BufferedWriter(output);
+                        } catch (Exception e) {
+                            System.out.println(e.getMessage());
+                        }
                         for (int i = 0; i < 10; i++) {
-                            System.out.println(infos.get(i));
+                            data.append(infos.get(i));
+
+                            writeFiles.write(data.toString());
+                            writeFiles.newLine();
+                            writeFiles.flush();
+                            data.delete(0, data.length());
                         }
                     } catch (Exception ex) {
                         Logger.getLogger(Board.class.getName()).log(Level.SEVERE, null, ex);
                     }
-//                    String data="";
-//                    try {
-//                    } catch (Exception ex) {
-//                        Logger.getLogger(Board.class.getName()).log(Level.SEVERE, null, ex);
-//                    }
-//                    System.out.print(data);
+                    SubmitButton.setIcon(new ImageIcon(new ImageIcon("res\\Menu\\check.png").getImage().getScaledInstance(BLOCK_SIZE, BLOCK_SIZE, Image.SCALE_DEFAULT)));
                     SubmitButton.setEnabled(false);
                 }   
             });

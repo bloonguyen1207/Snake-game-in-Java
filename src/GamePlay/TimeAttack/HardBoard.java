@@ -69,7 +69,8 @@ public class HardBoard extends JPanel implements ActionListener {
 //    private Image food;
 //    private Image head;
 
-    Snakes snake = new Snakes();
+//fixed
+    Snakes snake = Snakes.getInstance();
     //Border border = new Border();
     
     //static TeaLeaf food = new TeaLeaf();

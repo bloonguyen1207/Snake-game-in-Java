@@ -73,7 +73,9 @@ public class Board extends JPanel implements ActionListener {
 
     private Timer timer;
 
-    static Snakes snake = new Snakes();
+
+//fixed
+    Snakes snake = Snakes.getInstance();
     static ClassicFood food = new ClassicFood();
     
     public Board(JFrame Game) {

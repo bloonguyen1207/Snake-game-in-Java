@@ -21,6 +21,8 @@ public class Snakes extends DynamicObject{
     private final int y[] = new int[LENGTH];
     private Image head;
     private boolean isRevert = false;
+//fixed
+    private static Snakes instance = new Snakes();
 
     public boolean isIsRevert() {
         return isRevert;
@@ -29,10 +31,16 @@ public class Snakes extends DynamicObject{
     public void setIsRevert(boolean isRevert) {
         this.isRevert = isRevert;
     }
-    
-    public Snakes() {
+
+//fixed
+    private Snakes() {
         head = loadImage(head, "res\\Items\\heada.png");
         icon = loadImage(icon, "res\\Items\\body_1.png");
+    }
+
+//fixed
+    public static Snakes getInstance() {
+        return instance;
     }
     
     public int getSpeed() {

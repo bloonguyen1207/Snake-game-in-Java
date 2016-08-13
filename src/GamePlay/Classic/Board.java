@@ -28,6 +28,8 @@ import Entity.StaticObject.ClassicFood;
 import GamePlay.ClassicGame;
 import Menu.Menu;
 import Player.Player;
+import Score.OperationAdd;
+import Score.Score;
 import java.awt.Image;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -55,7 +57,7 @@ public class Board extends JPanel implements ActionListener {
 //    private final int RAND_POS_X = 49;
 //    private final int RAND_POS_Y = 29;
     public int DELAY = 100;
-    public int SCORE = 0;
+    Score classic_score = new Score(new OperationAdd());
     public JFrame Game;
 
 //    private final int x[] = new int[LENGTH];
@@ -127,7 +129,7 @@ public class Board extends JPanel implements ActionListener {
                 }
             }
             
-            String score = "Score: " + Integer.toString(SCORE);
+            String score = "Score: " + Integer.toString(classic_score.getScore());
             Font small = new Font("Berlin Sans FB Demi", Font.BOLD, 30);
             FontMetrics metr = getFontMetrics(small);
             g.setColor(Color.black);
@@ -153,7 +155,7 @@ public class Board extends JPanel implements ActionListener {
         g.setFont(text);
         g.drawString(msg, (B_WIDTH - metr.stringWidth(msg)) / 2, B_HEIGHT / 2 - 150);
         
-        String score = "Score: " + Integer.toString(SCORE);
+        String score = "Score: " + Integer.toString(classic_score.getScore());
 
         g.setColor(Color.black);
         g.setFont(text);
@@ -192,7 +194,7 @@ public class Board extends JPanel implements ActionListener {
                         for (int i = 9; i > index; i--) {
                             infos.set(i, infos.get(i - 1));
                         }
-                        infos.set(index, name.getText() + " " + Integer.toString(SCORE));
+                        infos.set(index, name.getText() + " " + Integer.toString(classic_score.getScore()));
                         try {
                             output = new FileWriter(highscores, false);
                             writeFiles = new BufferedWriter(output);
@@ -258,7 +260,7 @@ public class Board extends JPanel implements ActionListener {
     private void checkFood() {
         if ((snake.getX(0) == food.posX) && (snake.getY(0) == food.posY)) {
             snake.setLength(snake.getLength() + 1);
-            SCORE += food.point;
+            classic_score.executeStrategy(food.point);
             timer.setDelay(timer.getDelay() - 1);
             food.locateFood(snake);
         }
@@ -367,7 +369,7 @@ public class Board extends JPanel implements ActionListener {
                 counter++;
                 info = readFiles.nextLine();
                 String[] piece = info.split(" ");
-                if (SCORE >= Integer.parseInt(piece[1])) {
+                if (classic_score.getScore() >= Integer.parseInt(piece[1])) {
                     return counter;
                 }
             }

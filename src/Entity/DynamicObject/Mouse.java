@@ -9,6 +9,7 @@ package Entity.DynamicObject;
  *
  * @author Hanh
  */
+import Entity.StaticObject.Border;
 import static Entity.StaticObject.StaticObject.RAND_POS_X;
 import static Entity.StaticObject.StaticObject.RAND_POS_Y;
 import static GamePlay.Classic.Board.LENGTH;
@@ -18,6 +19,7 @@ import static GamePlay.TimeAttack.HardBoard.B_WIDTH;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
         
 public class Mouse extends DynamicObject{
     private Image leftImage;
@@ -63,6 +65,20 @@ public class Mouse extends DynamicObject{
         //System.out.println("changeDirection");
     }
     
+    private void specifyDirection(int r) {
+        upDirection = false;
+        leftDirection = false;
+        downDirection = false;
+        rightDirection = false;
+        switch(r) {
+            case 0: upDirection = true; break;
+            case 1: downDirection = true; break;
+            case 2: rightDirection = true; break;
+            case 3: leftDirection = true; break;
+        }
+        //System.out.println("changeDirection");
+    }
+    
     public void avoidSnake(Snakes snake) {
         if (posX <= snake.getPosX() - BLOCK_SIZE * 3 && 
                 posY <= snake.getPosY() - BLOCK_SIZE * 3 &&
@@ -83,21 +99,37 @@ public class Mouse extends DynamicObject{
         }
     }
     
-    public void avoidBoarder() {
-        if (posY >= B_HEIGHT - 1 * BLOCK_SIZE && downDirection) {
+    public void avoidBorder(ArrayList<Border> borders) {
+        for (Border border: borders) {
+            if ((posY >= border.getPosY() - 1 * BLOCK_SIZE && 
+                    posY <= border.getPosY() + 1 * BLOCK_SIZE) &&
+                    (posX >= border.getPosX() - 1 * BLOCK_SIZE &&
+                    posX <= border.getPosX() + 1 * BLOCK_SIZE)) {
+                System.out.println("Border");
+                changeDirection();
+                break;
+            }
+        }
+        
+    }
+    
+    public void avoidOut() {
+        System.out.println(posX + " " + posY);
+        if (posY == B_HEIGHT - 1 * BLOCK_SIZE || posY == 0 
+                || posX == B_WIDTH - 1 * BLOCK_SIZE || posX == 0) {
             changeDirection();
         }
-
-        if (posY < 1 * BLOCK_SIZE && upDirection) {
-            changeDirection();
+        if (posY > B_HEIGHT - 1 * BLOCK_SIZE) {
+            specifyDirection(0);
         }
-
-        if (posX >= B_WIDTH - 1 * BLOCK_SIZE && rightDirection) {
-            changeDirection();
+        if (posY < 0) {
+            specifyDirection(1);
         }
-
-        if (posX - 1 * BLOCK_SIZE < 0 && upDirection) {
-            changeDirection();
+        if (posX < 0) {
+            specifyDirection(2);
+        }
+        if (posX > B_WIDTH - 1 * BLOCK_SIZE) {
+            specifyDirection(3);
         }
     }
     
@@ -152,10 +184,11 @@ public class Mouse extends DynamicObject{
         
     }
     
-    public void locateMouse(Snakes snake) {
+    public void locateMouse(Snakes snake, ArrayList<Border> borders) {
         boolean isCorrect = false;   
         while (!isCorrect) {
             int checkSnake = 0;
+            int checkBorder = 0;
             int r = (int) (Math.random() * RAND_POS_X);
             posX = ((r * BLOCK_SIZE));
 
@@ -167,8 +200,14 @@ public class Mouse extends DynamicObject{
                     checkSnake += 1;
                 }
             }
+            
+            for (Border border: borders) {
+                if (!(posX == border.getPosX() && posY == border.getPosY())) {
+                    checkBorder += 1;
+                }
+            }
                     
-            if (checkSnake == snake.getLength()) {
+            if (checkSnake == snake.getLength() && checkBorder == borders.size()) {
                 isCorrect = true;
             }
             

@@ -395,9 +395,12 @@ public class HardBoard extends JPanel implements ActionListener {
             snake.move();
             locateMice();
             for (int i = 0; i < mice.size(); i++) {
-                //mice.get(i).avoidSnake(snake);
-                mice.get(i).avoidBoarder();
-                mice.get(i).move();
+                synchronized(mice) {                
+                    //mice.get(i).avoidSnake(snake);
+                    mice.get(i).avoidOut();
+                    mice.get(i).avoidBorder(borders);
+                    mice.get(i).move();
+                }
             }
           
         }
@@ -482,7 +485,7 @@ public class HardBoard extends JPanel implements ActionListener {
         //System.out.println(SCORE);
         if (SCORE >= 10 * awardMouse) {
             Mouse temp = new Mouse();
-            temp.locateMouse(snake);
+            temp.locateMouse(snake, borders);
             mice.add(temp);
             awardMouse++;
         }

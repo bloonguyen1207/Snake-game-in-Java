@@ -28,14 +28,14 @@ public class Border extends StaticObject {
     }
     
     public static ArrayList<Border> setBorders(ArrayList<Border> borders, int beginX, int endX, int beginY, int endY) {        
-        System.out.println(beginX != endX);
-        System.out.println(beginY == endY);
+        //System.out.println(beginX != endX);
+        //System.out.println(beginY == endY);
         if (beginX != endX && beginY == endY) {
             for (int i = beginX / 20; i < endX / 20; i++) {
                 Border temp = new Border();
                 temp.setPosX(i * 20);
                 temp.setPosY(beginY);
-                System.out.println(i);
+                //System.out.println(i);
                 borders.add(temp);
             }
         } else if (beginX == endX && beginY != endY) {

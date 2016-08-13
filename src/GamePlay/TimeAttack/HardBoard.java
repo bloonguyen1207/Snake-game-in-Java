@@ -29,6 +29,7 @@ import Entity.StaticObject.Apple;
 import Entity.StaticObject.Border;
 import static Entity.StaticObject.Border.setBorders;
 import Entity.StaticObject.Heal;
+import Entity.StaticObject.ItemFactory;
 import Entity.StaticObject.Revert;
 import Entity.StaticObject.StaticObject;
 import Entity.StaticObject.TeaLeaf;
@@ -497,17 +498,21 @@ public class HardBoard extends JPanel implements ActionListener {
             foodOnScreen += 1;
             int r = (int) (Math.random() * 5);
             int i = (int) ((Math.random() * 4));
+//fixed            
+            ItemFactory itemFactory = new ItemFactory();
             if (r <= 1) {
-                multiFood[fIndex] = new Apple();
+//fixed                
+                multiFood[fIndex] = itemFactory.getItem("Apple");
             } else {
+//fixed                
                 switch(i) {
-                    case 0: multiFood[fIndex] = new TeaLeaf();
+                    case 0: multiFood[fIndex] = itemFactory.getItem("TeaLeaf");
                         break;
-                    case 1: multiFood[fIndex] = new Coffee();
+                    case 1: multiFood[fIndex] = itemFactory.getItem("Coffee");
                         break;
-                    case 2: multiFood[fIndex] = new Revert();
+                    case 2: multiFood[fIndex] = itemFactory.getItem("Revert");
                         break;
-                    case 3: multiFood[fIndex] = new Heal();
+                    case 3: multiFood[fIndex] = itemFactory.getItem("Heal");
                         break;
                 }
             }

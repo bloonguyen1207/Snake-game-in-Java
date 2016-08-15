@@ -6,6 +6,7 @@
 package Menu;
 
 import GamePlay.HardGame;
+import GamePlay.EasyGame;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -135,13 +136,16 @@ public class Menu3 extends javax.swing.JFrame {
 
     private void EasyButtonActionPerformed(java.awt.event.ActionEvent evt) { 
         // TODO add your handling code here:
-        HardGame s = new HardGame();
+        EasyGame s = new EasyGame();
         s.setVisible(true);
         setVisible(false);
     } 
 
     private void HardButtonActionPerformed(java.awt.event.ActionEvent evt) { 
         // TODO add your handling code here:
+         HardGame s = new HardGame();
+        s.setVisible(true);
+        setVisible(false);
     } 
     
     private void BackButtonActionPerformed(java.awt.event.ActionEvent evt) { 

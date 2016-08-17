@@ -177,11 +177,11 @@ public class EasyBoard extends JPanel implements ActionListener {
         g.drawString(score, (B_WIDTH - metr.stringWidth(msg)) / 2 + 20, B_HEIGHT / 2 - 90);
         
         //TODO: Delete when done
-        String speed = "Speed: " + Integer.toString(timer.getDelay());
-
-        g.setColor(Color.black);
-        g.setFont(small);
-        g.drawString(speed, (B_WIDTH - metr.stringWidth(msg)) / 2 + 20, B_HEIGHT / 2 - 30);
+//        String speed = "Speed: " + Integer.toString(timer.getDelay());
+//
+//        g.setColor(Color.black);
+//        g.setFont(small);
+//        g.drawString(speed, (B_WIDTH - metr.stringWidth(msg)) / 2 + 20, B_HEIGHT / 2 - 30);
         // END
         
         // Replay

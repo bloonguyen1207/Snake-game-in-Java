@@ -263,30 +263,6 @@ public class HardBoard extends JPanel implements ActionListener {
         }
     }
 
-/*    private void move() {
-
-        for (int z = snake.getDots(); z > 0; z--) {
-            x[z] = x[(z - 1)];
-            y[z] = y[(z - 1)];
-        }
-
-        if (leftDirection) {
-            x[0] -= DOT_SIZE;
-        }
-
-        if (rightDirection) {
-            x[0] += DOT_SIZE;
-        }
-
-        if (upDirection) {
-            y[0] -= DOT_SIZE;
-        }
-
-        if (downDirection) {
-            y[0] += DOT_SIZE;
-        }
-    }
-*/
     private void checkCollision() {
 
         for (int z = snake.getLength(); z > 0; z--) {
@@ -303,85 +279,6 @@ public class HardBoard extends JPanel implements ActionListener {
                 break;
             }
         }
-//        if (snake.getY(0) == B_HEIGHT-20) {
-//            inGame = false;
-//            //snake.setY(0, 0);
-//        }
-//
-//        if (snake.getY(0) < 20) {
-//            inGame = false;
-//            //snake.setY(0, B_HEIGHT);
-//        }
-//
-//        if (snake.getX(0) == B_WIDTH-20) {
-//            inGame = false;
-//            //snake.setX(0, 0);
-//        }
-//
-//        if (snake.getX(0) < 20) {
-//            inGame = false;
-//            //snake.setX(0, B_WIDTH);
-//        }
-//        if (snake.getX(0) == B_WIDTH-740 && snake.getY(0) == B_HEIGHT-580) {
-//            inGame = false;
-//        }
-//        if (snake.getX(0) == B_WIDTH-740 && snake.getY(0) == B_HEIGHT-560) {
-//            inGame = false;
-//        }
-//        if (snake.getX(0) == B_WIDTH-600 && snake.getY(0) == B_HEIGHT-580) {
-//            inGame = false;
-//        }
-//         if (snake.getX(0) == B_WIDTH-600 && snake.getY(0) == B_HEIGHT-560) {
-//            inGame = false;
-//        }
-//        if (snake.getX(0) == B_WIDTH-600 && snake.getY(0) == B_HEIGHT-540) {
-//            inGame = false;
-//        }
-//        if (snake.getX(0) == B_WIDTH-580 && snake.getY(0) == B_HEIGHT-540) {
-//            inGame = false;
-//        }
-//        if (snake.getX(0) == B_WIDTH-300 && snake.getY(0) == B_HEIGHT-580) {
-//            inGame = false;
-//        }
-//        if (snake.getX(0) == B_WIDTH-300 && snake.getY(0) == B_HEIGHT-560) {
-//            inGame = false;
-//        }
-//        if (snake.getX(0) == B_WIDTH-320 && snake.getY(0) == B_HEIGHT-40) {
-//            inGame = false;
-//        }
-//        if (snake.getX(0) == B_WIDTH-320 && snake.getY(0) == B_HEIGHT-60) {
-//            inGame = false;
-//        }
-//        if (snake.getX(0) == B_WIDTH-320 && snake.getY(0) == B_HEIGHT-80) {
-//            inGame = false;
-//        }
-//        if (snake.getX(0) == B_WIDTH-300 && snake.getY(0) == B_HEIGHT-80) {
-//            inGame = false;
-//        }
-//        if (snake.getX(0) == B_WIDTH-720 && snake.getY(0) == B_HEIGHT-40) {
-//            inGame = false;
-//        }
-//         if (snake.getX(0) == B_WIDTH-720 && snake.getY(0) == B_HEIGHT-60) {
-//            inGame = false;
-//        }
-//          if (snake.getX(0) == B_WIDTH-40 && snake.getY(0) == B_HEIGHT-480) {
-//            inGame = false;
-//        }
-//           if (snake.getX(0) == B_WIDTH-60 && snake.getY(0) == B_HEIGHT-480) {
-//            inGame = false;
-//        }
-//            if (snake.getX(0) == B_WIDTH-80 && snake.getY(0) == B_HEIGHT-480) {
-//            inGame = false;
-//        }
-//             if (snake.getX(0) == B_WIDTH-80 && snake.getY(0) == B_HEIGHT-500) {
-//            inGame = false;
-//        }
-//             if (snake.getX(0) == B_WIDTH-980 && snake.getY(0) == B_HEIGHT-400) {
-//            inGame = false;
-//        }
-//             if (snake.getX(0) == B_WIDTH-960 && snake.getY(0) == B_HEIGHT-400) {
-//            inGame = false;
-//        }
                      
         if(!inGame) {
             timer.stop();
@@ -394,7 +291,7 @@ public class HardBoard extends JPanel implements ActionListener {
 
             checkFood();
             checkCollision();
-            snake.move();
+            snake.autoMove();
             locateMice();
             for (int i = 0; i < mice.size(); i++) {
                 synchronized(mice) {                

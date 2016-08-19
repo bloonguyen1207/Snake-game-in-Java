@@ -262,31 +262,7 @@ public class EasyBoard extends JPanel implements ActionListener {
             }
         }
     }
-
-/*    private void move() {
-
-        for (int z = snake.getDots(); z > 0; z--) {
-            x[z] = x[(z - 1)];
-            y[z] = y[(z - 1)];
-        }
-
-        if (leftDirection) {
-            x[0] -= DOT_SIZE;
-        }
-
-        if (rightDirection) {
-            x[0] += DOT_SIZE;
-        }
-
-        if (upDirection) {
-            y[0] -= DOT_SIZE;
-        }
-
-        if (downDirection) {
-            y[0] += DOT_SIZE;
-        }
-    }
-*/
+    
     private void checkCollision() {
 
          for (int z = snake.getLength(); z > 0; z--) {
@@ -387,7 +363,7 @@ public class EasyBoard extends JPanel implements ActionListener {
 
             checkFood();
             checkCollision();
-            snake.move();
+            snake.autoMove();
             locateMice();
             for (int i = 0; i < mice.size(); i++) {
                 synchronized(mice) {

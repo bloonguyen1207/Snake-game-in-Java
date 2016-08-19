@@ -51,4 +51,5 @@ public abstract class DynamicObject extends Entity {
     }  
     
     abstract public void move();
+    
 }

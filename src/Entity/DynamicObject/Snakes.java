@@ -10,12 +10,18 @@ package Entity.DynamicObject;
  * @author Hanh
  */
 import static GamePlay.Classic.Board.LENGTH;
+import static GamePlay.Classic.Board.DELAY;
 import static GamePlay.Classic.Board.BLOCK_SIZE;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
+import java.util.Timer;
+
+
 
 public class Snakes extends DynamicObject{
+
+    private long del = 0, lastTime = 0;
     private int length = 3;
     private final int x[] = new int[LENGTH];
     private final int y[] = new int[LENGTH];
@@ -127,7 +133,16 @@ public class Snakes extends DynamicObject{
             y[0] += BLOCK_SIZE;
         }
     }
-
+    
+    public void autoMove(){
+        del += System.currentTimeMillis() - lastTime;
+        lastTime = System.currentTimeMillis();
+        if (del >= DELAY) {
+            move();
+            del = 0;
+        }
+    }
+    
     public void initSnake() {
         setDefault();
         for (int z = 0; z < length; z++) {

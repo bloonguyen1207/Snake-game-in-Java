@@ -56,7 +56,7 @@ public class Board extends JPanel implements ActionListener {
     public static final int LENGTH = B_WIDTH * B_HEIGHT / BLOCK_SIZE / BLOCK_SIZE;
 //    private final int RAND_POS_X = 49;
 //    private final int RAND_POS_Y = 29;
-    public int DELAY = 100;
+    public static int DELAY = 100;
     Score classic_score = new Score(new OperationAdd());
     public JFrame Game;
 
@@ -97,11 +97,9 @@ public class Board extends JPanel implements ActionListener {
     private void initGame() {
         
         snake.initSnake();
-        snake.speed = 100;
-        DELAY = snake.speed;
         food.locateFood(snake);
 
-        timer = new Timer(DELAY, this);
+        timer = new Timer(0, this);
         timer.start();
     }
 
@@ -261,7 +259,7 @@ public class Board extends JPanel implements ActionListener {
         if ((snake.getX(0) == food.posX) && (snake.getY(0) == food.posY)) {
             snake.setLength(snake.getLength() + 1);
             classic_score.executeStrategy(food.point);
-            timer.setDelay(timer.getDelay() - 1);
+            DELAY -= 1;
             food.locateFood(snake);
         }
     }
@@ -314,7 +312,7 @@ public class Board extends JPanel implements ActionListener {
         if (inGame) {
             checkFood();
             checkCollision();
-            snake.move();
+            snake.autoMove();
         }
         repaint();
     }

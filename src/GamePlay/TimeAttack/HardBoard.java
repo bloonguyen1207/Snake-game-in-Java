@@ -91,18 +91,6 @@ public class HardBoard extends JPanel implements ActionListener {
         return this.Game;
     }
 
-    //private void loadImages() {
-
-        //ImageIcon iid = new ImageIcon(new ImageIcon("res\\Items\\dot.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
-        //ball = iid.getImage();
-
-        //ImageIcon iia = new ImageIcon(new ImageIcon("res\\Items\\coffee-bean.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
-        //leaf = iia.getImage();
-
-        //ImageIcon iih = new ImageIcon(new ImageIcon("res\\Items\\head.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
-        //head = iih.getImage();
-    //}
-
     private void initGame() {
 
         //dots = 3;
@@ -112,9 +100,8 @@ public class HardBoard extends JPanel implements ActionListener {
         //    y[z] = 50;
         //}
         snake.initSnake();
-        //food.locateFood();
         initMultiFood();
-        timer = new Timer(DELAY, this);
+        timer = new Timer(0, this);
         timer.start();
         setAllBorders();
     }

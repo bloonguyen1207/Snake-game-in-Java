@@ -66,15 +66,9 @@ public class EasyBoard extends JPanel implements ActionListener {
     private boolean inGame = true;
 
     private Timer timer;
-//    private Image ball;
-//    private Image food;
-//    private Image head;
     
 //fixed
     Snakes snake = Snakes.getInstance();
-    //Border border = new Border();
-    
-    //static TeaLeaf food = new TeaLeaf();
     
     public EasyBoard(JFrame Game) {
         this.Game = Game;
@@ -83,25 +77,12 @@ public class EasyBoard extends JPanel implements ActionListener {
         setFocusable(true);
 
         setPreferredSize(new Dimension(B_WIDTH, B_HEIGHT));
-        //loadImages();
         initGame();
     }
     
     public JFrame getContainer() {
         return this.Game;
     }
-
-    //private void loadImages() {
-
-        //ImageIcon iid = new ImageIcon(new ImageIcon("res\\Items\\dot.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
-        //ball = iid.getImage();
-
-        //ImageIcon iia = new ImageIcon(new ImageIcon("res\\Items\\coffee-bean.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
-        //leaf = iia.getImage();
-
-        //ImageIcon iih = new ImageIcon(new ImageIcon("res\\Items\\head.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
-        //head = iih.getImage();
-    //}
 
     private void initGame() {
 
@@ -112,9 +93,8 @@ public class EasyBoard extends JPanel implements ActionListener {
         //    y[z] = 50;
         //}
         snake.initSnake();
-        //food.locateFood();
         initMultiFood();
-        timer = new Timer(DELAY, this);
+        timer = new Timer(0, this);
         timer.start();
         //setAllBorders();
     }
@@ -127,13 +107,6 @@ public class EasyBoard extends JPanel implements ActionListener {
     
     private void doDrawing(Graphics g) {
         if (inGame) {
-            //g.drawImage(food.getIcon(), food.getPosX(), food.getPosY(), this);
-//            snake.paintComponent(g);
-            //food.paintComponent(g);
-            //border.drawBorder1(g);
-//            for (Border border : borders) {
-//                border.drawBorder(g);
-//            }
             
             for (int i = 0; i < foodsPos.length; i++) {
                 if (foodsPos[i][0] > -1) {
@@ -296,66 +269,6 @@ public class EasyBoard extends JPanel implements ActionListener {
             timer.stop();
         }
     }
-//        if (snake.getX(0) == B_WIDTH-740 && snake.getY(0) == B_HEIGHT-580) {
-//            inGame = false;
-//        }
-//        if (snake.getX(0) == B_WIDTH-740 && snake.getY(0) == B_HEIGHT-560) {
-//            inGame = false;
-//        }
-//        if (snake.getX(0) == B_WIDTH-600 && snake.getY(0) == B_HEIGHT-580) {
-//            inGame = false;
-//        }
-//         if (snake.getX(0) == B_WIDTH-600 && snake.getY(0) == B_HEIGHT-560) {
-//            inGame = false;
-//        }
-//        if (snake.getX(0) == B_WIDTH-600 && snake.getY(0) == B_HEIGHT-540) {
-//            inGame = false;
-//        }
-//        if (snake.getX(0) == B_WIDTH-580 && snake.getY(0) == B_HEIGHT-540) {
-//            inGame = false;
-//        }
-//        if (snake.getX(0) == B_WIDTH-300 && snake.getY(0) == B_HEIGHT-580) {
-//            inGame = false;
-//        }
-//        if (snake.getX(0) == B_WIDTH-300 && snake.getY(0) == B_HEIGHT-560) {
-//            inGame = false;
-//        }
-//        if (snake.getX(0) == B_WIDTH-320 && snake.getY(0) == B_HEIGHT-40) {
-//            inGame = false;
-//        }
-//        if (snake.getX(0) == B_WIDTH-320 && snake.getY(0) == B_HEIGHT-60) {
-//            inGame = false;
-//        }
-//        if (snake.getX(0) == B_WIDTH-320 && snake.getY(0) == B_HEIGHT-80) {
-//            inGame = false;
-//        }
-//        if (snake.getX(0) == B_WIDTH-300 && snake.getY(0) == B_HEIGHT-80) {
-//            inGame = false;
-//        }
-//        if (snake.getX(0) == B_WIDTH-720 && snake.getY(0) == B_HEIGHT-40) {
-//            inGame = false;
-//        }
-//         if (snake.getX(0) == B_WIDTH-720 && snake.getY(0) == B_HEIGHT-60) {
-//            inGame = false;
-//        }
-//          if (snake.getX(0) == B_WIDTH-40 && snake.getY(0) == B_HEIGHT-480) {
-//            inGame = false;
-//        }
-//           if (snake.getX(0) == B_WIDTH-60 && snake.getY(0) == B_HEIGHT-480) {
-//            inGame = false;
-//        }
-//            if (snake.getX(0) == B_WIDTH-80 && snake.getY(0) == B_HEIGHT-480) {
-//            inGame = false;
-//        }
-//             if (snake.getX(0) == B_WIDTH-80 && snake.getY(0) == B_HEIGHT-500) {
-//            inGame = false;
-//        }
-//             if (snake.getX(0) == B_WIDTH-980 && snake.getY(0) == B_HEIGHT-400) {
-//            inGame = false;
-//        }
-//             if (snake.getX(0) == B_WIDTH-960 && snake.getY(0) == B_HEIGHT-400) {
-//            inGame = false;
-//        }
                      
     @Override
     public void actionPerformed(ActionEvent e) {

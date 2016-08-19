@@ -35,6 +35,8 @@ import Entity.StaticObject.StaticObject;
 import Entity.StaticObject.TeaLeaf;
 import GamePlay.HardGame;
 import Menu.Menu;
+import Score.OperationAdd;
+import Score.Score;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 import javax.swing.JButton;
@@ -49,7 +51,7 @@ public class HardBoard extends JPanel implements ActionListener {
 //    private final int RAND_POS_X = 49;
 //    private final int RAND_POS_Y = 29;
     private final int DELAY = 100;
-    public int SCORE = 0;
+    Score time_score = new Score(new OperationAdd());
     public JFrame Game;
 
 //    private final int x[] = new int[ALL_DOTS];
@@ -134,7 +136,7 @@ public class HardBoard extends JPanel implements ActionListener {
             
             snake.paintComponent(g);
             
-            String score = "Score: " + Integer.toString(SCORE);
+            String score = "Score: " + time_score.getScore();
             Font small = new Font("Berlin Sans FB Demi", Font.BOLD, 30);
             FontMetrics metr = getFontMetrics(small);
             g.setColor(Color.black);
@@ -157,7 +159,7 @@ public class HardBoard extends JPanel implements ActionListener {
         g.setFont(small);
         g.drawString(msg, (B_WIDTH - metr.stringWidth(msg)) / 2, B_HEIGHT / 2 - 150);
         
-        String score = "Score: " + Integer.toString(SCORE);
+        String score = "Score: " + time_score.getScore();
 
         g.setColor(Color.black);
         g.setFont(small);
@@ -220,7 +222,7 @@ public class HardBoard extends JPanel implements ActionListener {
             if (snake.getX(0) == foodsPos[j][0] && snake.getY(0) == foodsPos[j][1]) {
                 foodOnScreen -= 1;
                 fIndex = j;
-                SCORE += multiFood[fIndex].point;
+                time_score.executeStrategy(multiFood[fIndex].point);
                 snake.setLength(snake.getLength()+ 1);
                 if (multiFood[fIndex].getClass().equals(Heal.class)) {
                     timer.setDelay(DELAY);
@@ -244,7 +246,7 @@ public class HardBoard extends JPanel implements ActionListener {
         
         for (int i = 0; i < mice.size(); i++) {
             if (snake.getX(0) == mice.get(i).getPosX() && snake.getY(0) == mice.get(i).getPosY()) {
-                SCORE += mice.get(i).point;
+                time_score.executeStrategy(mice.get(i).point);
                 mice.remove(i);
             }
         }
@@ -369,7 +371,7 @@ public class HardBoard extends JPanel implements ActionListener {
     private void locateMice() {
         //System.out.println(awardMouse);
         //System.out.println(SCORE);
-        if (SCORE >= 10 * awardMouse) {
+        if (time_score.getScore() >= 10 * awardMouse) {
             Mouse temp = new Mouse();
             temp.locateMouse(snake, borders);
             mice.add(temp);

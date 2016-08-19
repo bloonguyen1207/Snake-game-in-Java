@@ -259,7 +259,9 @@ public class Board extends JPanel implements ActionListener {
         if ((snake.getX(0) == food.posX) && (snake.getY(0) == food.posY)) {
             snake.setLength(snake.getLength() + 1);
             classic_score.executeStrategy(food.point);
-            DELAY -= 1;
+            if (DELAY > 10) {
+                DELAY -= 1;
+            }
             food.locateFood(snake);
         }
     }

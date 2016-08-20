@@ -21,14 +21,13 @@ import java.util.Timer;
 
 public class Snakes extends DynamicObject{
 
-    private long del = 0, lastTime = 0;
     private int length = 3;
     private final int x[] = new int[LENGTH];
     private final int y[] = new int[LENGTH];
     private Image head;
     private boolean isRevert = false;
 //fixed
-    private static Snakes instance = new Snakes();
+    private static final Snakes instance = new Snakes();
 
     public boolean isIsRevert() {
         return isRevert;
@@ -42,6 +41,8 @@ public class Snakes extends DynamicObject{
     private Snakes() {
         head = loadImage(head, "res\\Items\\heada.png");
         icon = loadImage(icon, "res\\Items\\body_1.png");
+        previousTime = System.currentTimeMillis();
+        speed = 100;
     }
 
 //fixed
@@ -49,7 +50,7 @@ public class Snakes extends DynamicObject{
         return instance;
     }
     
-    public int getSpeed() {
+    public double getSpeed() {
         return this.speed;
     }
     
@@ -111,7 +112,7 @@ public class Snakes extends DynamicObject{
         }
     }
     @Override
-    public void move() {
+    protected void move() {
         for (int z = length; z > 0; z--) {
             x[z] = x[(z - 1)];
             y[z] = y[(z - 1)];
@@ -134,12 +135,16 @@ public class Snakes extends DynamicObject{
         }
     }
     
-    public void autoMove(){
-        del += System.currentTimeMillis() - lastTime;
-        lastTime = System.currentTimeMillis();
-        if (del >= DELAY) {
+    @Override
+    public void autoMove(){        
+        currentTime = System.currentTimeMillis();        
+        double del = (currentTime - previousTime) / 100;
+        System.out.println(del);
+        double timepoint = 1.0 / speed;
+        System.out.println(timepoint);
+        if (del >= timepoint) {
             move();
-            del = 0;
+            previousTime = currentTime;
         }
     }
     

@@ -284,7 +284,7 @@ public class EasyBoard extends JPanel implements ActionListener {
                 //mice.get(i).avoidSnake(snake);
                 mice.get(i).avoidOut();
                 mice.get(i).avoidBorder(borders);                
-                mice.get(i).move();
+                mice.get(i).autoMove();
                 
             }
           

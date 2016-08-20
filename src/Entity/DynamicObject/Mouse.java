@@ -14,6 +14,7 @@ import static Entity.StaticObject.StaticObject.RAND_POS_X;
 import static Entity.StaticObject.StaticObject.RAND_POS_Y;
 import static GamePlay.Classic.Board.LENGTH;
 import static GamePlay.Classic.Board.BLOCK_SIZE;
+import static GamePlay.Classic.Board.DELAY;
 import static GamePlay.TimeAttack.HardBoard.B_HEIGHT;
 import static GamePlay.TimeAttack.HardBoard.B_WIDTH;
 import java.awt.Graphics;
@@ -25,17 +26,20 @@ public class Mouse extends DynamicObject{
     private Image leftImage;
     private Image upImage;
     private Image downImage;
+    private double preTimeDirection;
     
     public Mouse() {
         leftImage = loadImage(leftImage, "res\\Items\\mouse-left.png");
         downImage = loadImage(downImage, "res\\Items\\mouse.png");
         upImage = loadImage(upImage, "res\\Items\\mouse-up.png");
         icon = loadImage(icon, "res\\Items\\mouse-right.png");
-        previousTime = System.nanoTime();
+        previousTime = System.currentTimeMillis();
+        preTimeDirection = System.currentTimeMillis();
         point = 5;
+        speed = 20;
     }
     
-    public int getSpeed() {
+    public double getSpeed() {
         return this.speed;
     }
     
@@ -114,7 +118,6 @@ public class Mouse extends DynamicObject{
     }
     
     public void avoidOut() {
-        System.out.println(posX + " " + posY);
         if (posY == B_HEIGHT - 1 * BLOCK_SIZE || posY == 0 
                 || posX == B_WIDTH - 1 * BLOCK_SIZE || posX == 0) {
             changeDirection();
@@ -134,12 +137,12 @@ public class Mouse extends DynamicObject{
     }
     
     @Override
-    public void move() {
-        currentTime = System.nanoTime();
-        double deltaTime = (currentTime - previousTime) / 1000000000;
-        double timepoint = 1/30;
-        if (deltaTime > timepoint) {
-            previousTime = currentTime;
+    protected void move() {
+        double curTimeDirection = System.currentTimeMillis();
+        double deltaTime = curTimeDirection - preTimeDirection;
+        double timepoint = 1/1000;
+        if (deltaTime >= timepoint) {
+            preTimeDirection = curTimeDirection;
             changeDirection();
         }
         
@@ -157,6 +160,17 @@ public class Mouse extends DynamicObject{
 
         if (downDirection) {
             posY += BLOCK_SIZE;
+        }
+    }
+    
+    @Override
+    public void autoMove(){
+        currentTime = System.currentTimeMillis();
+        double deltaTime = (currentTime - previousTime) / 100;
+        double timepoint = 1.0 / speed;
+        if (deltaTime >= timepoint) {
+            move();
+            previousTime = currentTime;
         }
     }
     

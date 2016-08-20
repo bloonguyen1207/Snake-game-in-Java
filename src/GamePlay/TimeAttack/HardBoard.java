@@ -136,7 +136,7 @@ public class HardBoard extends JPanel implements ActionListener {
             
             snake.paintComponent(g);
             
-            String score = "Score: " + time_score.getScore();
+            String score = "Score: " + Integer.toString(time_score.getScore());
             Font small = new Font("Berlin Sans FB Demi", Font.BOLD, 30);
             FontMetrics metr = getFontMetrics(small);
             g.setColor(Color.black);
@@ -159,7 +159,7 @@ public class HardBoard extends JPanel implements ActionListener {
         g.setFont(small);
         g.drawString(msg, (B_WIDTH - metr.stringWidth(msg)) / 2, B_HEIGHT / 2 - 150);
         
-        String score = "Score: " + time_score.getScore();
+        String score = "Score: " + Integer.toString(time_score.getScore());
 
         g.setColor(Color.black);
         g.setFont(small);
@@ -225,14 +225,14 @@ public class HardBoard extends JPanel implements ActionListener {
                 time_score.executeStrategy(multiFood[fIndex].point);
                 snake.setLength(snake.getLength()+ 1);
                 if (multiFood[fIndex].getClass().equals(Heal.class)) {
-                    timer.setDelay(DELAY);
+                    snake.setSpeed(100);
                     multiFood[fIndex].specialEffect(snake);
-                } else if (timer.getDelay() <= 20 && multiFood[fIndex].getClass().equals(TeaLeaf.class)) {
-                    timer.setDelay(timer.getDelay() + multiFood[fIndex].specialEffect(snake));
-                } else if (timer.getDelay() >= 200 && multiFood[fIndex].getClass().equals(Coffee.class)) {
-                    timer.setDelay(timer.getDelay() + multiFood[fIndex].specialEffect(snake));
-                } else if (timer.getDelay() > 20 && timer.getDelay() < 200) {
-                    timer.setDelay(timer.getDelay() + multiFood[fIndex].specialEffect(snake));
+                } else if (snake.getSpeed() >= 20 && multiFood[fIndex].getClass().equals(TeaLeaf.class)) {
+                    snake.setSpeed(snake.getSpeed() + multiFood[fIndex].specialEffect(snake));
+                } else if (snake.getSpeed() <= 200 && multiFood[fIndex].getClass().equals(Coffee.class)) {
+                    snake.setSpeed(snake.getSpeed() + multiFood[fIndex].specialEffect(snake));
+                } else if (snake.getSpeed() > 20 && snake.getSpeed() < 200) {
+                    snake.setSpeed(snake.getSpeed() + multiFood[fIndex].specialEffect(snake));
                 } else {
                     multiFood[fIndex].specialEffect(snake);
                 }

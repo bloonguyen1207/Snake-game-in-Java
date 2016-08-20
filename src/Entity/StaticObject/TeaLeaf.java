@@ -22,6 +22,6 @@ public class TeaLeaf extends StaticObject {
     
     @Override
     public int specialEffect(Snakes snake) {
-        return 10;
+        return -10;
     }
 }

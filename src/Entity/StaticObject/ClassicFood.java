@@ -46,8 +46,7 @@ public class ClassicFood extends StaticObject {
     
     @Override
     public int specialEffect(Snakes snake) {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        return 0;
+        return 1;
     }
     
     @Override

@@ -54,7 +54,7 @@ public class Snakes extends DynamicObject{
         return this.speed;
     }
     
-    public void setSpeed(int speed) {
+    public void setSpeed(double speed) {
         this.speed = speed;
     }
     

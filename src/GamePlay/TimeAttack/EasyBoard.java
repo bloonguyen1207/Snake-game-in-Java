@@ -95,7 +95,7 @@ public class EasyBoard extends JPanel implements ActionListener {
         //}
         snake.initSnake();
         initMultiFood();
-        timer = new Timer(100, this);
+        timer = new Timer(10, this);
         timer.start();
         //setAllBorders();
     }

@@ -175,7 +175,6 @@ public class Mouse extends DynamicObject{
     
     @Override
     public void paintComponent(Graphics g) {
-        super.paintComponent(g);
 //        System.out.print("left: ");
 //        System.out.println(leftDirection);
 //        System.out.print("down: ");

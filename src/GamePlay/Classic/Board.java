@@ -98,7 +98,7 @@ public class Board extends JPanel implements ActionListener {
         snake.initSnake();
         food.locateFood(snake);
 
-        timer = new Timer(100, this);
+        timer = new Timer(10, this);
         timer.start();
     }
 

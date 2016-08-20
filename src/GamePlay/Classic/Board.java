@@ -56,7 +56,6 @@ public class Board extends JPanel implements ActionListener {
     public static final int LENGTH = B_WIDTH * B_HEIGHT / BLOCK_SIZE / BLOCK_SIZE;
 //    private final int RAND_POS_X = 49;
 //    private final int RAND_POS_Y = 29;
-    public static int DELAY = 100;
     Score classic_score = new Score(new OperationAdd());
     public JFrame Game;
 
@@ -99,7 +98,7 @@ public class Board extends JPanel implements ActionListener {
         snake.initSnake();
         food.locateFood(snake);
 
-        timer = new Timer(0, this);
+        timer = new Timer(100, this);
         timer.start();
     }
 

@@ -50,7 +50,6 @@ public class EasyBoard extends JPanel implements ActionListener {
     public static final int ALL_DOTS = B_WIDTH * B_HEIGHT / DOT_SIZE / DOT_SIZE;
 //    private final int RAND_POS_X = 49;
 //    private final int RAND_POS_Y = 29;
-    private final int FPS = 1;
     Score time_score = new Score(new OperationAdd());
     public JFrame Game;
 
@@ -96,7 +95,7 @@ public class EasyBoard extends JPanel implements ActionListener {
         //}
         snake.initSnake();
         initMultiFood();
-        timer = new Timer(FPS, this);
+        timer = new Timer(100, this);
         timer.start();
         //setAllBorders();
     }
@@ -283,10 +282,9 @@ public class EasyBoard extends JPanel implements ActionListener {
             }
           
         }
-
         repaint();
     }
-
+    
     private class TAdapter extends KeyAdapter {
 
         @Override

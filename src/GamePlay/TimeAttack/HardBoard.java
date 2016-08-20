@@ -103,7 +103,7 @@ public class HardBoard extends JPanel implements ActionListener {
         //}
         snake.initSnake();
         initMultiFood();
-        timer = new Timer(17, this);
+        timer = new Timer(20, this);
         timer.start();
         setAllBorders();
     }

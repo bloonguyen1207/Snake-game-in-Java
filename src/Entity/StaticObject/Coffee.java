@@ -23,7 +23,7 @@ public class Coffee extends StaticObject {
     @Override
     public int specialEffect(Snakes snake) {
         if (snake.getSpeed() < 200) {
-            return 10;
+            return 5;
         }
         return 0;
     }

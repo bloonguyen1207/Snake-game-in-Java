@@ -22,8 +22,8 @@ public class TeaLeaf extends StaticObject {
     
     @Override
     public int specialEffect(Snakes snake) {
-        if (snake.getSpeed() > 20) {
-            return -10;                        
+        if (snake.getSpeed() > 50) {
+            return -5;                        
         }
         return 0;
     }

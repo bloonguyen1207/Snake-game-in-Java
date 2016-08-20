@@ -145,7 +145,6 @@ public class Snakes extends DynamicObject{
 //        System.out.println(speed);       
         if (del >= timepoint) {
             move();
-            System.out.println("move");
             previousTime = currentTime;
         }
     }

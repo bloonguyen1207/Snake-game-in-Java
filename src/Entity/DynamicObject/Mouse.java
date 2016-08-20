@@ -26,6 +26,7 @@ public class Mouse extends DynamicObject{
     private Image upImage;
     private Image downImage;
     private double preTimeDirection;
+    private boolean isChanged = false;
     
     public Mouse() {
         leftImage = loadImage(leftImage, "res\\Items\\black-mouse-left.png");
@@ -35,7 +36,7 @@ public class Mouse extends DynamicObject{
         previousTime = System.currentTimeMillis();
         preTimeDirection = System.currentTimeMillis();
         point = 5;
-        speed = 90;
+        speed = 70;
     }
     
     public double getSpeed() {
@@ -54,7 +55,7 @@ public class Mouse extends DynamicObject{
     }
     
     private void changeDirection() {
-        int r = (int) (Math.random() * 4);
+        int r = (int) (Math.random() * 6);
         upDirection = false;
         leftDirection = false;
         downDirection = false;
@@ -64,6 +65,8 @@ public class Mouse extends DynamicObject{
             case 1: downDirection = true; break;
             case 2: rightDirection = true; break;
             case 3: leftDirection = true; break;
+            case 4: rightDirection = true; break;
+            case 5: leftDirection = true; break;
         }
         //System.out.println("changeDirection");
     }
@@ -104,12 +107,27 @@ public class Mouse extends DynamicObject{
     
     public void avoidBorder(ArrayList<Border> borders) {
         for (Border border: borders) {
-            if ((posY >= border.getPosY() - 1 * BLOCK_SIZE && 
-                    posY <= border.getPosY() + 1 * BLOCK_SIZE) &&
+            if (!isChanged && 
+                    (posY >= border.getPosY() - 1 * BLOCK_SIZE && 
+                        posY <= border.getPosY() + 1 * BLOCK_SIZE) &&
                     (posX >= border.getPosX() - 1 * BLOCK_SIZE &&
-                    posX <= border.getPosX() + 1 * BLOCK_SIZE)) {
-                //System.out.println("Border");
-                changeDirection();
+                        posX <= border.getPosX() + 1 * BLOCK_SIZE)) {
+                //("Border");
+                //System.out.println(posX + " " + posY);
+                if (upDirection) {
+                    //System.out.println("changeDown");
+                    specifyDirection(1);
+                } else if (downDirection) {
+                    //System.out.println("changeUp");
+                    specifyDirection(0);
+                } else if (leftDirection) {
+                    //System.out.println("changeRight");
+                    specifyDirection(2);
+                } else if (rightDirection) {
+                    specifyDirection(3);
+                    //System.out.println("changeLeft");
+                }
+                isChanged = true;
                 break;
             }
         }
@@ -117,21 +135,29 @@ public class Mouse extends DynamicObject{
     }
     
     public void avoidOut() {
-        if (posY == B_HEIGHT - 1 * BLOCK_SIZE || posY == 0 
-                || posX == B_WIDTH - 1 * BLOCK_SIZE || posX == 0) {
-            changeDirection();
-        }
-        if (posY > B_HEIGHT - 1 * BLOCK_SIZE) {
-            specifyDirection(0);
-        }
-        if (posY < 0) {
-            specifyDirection(1);
-        }
-        if (posX < 0) {
-            specifyDirection(2);
-        }
-        if (posX > B_WIDTH - 1 * BLOCK_SIZE) {
-            specifyDirection(3);
+        if (!isChanged) {
+            //System.out.println("out" + posX + " " + posY);
+            if ((posY >= B_HEIGHT - 1 * BLOCK_SIZE && posY <= B_HEIGHT + 1) || 
+                    (posY >= 0 - 1 * BLOCK_SIZE && posY <= 0 + 1 * BLOCK_SIZE) || 
+                    (posX >= B_WIDTH - 1 * BLOCK_SIZE && posX <= B_WIDTH + 1 * BLOCK_SIZE) || 
+                    (posX >= 0 - 1 * BLOCK_SIZE && posY <= 0 + 1 * BLOCK_SIZE)) {
+                changeDirection();
+                //System.out.println("change" + posX + " " + posY);
+                if (posY >= B_HEIGHT - 1 * BLOCK_SIZE) {
+                    specifyDirection(0);
+                    //System.out.println("up" + posX + " " + posY);
+                } else if (posY <= 0) {
+                    specifyDirection(1);
+                    //System.out.println("down" + posX + " " + posY);
+                } else if (posX <= 0) {
+                    specifyDirection(2);
+                    //System.out.println("right" + posX + " " + posY);
+                } else if (posX >= B_WIDTH - 1 * BLOCK_SIZE) {
+                    specifyDirection(3);
+                    //System.out.println("down" + posX + " " + posY);
+                }
+                isChanged = true;
+            }
         }
     }
     
@@ -139,10 +165,15 @@ public class Mouse extends DynamicObject{
     protected void move() {
         double curTimeDirection = System.currentTimeMillis();
         double deltaTime = (curTimeDirection - preTimeDirection) / 10000.0;
-        double timepoint = 1.0 / 10;
+        int seed = ((int) (Math.random() * 5) + 2) * 10;
+        double timepoint = 1.0 / seed;
+        avoidOut();
         if (deltaTime >= timepoint) {
             preTimeDirection = curTimeDirection;
-            changeDirection();
+            if (!isChanged) {
+                changeDirection();    
+                isChanged = true;
+            }            
         }
         
         if (leftDirection) {
@@ -168,8 +199,21 @@ public class Mouse extends DynamicObject{
         double deltaTime = (currentTime - previousTime) / 10000.0;
         double timepoint = 1.0 / speed;
         if (deltaTime >= timepoint) {
+            isChanged = false;
             move();
-            previousTime = currentTime;
+            previousTime = currentTime;            
+        }
+    }
+    
+    public void autoMoveHard(ArrayList<Border> borders){
+        currentTime = System.currentTimeMillis();
+        double deltaTime = (currentTime - previousTime) / 10000.0;
+        double timepoint = 1.0 / speed;
+        if (deltaTime >= timepoint) {
+            isChanged = false;
+            avoidBorder(borders);
+            move();
+            previousTime = currentTime;            
         }
     }
     
@@ -214,7 +258,10 @@ public class Mouse extends DynamicObject{
             }
             
             for (Border border: borders) {
-                if (!(posX == border.getPosX() && posY == border.getPosY())) {
+                if (!((posY >= border.getPosY() - 2 * BLOCK_SIZE && 
+                        posY <= border.getPosY() + 2 * BLOCK_SIZE) &&
+                    (posX >= border.getPosX() - 2 * BLOCK_SIZE &&
+                        posX <= border.getPosX() + 2 * BLOCK_SIZE))) {
                     checkBorder += 1;
                 }
             }

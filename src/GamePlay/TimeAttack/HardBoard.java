@@ -277,12 +277,10 @@ public class HardBoard extends JPanel implements ActionListener {
             snake.autoMove();
             locateMice();
             for (int i = 0; i < mice.size(); i++) {
-                synchronized(mice) {                
-                    //mice.get(i).avoidSnake(snake);
-                    mice.get(i).avoidOut();
-                    mice.get(i).avoidBorder(borders);
-                    mice.get(i).autoMove();
-                }
+                //mice.get(i).avoidSnake(snake);
+                //mice.get(i).avoidOut();
+                //mice.get(i).avoidBorder(borders);
+                mice.get(i).autoMoveHard(borders);
             }
           
         }

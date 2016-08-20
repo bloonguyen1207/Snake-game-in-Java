@@ -125,7 +125,6 @@ public class Snakes extends DynamicObject{
 
         if (upDirection) {
             y[0] -= BLOCK_SIZE;
-            System.out.println(y[0]);
         }
 
         if (downDirection) {

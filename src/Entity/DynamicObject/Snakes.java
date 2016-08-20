@@ -41,8 +41,6 @@ public class Snakes extends DynamicObject{
     private Snakes() {
         head = loadImage(head, "res\\Items\\heada.png");
         icon = loadImage(icon, "res\\Items\\body_1.png");
-        previousTime = System.currentTimeMillis();
-        speed = 100;
     }
 
 //fixed
@@ -86,7 +84,7 @@ public class Snakes extends DynamicObject{
         return this.head;
     }
     
-    public void setDefault() {
+    private void setDefault() {
         setLength(3);
         setLeftDirection(false);
         setUpDirection(false);
@@ -138,10 +136,13 @@ public class Snakes extends DynamicObject{
     @Override
     public void autoMove(){        
         currentTime = System.currentTimeMillis();        
-        double del = (currentTime - previousTime) / 100;
-        System.out.println(del);
+        double del = (currentTime - previousTime) / 10000.0;
         double timepoint = 1.0 / speed;
+        System.out.println(currentTime);
+        System.out.println(currentTime - previousTime);
+        System.out.println(del);
         System.out.println(timepoint);
+        System.out.println(speed);        
         if (del >= timepoint) {
             move();
             previousTime = currentTime;
@@ -154,6 +155,9 @@ public class Snakes extends DynamicObject{
             x[z] = BLOCK_SIZE * 5 - z * (BLOCK_SIZE / 2);
             y[z] = BLOCK_SIZE * 5;
         }
+        previousTime = System.currentTimeMillis();
+        speed = 100;
+        isRevert = false;
     }
     
     @Override

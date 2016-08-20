@@ -50,7 +50,7 @@ public class EasyBoard extends JPanel implements ActionListener {
     public static final int ALL_DOTS = B_WIDTH * B_HEIGHT / DOT_SIZE / DOT_SIZE;
 //    private final int RAND_POS_X = 49;
 //    private final int RAND_POS_Y = 29;
-    private final int DELAY = 100;
+    private final int FPS = 1;
     Score time_score = new Score(new OperationAdd());
     public JFrame Game;
 
@@ -96,7 +96,7 @@ public class EasyBoard extends JPanel implements ActionListener {
         //}
         snake.initSnake();
         initMultiFood();
-        timer = new Timer(0, this);
+        timer = new Timer(FPS, this);
         timer.start();
         //setAllBorders();
     }
@@ -213,14 +213,8 @@ public class EasyBoard extends JPanel implements ActionListener {
                 if (multiFood[fIndex].getClass().equals(Heal.class)) {
                     snake.setSpeed(100);
                     multiFood[fIndex].specialEffect(snake);
-                } else if (snake.getSpeed() <= 20 && multiFood[fIndex].getClass().equals(TeaLeaf.class)) {
-                    snake.setSpeed(snake.getSpeed() + multiFood[fIndex].specialEffect(snake));
-                } else if (snake.getSpeed() >= 200 && multiFood[fIndex].getClass().equals(Coffee.class)) {
-                    snake.setSpeed(snake.getSpeed() + multiFood[fIndex].specialEffect(snake));
-                } else if (snake.getSpeed() > 20 && snake.getSpeed() < 200) {
-                    snake.setSpeed(snake.getSpeed() + multiFood[fIndex].specialEffect(snake));
                 } else {
-                    multiFood[fIndex].specialEffect(snake);
+                    snake.setSpeed(snake.getSpeed() + multiFood[fIndex].specialEffect(snake));
                 }
                 locateMultiFood();
                 break;

@@ -227,14 +227,8 @@ public class HardBoard extends JPanel implements ActionListener {
                 if (multiFood[fIndex].getClass().equals(Heal.class)) {
                     snake.setSpeed(100);
                     multiFood[fIndex].specialEffect(snake);
-                } else if (snake.getSpeed() >= 20 && multiFood[fIndex].getClass().equals(TeaLeaf.class)) {
-                    snake.setSpeed(snake.getSpeed() + multiFood[fIndex].specialEffect(snake));
-                } else if (snake.getSpeed() <= 200 && multiFood[fIndex].getClass().equals(Coffee.class)) {
-                    snake.setSpeed(snake.getSpeed() + multiFood[fIndex].specialEffect(snake));
-                } else if (snake.getSpeed() > 20 && snake.getSpeed() < 200) {
-                    snake.setSpeed(snake.getSpeed() + multiFood[fIndex].specialEffect(snake));
                 } else {
-                    multiFood[fIndex].specialEffect(snake);
+                    snake.setSpeed(snake.getSpeed() + multiFood[fIndex].specialEffect(snake));
                 }
                 locateMultiFood();
                 break;

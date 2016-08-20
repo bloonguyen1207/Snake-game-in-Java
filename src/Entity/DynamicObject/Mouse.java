@@ -36,7 +36,7 @@ public class Mouse extends DynamicObject{
         previousTime = System.currentTimeMillis();
         preTimeDirection = System.currentTimeMillis();
         point = 5;
-        speed = 20;
+        speed = 90;
     }
     
     public double getSpeed() {
@@ -139,8 +139,8 @@ public class Mouse extends DynamicObject{
     @Override
     protected void move() {
         double curTimeDirection = System.currentTimeMillis();
-        double deltaTime = curTimeDirection - preTimeDirection;
-        double timepoint = 1/1000;
+        double deltaTime = (curTimeDirection - preTimeDirection) / 10000.0;
+        double timepoint = 1.0 / 10;
         if (deltaTime >= timepoint) {
             preTimeDirection = curTimeDirection;
             changeDirection();
@@ -166,7 +166,7 @@ public class Mouse extends DynamicObject{
     @Override
     public void autoMove(){
         currentTime = System.currentTimeMillis();
-        double deltaTime = (currentTime - previousTime) / 100;
+        double deltaTime = (currentTime - previousTime) / 10000.0;
         double timepoint = 1.0 / speed;
         if (deltaTime >= timepoint) {
             move();

@@ -14,7 +14,6 @@ import static Entity.StaticObject.StaticObject.RAND_POS_X;
 import static Entity.StaticObject.StaticObject.RAND_POS_Y;
 import static GamePlay.Classic.Board.LENGTH;
 import static GamePlay.Classic.Board.BLOCK_SIZE;
-import static GamePlay.Classic.Board.DELAY;
 import static GamePlay.TimeAttack.HardBoard.B_HEIGHT;
 import static GamePlay.TimeAttack.HardBoard.B_WIDTH;
 import java.awt.Graphics;

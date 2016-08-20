@@ -10,7 +10,6 @@ package Entity.DynamicObject;
  * @author Hanh
  */
 import static GamePlay.Classic.Board.LENGTH;
-import static GamePlay.Classic.Board.DELAY;
 import static GamePlay.Classic.Board.BLOCK_SIZE;
 import java.awt.Graphics;
 import java.awt.Image;

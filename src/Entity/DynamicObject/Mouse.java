@@ -108,7 +108,7 @@ public class Mouse extends DynamicObject{
                     posY <= border.getPosY() + 1 * BLOCK_SIZE) &&
                     (posX >= border.getPosX() - 1 * BLOCK_SIZE &&
                     posX <= border.getPosX() + 1 * BLOCK_SIZE)) {
-                System.out.println("Border");
+                //System.out.println("Border");
                 changeDirection();
                 break;
             }

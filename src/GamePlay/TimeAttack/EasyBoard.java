@@ -33,6 +33,7 @@ import Entity.StaticObject.ItemFactory;
 import Entity.StaticObject.Revert;
 import Entity.StaticObject.StaticObject;
 import Entity.StaticObject.TeaLeaf;
+import static GamePlay.Classic.Board.BLOCK_SIZE;
 import GamePlay.EasyGame;
 import Menu.Menu;
 import Score.OperationAdd;
@@ -95,7 +96,7 @@ public class EasyBoard extends JPanel implements ActionListener {
         //}
         snake.initSnake();
         initMultiFood();
-        timer = new Timer(10, this);
+        timer = new Timer(17, this);
         timer.start();
         //setAllBorders();
     }
@@ -233,7 +234,7 @@ public class EasyBoard extends JPanel implements ActionListener {
     
     private void checkCollision() {
 
-         for (int z = snake.getLength(); z > 0; z--) {
+        for (int z = snake.getLength(); z > 0; z--) {
 
             if ((z > 3) && (snake.getX(0) == snake.getX(z)) && (snake.getY(0) == snake.getY(z))) {
                 inGame = false;
@@ -247,7 +248,7 @@ public class EasyBoard extends JPanel implements ActionListener {
 
         if (snake.getY(0) < 0) {
             //inGame = false;
-            snake.setY(0, B_HEIGHT);
+            snake.setY(0, B_HEIGHT - BLOCK_SIZE);
         }
 
         if (snake.getX(0) >= B_WIDTH) {
@@ -257,7 +258,7 @@ public class EasyBoard extends JPanel implements ActionListener {
 
         if (snake.getX(0) < 0) {
             //inGame = false;
-            snake.setX(0, B_WIDTH);
+            snake.setX(0, B_WIDTH - BLOCK_SIZE);
         }
         
         if(!inGame) {

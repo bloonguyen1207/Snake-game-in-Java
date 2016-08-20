@@ -125,6 +125,7 @@ public class Snakes extends DynamicObject{
 
         if (upDirection) {
             y[0] -= BLOCK_SIZE;
+            System.out.println(y[0]);
         }
 
         if (downDirection) {
@@ -133,17 +134,18 @@ public class Snakes extends DynamicObject{
     }
     
     @Override
-    public void autoMove(){        
+    public void autoMove(){     
         currentTime = System.currentTimeMillis();        
         double del = (currentTime - previousTime) / 10000.0;
         double timepoint = 1.0 / speed;
-        System.out.println(currentTime);
-        System.out.println(currentTime - previousTime);
-        System.out.println(del);
-        System.out.println(timepoint);
-        System.out.println(speed);        
+//        System.out.println(currentTime);
+//        System.out.println(currentTime - previousTime);
+//        System.out.println(del);
+//        System.out.println(timepoint);
+//        System.out.println(speed);       
         if (del >= timepoint) {
             move();
+            System.out.println("move");
             previousTime = currentTime;
         }
     }

@@ -98,7 +98,7 @@ public class Board extends JPanel implements ActionListener {
         snake.initSnake();
         food.locateFood(snake);
 
-        timer = new Timer(10, this);
+        timer = new Timer(17, this);
         timer.start();
     }
 
@@ -279,7 +279,7 @@ public class Board extends JPanel implements ActionListener {
 
         if (snake.getY(0) < 0) {
             //inGame = false;
-            snake.setY(0, B_HEIGHT);
+            snake.setY(0, B_HEIGHT - BLOCK_SIZE);
         }
 
         if (snake.getX(0) >= B_WIDTH) {
@@ -289,7 +289,7 @@ public class Board extends JPanel implements ActionListener {
 
         if (snake.getX(0) < 0) {
             //inGame = false;
-            snake.setX(0, B_WIDTH);
+            snake.setX(0, B_WIDTH - BLOCK_SIZE);
         }
         
         if(!inGame) {

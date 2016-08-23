@@ -140,12 +140,7 @@ public class Snakes extends DynamicObject{
     public void autoMove(){     
         currentTime = System.currentTimeMillis();        
         double del = (currentTime - previousTime) / 10000.0;
-        double timepoint = 1.0 / speed;
-//        System.out.println(currentTime);
-//        System.out.println(currentTime - previousTime);
-//        System.out.println(del);
-//        System.out.println(timepoint);
-//        System.out.println(speed);       
+        double timepoint = 1.0 / speed;      
         if (del >= timepoint) {
             move();
             previousTime = currentTime;

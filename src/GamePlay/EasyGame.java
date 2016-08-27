@@ -6,6 +6,7 @@
 package GamePlay;
 
 import GamePlay.TimeAttack.EasyBoard;
+import GamePlay.TimeAttack.GameBoardPanel;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 
@@ -16,10 +17,9 @@ import javax.swing.JFrame;
 public class EasyGame extends JFrame{
     public EasyGame() {
 
-        add(new EasyBoard(this));
+        add(new GameBoardPanel(this));
         setResizable(false);
         pack();
-        
         setTitle("Snake");
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

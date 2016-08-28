@@ -117,6 +117,7 @@ Clock clock;
             checkFood();
             checkCollision();
             snake.autoMove();
+            locateMice();
             for (int i = 0; i < mice.size(); i++) {
                 //mice.get(i).avoidSnake(snake);
                 mice.get(i).avoidOut();

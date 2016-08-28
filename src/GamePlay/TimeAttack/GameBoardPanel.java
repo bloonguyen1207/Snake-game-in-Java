@@ -56,6 +56,7 @@ public class GameBoardPanel extends JPanel implements ActionListener {
     public static final int B_HEIGHT = 600;
     public static final int DOT_SIZE = 20;
     public static final int ALL_DOTS = B_WIDTH * B_HEIGHT / DOT_SIZE / DOT_SIZE;
+    public static final int BLOCK_SIZE = 20;
 //    private final int RAND_POS_X = 49;
 //    private final int RAND_POS_Y = 29;
     Score time_score = new Score(new OperationAdd());

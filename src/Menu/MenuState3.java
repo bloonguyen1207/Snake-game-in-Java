@@ -17,6 +17,7 @@ import static javafx.scene.text.Font.font;
 import static javafx.scene.text.Font.font;
 import GamePlay.ClassicGame;
 import GamePlay.TimeAttack.ClassicLevel;
+import GamePlay.TimeAttack.EasyLevel;
 import static javafx.scene.text.Font.font;
 import static javafx.scene.text.Font.font;
 import static javafx.scene.text.Font.font;
@@ -27,10 +28,10 @@ import static javafx.scene.text.Font.font;
  *
  * @author binguyen.com
  */
-public class MenuState2 extends GameState {
-    private String[] options = {"Classic","Time Attack","Back to Main Menu"}; 
+public class MenuState3 extends GameState {
+    private String[] options = {"Easy","Normal","Hard","Expert","Back to Main Menu"}; 
     private int CurrentSelection = 0;
-    public MenuState2(GameStateManager gsm){
+    public MenuState3(GameStateManager gsm){
         super(gsm);
     }
     public void init() {
@@ -77,12 +78,16 @@ public class MenuState2 extends GameState {
         if(k == KeyEvent.VK_ENTER){
             //Start button 
             if(CurrentSelection == 0){
-                gsm.states.push(new ClassicLevel(gsm));
+                gsm.states.push(new EasyLevel(gsm));
             }
             else if(CurrentSelection == 1){
-                gsm.states.push(new MenuState3(gsm));
+                
             }
             else if (CurrentSelection == 2){
+            }
+            else if (CurrentSelection == 3){
+            }
+            else if (CurrentSelection == 4){
                 gsm.states.push(new MenuState(gsm));
             }
         }

@@ -97,7 +97,6 @@ public class Board extends JPanel implements ActionListener {
         
         snake.initSnake();
         food.locateFood(snake);
-
         timer = new Timer(20, this);
         timer.start();
     }
@@ -114,10 +113,8 @@ public class Board extends JPanel implements ActionListener {
     }
     
     private void doDrawing(Graphics g) throws Exception {
-        
         if (inGame) {
             g.drawImage(food.getIcon(), food.getPosX(), food.getPosY(), this);
-
             for (int z = 0; z < snake.getLength(); z++) {
                 if (z == 0) {
                     g.drawImage(snake.getHead(), snake.getX(z), snake.getY(z), this);
@@ -136,13 +133,11 @@ public class Board extends JPanel implements ActionListener {
             Toolkit.getDefaultToolkit().sync();
 
         } else {
-
             gameOver(g);
         }        
     }
 
     private void gameOver(Graphics g) throws Exception {
-        
         String msg = "Game Over";
         Font text = new Font("Berlin Sans FB Demi", Font.BOLD, 30);
         Font buttons = new Font("Berlin Sans FB Demi", 1, 24);
@@ -264,14 +259,11 @@ public class Board extends JPanel implements ActionListener {
     }
     
     private void checkCollision() {
-
         for (int z = snake.getLength(); z > 0; z--) {
-
             if ((z > 3) && (snake.getX(0) == snake.getX(z)) && (snake.getY(0) == snake.getY(z))) {
                 inGame = false;
             }
         }
-
         if (snake.getY(0) >= B_HEIGHT) {
             //inGame = false;
             snake.setY(0, 0);
@@ -373,7 +365,6 @@ public class Board extends JPanel implements ActionListener {
         }
         return counter;
     }
-    
     public ArrayList readFile() throws Exception {
         ArrayList<String> infos = new ArrayList<>(10);
         if (!inGame) {

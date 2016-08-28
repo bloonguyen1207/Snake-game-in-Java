@@ -16,16 +16,14 @@ import javax.swing.JFrame;
  */
 public class EasyGame extends JFrame{
     public EasyGame() {
-
         add(new GameBoardPanel(this));
         setResizable(false);
         pack();
         setTitle("Snake");
+        
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
-    
-
     public static void main(String[] args) {
         
         EventQueue.invokeLater(new Runnable() {

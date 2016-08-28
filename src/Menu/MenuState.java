@@ -48,8 +48,8 @@ public class MenuState extends GameState {
             else {
                 g.setColor(Color.WHITE);
             }
-            g.setFont(new Font("Arial",Font.PLAIN,30));
-            g.drawString(options[i],EasyBoard.B_WIDTH/2-50 , 100 + i*100); 
+            g.setFont(new Font("Berlin Sans FB Demi",Font.PLAIN,30));
+            g.drawString(options[i],GameBoardPanel.B_WIDTH/2-50 , 100 + i*100); 
         }
     }
 

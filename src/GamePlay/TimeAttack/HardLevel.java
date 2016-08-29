@@ -8,15 +8,17 @@ package GamePlay.TimeAttack;
 import Entity.DynamicObject.Mouse;
 import Entity.DynamicObject.Snakes;
 import Entity.StaticObject.Border;
+import static Entity.StaticObject.Border.setBorders;
 import Entity.StaticObject.ClassicFood;
 import Entity.StaticObject.Clock;
 import Entity.StaticObject.Heal;
 import Entity.StaticObject.ItemFactory;
 import Entity.StaticObject.StaticObject;
+import Entity.StaticObject.Border;
+import static Entity.StaticObject.Border.setBorders;
 import GamePlay.Classic.Board;
 import static GamePlay.Classic.Board.BLOCK_SIZE;
 import GamePlay.ClassicGame;
-import static GamePlay.TimeAttack.EasyBoard.B_WIDTH;
 import static GamePlay.TimeAttack.EasyBoard.foodsPos;
 import static GamePlay.TimeAttack.GameBoardPanel.B_HEIGHT;
 import static GamePlay.TimeAttack.GameBoardPanel.B_WIDTH;
@@ -51,7 +53,7 @@ import javax.swing.Timer;
  *
  * @author binguyen.com
  */
-public class EasyLevel extends GameState {
+public class HardLevel extends GameState {
 Snakes snake = Snakes.getInstance();
 ClassicFood classicfood= new ClassicFood();;
 Score time_score = new Score(new OperationAdd());
@@ -61,11 +63,14 @@ private String[] options = {"Replay","Menu"};
 private int CurrentSelection = 0;
 Clock clock; 
 
-    public EasyLevel(GameStateManager gsm) {
+    public HardLevel(GameStateManager gsm) {
         super(gsm);
         snake.initSnake();
         initMultiFood();
         clock = new Clock();
+//        timer = new Timer(20, (ActionListener) this);
+//        timer.start();
+        setAllBorders();
     }
     public void init() {
       
@@ -76,13 +81,16 @@ Clock clock;
     }
 
     public void doDrawing(Graphics g) {
-         if (inGame) {    
-        for (int i = 0; i < foodsPos.length; i++) {
+        if (inGame) {    
+            for (Border border : borders) {
+                border.drawBorder(g);
+            }
+            for (int i = 0; i < foodsPos.length; i++) {
                 if (foodsPos[i][0] > -1) {
                     multiFood[i].paintComponent(g);
                 }
             }
-         for (int i = 0; i < mice.size(); i++) {
+            for (int i = 0; i < mice.size(); i++) {
                     mice.get(i).paintComponent(g);
             }
         snake.paintComponent(g);
@@ -118,12 +126,11 @@ Clock clock;
             checkCollision();
             snake.autoMove();
             locateMice();
-            for (int i = 0; i < mice.size(); i++) {
+              for (int i = 0; i < mice.size(); i++) {
                 //mice.get(i).avoidSnake(snake);
-                mice.get(i).avoidOut();
-                mice.get(i).avoidBorder(borders);                
-                mice.get(i).autoMove();
-                
+                //mice.get(i).avoidOut();
+                //mice.get(i).avoidBorder(borders);
+                mice.get(i).autoMoveHard(borders);
             }
         }
     }
@@ -145,7 +152,7 @@ Clock clock;
         if(k == KeyEvent.VK_ENTER){
             //Start button 
             if(CurrentSelection == 0){
-                gsm.states.push(new EasyLevel(gsm));
+                gsm.states.push(new HardLevel(gsm));
             }
             else if(CurrentSelection == 1){
                   gsm.states.push(new MenuState(gsm));
@@ -153,31 +160,21 @@ Clock clock;
         }
     }
     public void checkCollision(){
-          for (int z = snake.getLength(); z > 0; z--) {
-            if ((z > 3) && (snake.getX(0) == snake.getX(z)) && (snake.getY(0) == snake.getY(z))) {
+             for (int z = snake.getLength(); z > 0; z--) {
+
+            if ((z > 4) && (snake.getX(0) == snake.getX(z)) && (snake.getY(0) == snake.getY(z))) {
                 inGame = false;
+                break;
             }
         }
-        if (snake.getY(0) >= GameBoardPanel.B_HEIGHT) {
-            //inGame = false;
-            snake.setY(0, 0);
-        }
 
-        if (snake.getY(0) < 0) {
-            //inGame = false;
-            snake.setY(0, GameBoardPanel.B_HEIGHT - BLOCK_SIZE);
+        for (Border border: borders) {
+            if (snake.getX(0) == border.getPosX() && snake.getY(0) == border.getPosY()) {
+                inGame = false;
+                break;
+            }
         }
-
-        if (snake.getX(0) >= GameBoardPanel.B_WIDTH) {
-            //inGame = false;
-            snake.setX(0, 0);
-        }
-
-        if (snake.getX(0) < 0) {
-            //inGame = false;
-            snake.setX(0, GameBoardPanel.B_WIDTH - BLOCK_SIZE);
-        }
-        
+                     
 //        if(!inGame) {
 //            timer.stop();
 //        }
@@ -429,6 +426,29 @@ Clock clock;
     }
     
     ArrayList<Border> borders = new ArrayList();
+     private void setAllBorders() {
+        borders = setBorders(borders, 0, GameBoardPanel.B_WIDTH, 0, 0);
+        borders = setBorders(borders, 0, GameBoardPanel.B_WIDTH, GameBoardPanel.B_HEIGHT - 20, GameBoardPanel.B_HEIGHT - 20);
+        borders = setBorders(borders, 0, 0, 0, GameBoardPanel.B_HEIGHT);  
+        borders = setBorders(borders, GameBoardPanel.B_WIDTH - 20, GameBoardPanel.B_WIDTH - 20, 0, GameBoardPanel.B_HEIGHT);
+      
+        borders = setBorders(borders, 260, 260, 20, 60);
+        
+        borders = setBorders(borders, 400, 400, 20, 60);
+        borders = setBorders(borders, 400, 440, 60, 60);
+        
+        borders = setBorders(borders, 700, 700, 20, 60);
+        
+        borders = setBorders(borders, 680, 680, 540, 580);
+        borders = setBorders(borders, 680, 720, 520, 520);
+        
+        borders = setBorders(borders, 280, 280, 540, 580);
+        
+        borders = setBorders(borders, 940, GameBoardPanel.B_WIDTH, 120, 120);
+        borders = setBorders(borders, 920, 920, 100, 140);        
+        
+        borders = setBorders(borders, 20, 60, 200, 200);
+    }
        
 
 }

@@ -40,7 +40,7 @@ public class Clock {
         // System.out.println(second);
         if (second >= 1) {
             sec += 1;
-            System.out.println("Duration: " + sec);
+            //System.out.println("Duration: " + sec);
             start = stop;
         }
     }

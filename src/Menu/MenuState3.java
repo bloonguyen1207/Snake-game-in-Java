@@ -5,7 +5,7 @@
  */
 package Menu;
 
-import GamePlay.EasyGame;
+import GamePlay.Game;
 import GamePlay.TimeAttack.EasyBoard;
 import GamePlay.TimeAttack.GameBoardPanel;
 import java.awt.Color;
@@ -16,8 +16,17 @@ import java.awt.event.KeyEvent;
 import static javafx.scene.text.Font.font;
 import static javafx.scene.text.Font.font;
 import GamePlay.ClassicGame;
-import GamePlay.TimeAttack.ClassicLevel;
+import GamePlay.Classic.ClassicLevel;
 import GamePlay.TimeAttack.EasyLevel;
+import GamePlay.TimeAttack.HardLevel;
+import static javafx.scene.text.Font.font;
+import static javafx.scene.text.Font.font;
+import static javafx.scene.text.Font.font;
+import static javafx.scene.text.Font.font;
+import static javafx.scene.text.Font.font;
+import static javafx.scene.text.Font.font;
+import static javafx.scene.text.Font.font;
+import static javafx.scene.text.Font.font;
 import static javafx.scene.text.Font.font;
 import static javafx.scene.text.Font.font;
 import static javafx.scene.text.Font.font;
@@ -84,6 +93,7 @@ public class MenuState3 extends GameState {
                 
             }
             else if (CurrentSelection == 2){
+                gsm.states.push(new HardLevel(gsm));
             }
             else if (CurrentSelection == 3){
             }

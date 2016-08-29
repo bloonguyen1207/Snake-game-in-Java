@@ -14,8 +14,8 @@ import javax.swing.JFrame;
  *
  * @author Bloo
  */
-public class EasyGame extends JFrame{
-    public EasyGame() {
+public class Game extends JFrame{
+    public Game() {
         add(new GameBoardPanel(this));
         setResizable(false);
         pack();
@@ -29,7 +29,7 @@ public class EasyGame extends JFrame{
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {                
-                JFrame ex = new EasyGame();
+                JFrame ex = new Game();
                 ex.setVisible(true);                
             }
         });

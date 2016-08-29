@@ -35,7 +35,7 @@ import Entity.StaticObject.Revert;
 import Entity.StaticObject.StaticObject;
 import Entity.StaticObject.TeaLeaf;
 import static GamePlay.Classic.Board.BLOCK_SIZE;
-import GamePlay.EasyGame;
+import GamePlay.Game;
 import Menu.GameStateManager;
 import Menu.Menu;
 import Score.OperationAdd;
@@ -48,6 +48,8 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import static java.lang.Thread.sleep;
+import static java.lang.Thread.sleep;
 import static java.lang.Thread.sleep;
 
 public class GameBoardPanel extends JPanel implements ActionListener {

@@ -3,13 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package GamePlay.TimeAttack;
+package GamePlay.Classic;
 
 import Entity.DynamicObject.Snakes;
 import Entity.StaticObject.ClassicFood;
 import GamePlay.Classic.Board;
 import static GamePlay.Classic.Board.BLOCK_SIZE;
 import GamePlay.ClassicGame;
+import GamePlay.TimeAttack.GameBoardPanel;
 import static GamePlay.TimeAttack.GameBoardPanel.B_HEIGHT;
 import static GamePlay.TimeAttack.GameBoardPanel.B_WIDTH;
 import Menu.GameState;

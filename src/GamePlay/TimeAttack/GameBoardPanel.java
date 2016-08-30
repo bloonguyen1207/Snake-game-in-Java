@@ -108,12 +108,14 @@ public class GameBoardPanel extends JPanel implements ActionListener {
         timer = new Timer(20, this);
         timer.start();
         gsm = new GameStateManager();
+        
         //setAllBorders();
     }
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         doDrawing(g);
+        gsm.paintComponent(g);
     }
     
     public void doDrawing(Graphics g) {

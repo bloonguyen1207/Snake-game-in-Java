@@ -58,8 +58,6 @@ private int CurrentSelection = 0;
         super(gsm);
         classicfood.locateFood(snake);
         snake.initSnake();
-//        timer = new Timer(20,this);
-//        timer.start();
     }
     public void init() {
       

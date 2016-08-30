@@ -19,6 +19,9 @@ import GamePlay.ClassicGame;
 import GamePlay.Classic.ClassicLevel;
 import GamePlay.TimeAttack.EasyLevel;
 import GamePlay.TimeAttack.HardLevel;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Toolkit;
 import static javafx.scene.text.Font.font;
 import static javafx.scene.text.Font.font;
 import static javafx.scene.text.Font.font;
@@ -48,8 +51,12 @@ public class MenuState3 extends GameState {
     }
 
     public void paintComponent(Graphics g) {
+         Graphics2D g1 = (Graphics2D) g;
+        Image img1 = Toolkit.getDefaultToolkit().getImage("res\\Menu\\snake.png");
+        g1.drawImage(img1,GameBoardPanel.B_WIDTH/2-110,50,null);
         
     }
+    
 
     
     public void doDrawing(Graphics g) {
@@ -63,7 +70,7 @@ public class MenuState3 extends GameState {
                 g.setColor(Color.WHITE);
             }
             g.setFont(new Font("Berlin Sans FB Demi",Font.PLAIN,30));
-            g.drawString(options[i],EasyBoard.B_WIDTH/2-50 , 100 + i*100); 
+            g.drawString(options[i],GameBoardPanel.B_WIDTH/2-50, 250 + i*80); 
         }
     }
 

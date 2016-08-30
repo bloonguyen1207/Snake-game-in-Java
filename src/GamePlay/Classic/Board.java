@@ -27,7 +27,6 @@ import Entity.DynamicObject.Snakes;
 import Entity.StaticObject.ClassicFood;
 import GamePlay.ClassicGame;
 import Menu.Menu;
-import Player.Player;
 import Score.OperationAdd;
 import Score.Score;
 import java.awt.Image;
@@ -47,7 +46,6 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 public class Board extends JPanel implements ActionListener {

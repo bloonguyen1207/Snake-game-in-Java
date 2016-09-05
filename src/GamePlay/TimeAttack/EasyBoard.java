@@ -27,6 +27,7 @@ import Entity.DynamicObject.Snakes;
 import Entity.StaticObject.Coffee;
 import Entity.StaticObject.Apple;
 import Entity.StaticObject.Border;
+import Entity.StaticObject.Clock;
 import static Entity.StaticObject.Border.setBorders;
 import Entity.StaticObject.Heal;
 import Entity.StaticObject.ItemFactory;
@@ -34,14 +35,20 @@ import Entity.StaticObject.Revert;
 import Entity.StaticObject.StaticObject;
 import Entity.StaticObject.TeaLeaf;
 import static GamePlay.Classic.Board.BLOCK_SIZE;
-import GamePlay.EasyGame;
+import GamePlay.Game;
+import Menu.GameStateManager;
 import Menu.Menu;
 import Score.OperationAdd;
 import Score.Score;
 import java.awt.Toolkit;
+import static java.lang.Thread.sleep;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import static java.lang.Thread.sleep;
 
 public class EasyBoard extends JPanel implements ActionListener {
 
@@ -53,6 +60,7 @@ public class EasyBoard extends JPanel implements ActionListener {
 //    private final int RAND_POS_Y = 29;
     Score time_score = new Score(new OperationAdd());
     public JFrame Game;
+    
 
 //    private final int x[] = new int[ALL_DOTS];
 //    private final int y[] = new int[ALL_DOTS];
@@ -68,6 +76,10 @@ public class EasyBoard extends JPanel implements ActionListener {
     private boolean inGame = true;
 
     private Timer timer;
+    // private long start = System.currentTimeMillis();
+    Clock clock; 
+    private GameStateManager gsm;
+    
     
 //fixed
     Snakes snake = Snakes.getInstance();
@@ -87,7 +99,6 @@ public class EasyBoard extends JPanel implements ActionListener {
     }
 
     private void initGame() {
-
         //dots = 3;
 
         //for (int z = 0; z < dots; z++) {
@@ -98,18 +109,22 @@ public class EasyBoard extends JPanel implements ActionListener {
         initMultiFood();
         timer = new Timer(20, this);
         timer.start();
+//        Timer t = new Timer(1000,new Listener());        
+//        t.start();
+        //TimeClock();
+        clock = new Clock();
+        gsm = new GameStateManager();
         //setAllBorders();
     }
-
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         doDrawing(g);
     }
     
-    private void doDrawing(Graphics g) {
+    public void doDrawing(Graphics g) {
+        gsm.doDrawing(g);
         if (inGame) {
-            
             for (int i = 0; i < foodsPos.length; i++) {
                 if (foodsPos[i][0] > -1) {
                     multiFood[i].paintComponent(g);
@@ -129,14 +144,19 @@ public class EasyBoard extends JPanel implements ActionListener {
             g.setFont(small);
             g.drawString(score, 10, 30);
             
+            String time = "Time: " + Integer.toString(clock.getSec());
+            
+            g.setColor(Color.black);
+            g.setFont(small);
+            g.drawString(time, B_WIDTH-(metr.stringWidth(time) + 20), 30);
+            
             Toolkit.getDefaultToolkit().sync();
         } else {
             gameOver(g);
         }        
     }
 
-    private void gameOver(Graphics g) {
-        
+    public void gameOver(Graphics g) {
         String msg = "Game Over";
         Font small = new Font("Berlin Sans FB Demi", Font.BOLD, 30);
         FontMetrics metr = getFontMetrics(small);
@@ -187,23 +207,24 @@ public class EasyBoard extends JPanel implements ActionListener {
         MenuButton.setBounds((B_WIDTH - metr.stringWidth(msg)) / 2 - 20, B_HEIGHT / 2 + 100, 200, 59);
     }
     
-    private void ReplayButtonActionPerformed(ActionEvent evt) {                                            
+    public void ReplayButtonActionPerformed(ActionEvent evt) {                                            
         // TODO add your handling code here:
-        EasyGame newGame = new EasyGame();
+        Game newGame = new Game();
         newGame.setVisible(true);
-        this.getContainer().setVisible(false);
-                      
+        this.getContainer().setVisible(false);               
     }
     
-    private void MenuButtonActionPerformed(ActionEvent evt) {                                            
+    public void MenuButtonActionPerformed(ActionEvent evt) {                                            
         // TODO add your handling code here:
         Menu mainMenu = new Menu();
         mainMenu.setVisible(true);
         this.getContainer().setVisible(false);
+       
     }
 
-    private void checkFood() {                
+    public void checkFood() {                
         //collision with multifood
+       
         for (int j = 0; j < foodsPos.length; j++) {
             if (snake.getX(0) == foodsPos[j][0] && snake.getY(0) == foodsPos[j][1]) {
                 foodOnScreen -= 1;
@@ -232,8 +253,8 @@ public class EasyBoard extends JPanel implements ActionListener {
         }
     }
     
-    private void checkCollision() {
-
+    public void checkCollision() {
+      
         for (int z = snake.getLength(); z > 0; z--) {
 
             if ((z > 3) && (snake.getX(0) == snake.getX(z)) && (snake.getY(0) == snake.getY(z))) {
@@ -268,12 +289,18 @@ public class EasyBoard extends JPanel implements ActionListener {
                      
     @Override
     public void actionPerformed(ActionEvent e) {
+        gsm.actionPerformed(e);
         if (inGame) {
-
+            clock.getTime();
+            int count = clock.getSec();
+            if(count > 60){
+                inGame = false;
+            }
             checkFood();
             checkCollision();
             snake.autoMove();
             locateMice();
+        
             for (int i = 0; i < mice.size(); i++) {
                 //mice.get(i).avoidSnake(snake);
                 mice.get(i).avoidOut();
@@ -287,12 +314,10 @@ public class EasyBoard extends JPanel implements ActionListener {
     }
     
     private class TAdapter extends KeyAdapter {
-
         @Override
         public void keyPressed(KeyEvent e) {
-
             int key = e.getKeyCode();
-            
+//            gsm.keyPressed(e);
             if ((key == KeyEvent.VK_LEFT) && (
                     (!snake.isRightDirection() && !snake.isIsRevert())
                     || (snake.isIsRevert() && !snake.isLeftDirection()))) {
@@ -344,7 +369,8 @@ public class EasyBoard extends JPanel implements ActionListener {
     public static int[][] foodsPos;
     private int awardMouse = 1;
     
-    private void initMultiFood() {
+    public void initMultiFood() {
+       
         this.foodOnScreen = 0;
         this.fIndex = 0;
         this.fSet = 0;
@@ -358,7 +384,8 @@ public class EasyBoard extends JPanel implements ActionListener {
         }
     }
     
-    private void locateMice() {
+    public void locateMice() {
+      
         //System.out.println(awardMouse);
         //System.out.println(SCORE);
         if (time_score.getScore() >= 10 * awardMouse) {
@@ -369,7 +396,7 @@ public class EasyBoard extends JPanel implements ActionListener {
         }
     }
     
-    private void locateMultiFood() {
+    public void locateMultiFood() {
         if (foodOnScreen < totalFood) {
             foodOnScreen += 1;
             int r = (int) (Math.random() * 5);

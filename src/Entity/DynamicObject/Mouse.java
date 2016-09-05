@@ -29,10 +29,10 @@ public class Mouse extends DynamicObject{
     private boolean isChanged = false;
     
     public Mouse() {
-        leftImage = loadImage(leftImage, "res\\Items\\black-mouse-left.png");
-        downImage = loadImage(downImage, "res\\Items\\black-mouse.png");
-        upImage = loadImage(upImage, "res\\Items\\black-mouse-up.png");
-        icon = loadImage(icon, "res\\Items\\black-mouse-right.png");
+        leftImage = loadImage(leftImage, "res\\Items\\mouse-left.png");
+        downImage = loadImage(downImage, "res\\Items\\mouse.png");
+        upImage = loadImage(upImage, "res\\Items\\mouse-up.png");
+        icon = loadImage(icon, "res\\Items\\mouse-right.png");
         previousTime = System.currentTimeMillis();
         preTimeDirection = System.currentTimeMillis();
         point = 5;

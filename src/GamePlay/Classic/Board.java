@@ -27,21 +27,25 @@ import Entity.DynamicObject.Snakes;
 import Entity.StaticObject.ClassicFood;
 import GamePlay.ClassicGame;
 import Menu.Menu;
-import Player.Player;
 import Score.OperationAdd;
 import Score.Score;
 import java.awt.Image;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 public class Board extends JPanel implements ActionListener {
@@ -52,24 +56,13 @@ public class Board extends JPanel implements ActionListener {
     private static Scanner readFiles;
     private static FileWriter output;
     private static BufferedWriter writeFiles;
+    private static AudioInputStream sound;
     public static final int BLOCK_SIZE = 20;
     public static final int LENGTH = B_WIDTH * B_HEIGHT / BLOCK_SIZE / BLOCK_SIZE;
-//    private final int RAND_POS_X = 49;
-//    private final int RAND_POS_Y = 29;
+    
     Score classic_score = new Score(new OperationAdd());
     public JFrame Game;
 
-//    private final int x[] = new int[LENGTH];
-//    private final int y[] = new int[LENGTH];
-
-//    private int dots;
-//    private int food_x;
-//    private int food_y;
-
-//    private boolean leftDirection = false;
-//    private boolean rightDirection = true;
-//    private boolean upDirection = false;
-//    private boolean downDirection = false;
     private boolean inGame = true;
 
     private Timer timer;
@@ -97,7 +90,6 @@ public class Board extends JPanel implements ActionListener {
         
         snake.initSnake();
         food.locateFood(snake);
-
         timer = new Timer(20, this);
         timer.start();
     }
@@ -114,10 +106,8 @@ public class Board extends JPanel implements ActionListener {
     }
     
     private void doDrawing(Graphics g) throws Exception {
-        
         if (inGame) {
             g.drawImage(food.getIcon(), food.getPosX(), food.getPosY(), this);
-
             for (int z = 0; z < snake.getLength(); z++) {
                 if (z == 0) {
                     g.drawImage(snake.getHead(), snake.getX(z), snake.getY(z), this);
@@ -133,16 +123,16 @@ public class Board extends JPanel implements ActionListener {
             g.setFont(small);
             g.drawString(score, 10, 30);
             
+            String h = "Head x: " + Integer.toString(snake.getX(0)) + " - y:" + Integer.toString(snake.getY(0));
+            g.drawString(h, B_WIDTH - metr.stringWidth(h) - 20, 30);
             Toolkit.getDefaultToolkit().sync();
 
         } else {
-
             gameOver(g);
         }        
     }
 
     private void gameOver(Graphics g) throws Exception {
-        
         String msg = "Game Over";
         Font text = new Font("Berlin Sans FB Demi", Font.BOLD, 30);
         Font buttons = new Font("Berlin Sans FB Demi", 1, 24);
@@ -254,8 +244,17 @@ public class Board extends JPanel implements ActionListener {
         this.getContainer().setVisible(false);
     }
 
-    private void checkFood() {
+    private void checkFood() throws UnsupportedAudioFileException, IOException {
         if ((snake.getX(0) == food.posX) && (snake.getY(0) == food.posY)) {
+            sound = AudioSystem.getAudioInputStream(new File("res/sound/eat.wav").getAbsoluteFile());
+            Clip clip;
+            try {
+                clip = AudioSystem.getClip();
+                clip.open(sound);
+                clip.start();
+            } catch (LineUnavailableException ex) {
+                Logger.getLogger(Board.class.getName()).log(Level.SEVERE, null, ex);
+            }
             snake.setLength(snake.getLength() + 1);
             classic_score.executeStrategy(food.point);            
             snake.setSpeed(snake.getSpeed() + food.specialEffect(snake));
@@ -264,14 +263,11 @@ public class Board extends JPanel implements ActionListener {
     }
     
     private void checkCollision() {
-
         for (int z = snake.getLength(); z > 0; z--) {
-
             if ((z > 3) && (snake.getX(0) == snake.getX(z)) && (snake.getY(0) == snake.getY(z))) {
                 inGame = false;
             }
         }
-
         if (snake.getY(0) >= B_HEIGHT) {
             //inGame = false;
             snake.setY(0, 0);
@@ -309,7 +305,11 @@ public class Board extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (inGame) {
-            checkFood();
+            try {
+                checkFood();
+            } catch (UnsupportedAudioFileException | IOException ex) {
+                Logger.getLogger(Board.class.getName()).log(Level.SEVERE, null, ex);
+            }
             checkCollision();
             snake.autoMove();
         }
@@ -373,7 +373,6 @@ public class Board extends JPanel implements ActionListener {
         }
         return counter;
     }
-    
     public ArrayList readFile() throws Exception {
         ArrayList<String> infos = new ArrayList<>(10);
         if (!inGame) {

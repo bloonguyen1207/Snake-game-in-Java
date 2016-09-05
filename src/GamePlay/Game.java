@@ -6,6 +6,7 @@
 package GamePlay;
 
 import GamePlay.TimeAttack.EasyBoard;
+import GamePlay.TimeAttack.GameBoardPanel;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 
@@ -13,25 +14,22 @@ import javax.swing.JFrame;
  *
  * @author Bloo
  */
-public class EasyGame extends JFrame{
-    public EasyGame() {
-
-        add(new EasyBoard(this));
+public class Game extends JFrame{
+    public Game() {
+        add(new GameBoardPanel(this));
         setResizable(false);
         pack();
-        
         setTitle("Snake");
+        
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
-    
-
     public static void main(String[] args) {
         
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {                
-                JFrame ex = new EasyGame();
+                JFrame ex = new Game();
                 ex.setVisible(true);                
             }
         });

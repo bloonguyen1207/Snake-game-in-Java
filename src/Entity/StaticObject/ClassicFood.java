@@ -6,9 +6,8 @@
 package Entity.StaticObject;
 
 import Entity.DynamicObject.Snakes;
-import static GamePlay.Classic.Board.BLOCK_SIZE;
+import static GamePlay.TimeAttack.GameBoardPanel.BLOCK_SIZE;
 import java.awt.Graphics;
-import java.awt.event.ActionEvent;
 
 /**
  *
@@ -19,7 +18,6 @@ public class ClassicFood extends StaticObject {
         point = 1;
         icon = loadImage(icon, "res\\Items\\dota.png");
     }
-    
     public void locateFood(Snakes snake) {
         boolean isCorrect = false;   
         while (!isCorrect) {
@@ -43,7 +41,6 @@ public class ClassicFood extends StaticObject {
             
         }            
     }
-    
     @Override
     public int specialEffect(Snakes snake) {
         if (snake.getSpeed() < 200) {
@@ -51,7 +48,6 @@ public class ClassicFood extends StaticObject {
         }
         return 0;
     }
-    
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);

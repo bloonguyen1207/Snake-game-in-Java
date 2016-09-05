@@ -41,6 +41,7 @@ import Menu.Menu;
 import Score.OperationAdd;
 import Score.Score;
 import java.awt.Toolkit;
+import java.io.IOException;
 import static java.lang.Thread.sleep;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -49,6 +50,9 @@ import java.util.GregorianCalendar;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import static java.lang.Thread.sleep;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class EasyBoard extends JPanel implements ActionListener {
 
@@ -208,10 +212,14 @@ public class EasyBoard extends JPanel implements ActionListener {
     }
     
     public void ReplayButtonActionPerformed(ActionEvent evt) {                                            
-        // TODO add your handling code here:
-        Game newGame = new Game();
-        newGame.setVisible(true);
-        this.getContainer().setVisible(false);               
+        try {
+            // TODO add your handling code here:
+            Game newGame = new Game();
+            newGame.setVisible(true);               
+            this.getContainer().setVisible(false);
+        } catch (UnsupportedAudioFileException | IOException ex) {
+            Logger.getLogger(EasyBoard.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public void MenuButtonActionPerformed(ActionEvent evt) {                                            

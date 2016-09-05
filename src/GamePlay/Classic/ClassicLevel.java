@@ -7,38 +7,31 @@ package GamePlay.Classic;
 
 import Entity.DynamicObject.Snakes;
 import Entity.StaticObject.ClassicFood;
-import GamePlay.Classic.Board;
 import static GamePlay.Classic.Board.BLOCK_SIZE;
-import GamePlay.ClassicGame;
 import GamePlay.TimeAttack.GameBoardPanel;
 import static GamePlay.TimeAttack.GameBoardPanel.B_HEIGHT;
 import static GamePlay.TimeAttack.GameBoardPanel.B_WIDTH;
 import Menu.GameState;
 import Menu.GameStateManager;
-import Menu.Menu;
 import Menu.MenuState;
-import Menu.MenuState2;
 import Score.OperationAdd;
 import Score.Score;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JTextField;
 import javax.swing.Timer;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 /**
  *
@@ -52,142 +45,158 @@ private boolean inGame = true;
 private Timer timer;
 private String[] options = {"Replay","Menu"}; 
 private int CurrentSelection = 0;
+private static AudioInputStream sound;
 
 
-    public ClassicLevel(GameStateManager gsm) {
-        super(gsm);
-        classicfood.locateFood(snake);
-        snake.initSnake();
-    }
-    public void init() {
-      
-    }
- 
-    public void paintComponent(Graphics g) {
+public ClassicLevel(GameStateManager gsm) {
+    super(gsm);
+    classicfood.locateFood(snake);
+    snake.initSnake();
+}
+public void init() {
 
-    }
+}
 
-    public void doDrawing(Graphics g) {
-         if (inGame) {
-        classicfood.paintComponent(g);
-        snake.paintComponent(g);
-        //gameover.doDrawing(g);
-        String score = "Score: " + Integer.toString(classic_score.getScore());
-        Font small = new Font("Berlin Sans FB Demi", Font.BOLD, 30);
-            //FontMetrics metr = getFontMetrics(small);
-        g.setColor(Color.black);
-        g.setFont(small);
-        g.drawString(score, 10, 30);
-         }
-         else{
-             gameOver(g);
+public void paintComponent(Graphics g) {
+
+}
+
+public void doDrawing(Graphics g) {
+     if (inGame) {
+    classicfood.paintComponent(g);
+    snake.paintComponent(g);
+    //gameover.doDrawing(g);
+    String score = "Score: " + Integer.toString(classic_score.getScore());
+    Font small = new Font("Berlin Sans FB Demi", Font.BOLD, 30);
+        //FontMetrics metr = getFontMetrics(small);
+    g.setColor(Color.black);
+    g.setFont(small);
+    g.drawString(score, 10, 30);
+     }
+     else{
+         gameOver(g);
 //             gsm.states.push(new MenuState2(gsm));
-         }
-            
+     }
 
-    }
-    public void actionPerformed(ActionEvent e) {
-        if(inGame){
-          snake.autoMove();
-          checkCollision();
-          checkFood();
-        }
-    }
-    public void keyPressed(KeyEvent e) {
-        snake.keyPressed(e); 
-        int k = e.getKeyCode();
-        if(k == KeyEvent.VK_DOWN){
-            CurrentSelection++;
-            if (CurrentSelection >= options.length){
-                CurrentSelection = 0;
-            }
-    }
-        else if (k == KeyEvent.VK_UP){
-            CurrentSelection--;
-            if (CurrentSelection <0){
-                CurrentSelection = options.length-1;
-            }
-        }
-        if(k == KeyEvent.VK_ENTER){
-            //Start button 
-            if(CurrentSelection == 0){
-                gsm.states.push(new ClassicLevel(gsm));
-            }
-            else if(CurrentSelection == 1){
-                  gsm.states.push(new MenuState(gsm));
-            }
+
+}
+public void actionPerformed(ActionEvent e) {
+    if(inGame){
+        snake.autoMove();
+        checkCollision();
+        try {
+            checkFood();
+        } catch (UnsupportedAudioFileException | IOException ex) {
+            Logger.getLogger(ClassicLevel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public void checkCollision(){
-          for (int z = snake.getLength(); z > 0; z--) {
-            if ((z > 3) && (snake.getX(0) == snake.getX(z)) && (snake.getY(0) == snake.getY(z))) {
-                inGame = false;
-            }
+}
+public void keyPressed(KeyEvent e) {
+    snake.keyPressed(e); 
+    int k = e.getKeyCode();
+    if(k == KeyEvent.VK_DOWN){
+        CurrentSelection++;
+        if (CurrentSelection >= options.length){
+            CurrentSelection = 0;
         }
-        if (snake.getY(0) >= B_HEIGHT) {
-            //inGame = false;
-            snake.setY(0, 0);
+}
+    else if (k == KeyEvent.VK_UP){
+        CurrentSelection--;
+        if (CurrentSelection <0){
+            CurrentSelection = options.length-1;
         }
+    }
+    if(k == KeyEvent.VK_ENTER){
+        //Start button 
+        if(CurrentSelection == 0){
+            gsm.states.push(new ClassicLevel(gsm));
+        }
+        else if(CurrentSelection == 1){
+              gsm.states.push(new MenuState(gsm));
+        }
+    }
+}
+public void checkCollision(){
+      for (int z = snake.getLength(); z > 0; z--) {
+        if ((z > 3) && (snake.getX(0) == snake.getX(z)) && (snake.getY(0) == snake.getY(z))) {
+            inGame = false;
+        }
+    }
+    if (snake.getY(0) >= B_HEIGHT) {
+        //inGame = false;
+        snake.setY(0, 0);
+    }
 
-        if (snake.getY(0) < 0) {
-            //inGame = false;
-            snake.setY(0, B_HEIGHT - BLOCK_SIZE);
-        }
+    if (snake.getY(0) < 0) {
+        //inGame = false;
+        snake.setY(0, B_HEIGHT - BLOCK_SIZE);
+    }
 
-        if (snake.getX(0) >= B_WIDTH) {
-            //inGame = false;
-            snake.setX(0, 0);
-        }
+    if (snake.getX(0) >= B_WIDTH) {
+        //inGame = false;
+        snake.setX(0, 0);
+    }
 
-        if (snake.getX(0) < 0) {
-            //inGame = false;
-            snake.setX(0, B_WIDTH - BLOCK_SIZE);
-        }
-        
+    if (snake.getX(0) < 0) {
+        //inGame = false;
+        snake.setX(0, B_WIDTH - BLOCK_SIZE);
+    }
+
 //        if(!inGame) {
 //            timer.stop();
 //        }
-    }
-    private void checkFood() {
-        if ((snake.getX(0) == classicfood.posX) && (snake.getY(0) == classicfood.posY)) {
-            snake.setLength(snake.getLength() + 1);
-            classic_score.executeStrategy(classicfood.point);            
-            snake.setSpeed(snake.getSpeed() + classicfood.specialEffect(snake));
-            classicfood.locateFood(snake);
+}
+private void checkFood() throws UnsupportedAudioFileException, IOException {
+    if ((snake.getX(0) == classicfood.posX) && (snake.getY(0) == classicfood.posY)) {
+        sound = AudioSystem.getAudioInputStream(new File("res/sound/eat.wav").getAbsoluteFile());
+        Clip clip;
+        try {
+            clip = AudioSystem.getClip();
+            clip.open(sound);
+            clip.start();
+        } catch (LineUnavailableException ex) {
+            Logger.getLogger(Board.class.getName()).log(Level.SEVERE, null, ex);
         }
+        snake.setLength(snake.getLength() + 1);
+        classic_score.executeStrategy(classicfood.point);            
+        snake.setSpeed(snake.getSpeed() + classicfood.specialEffect(snake));
+        classicfood.locateFood(snake);
     }
-    public void Over(Graphics g){
-        String msg = "Game Over";
-        Font text = new Font("Berlin Sans FB Demi", Font.BOLD, 30);
-        Font buttons = new Font("Berlin Sans FB Demi", 1, 24);
-        FontMetrics metr = g.getFontMetrics(text);
+}
+public void Over(Graphics g){
+    String msg = "Game Over";
+    Font text = new Font("Berlin Sans FB Demi", Font.BOLD, 30);
+    Font buttons = new Font("Berlin Sans FB Demi", 1, 24);
+    FontMetrics metr = g.getFontMetrics(text);
 
-        g.setColor(Color.orange);
-        g.setFont(text);
-        g.drawString(msg, (B_WIDTH - metr.stringWidth(msg)) / 2, B_HEIGHT / 2 - 150);
-        
-        String score = "Score: " + Integer.toString(classic_score.getScore());
+    g.setColor(Color.orange);
+    g.setFont(text);
+    g.drawString(msg, (B_WIDTH - metr.stringWidth(msg)) / 2, B_HEIGHT / 2 - 150);
 
-        g.setColor(Color.WHITE);
-        g.setFont(text);
-        g.drawString(score, (B_WIDTH - metr.stringWidth(msg)) / 2 + 20, B_HEIGHT / 2 - 90);
-        
-    }
-        private void gameOver(Graphics g){
-        Over(g);
-        g.setColor(new Color(7, 123, 83));
-        g.fillRect(0, 0, GameBoardPanel.B_WIDTH, GameBoardPanel.B_HEIGHT);
-        for (int i = 0; i < options.length;i++){
-            if(i == CurrentSelection){
-                g.setColor(Color.YELLOW);
-            }
-            else {
-                g.setColor(Color.WHITE);
-            }
-            g.setFont(new Font("Berlin Sans FB Demi",Font.PLAIN,30));
-            g.drawString(options[i],B_WIDTH/2-50 , 300 + i*100); 
+    String score = "Score: " + Integer.toString(classic_score.getScore());
+
+    g.setColor(Color.WHITE);
+    g.setFont(text);
+    g.drawString(score, (B_WIDTH - metr.stringWidth(msg)) / 2 + 20, B_HEIGHT / 2 - 90);
+
+}
+private void gameOver(Graphics g){
+    Over(g);
+    g.setColor(new Color(7, 123, 83));
+    g.fillRect(0, 0, GameBoardPanel.B_WIDTH, GameBoardPanel.B_HEIGHT);
+    for (int i = 0; i < options.length;i++){
+        if(i == CurrentSelection){
+            g.setColor(Color.YELLOW);
         }
-        
+        else {
+            g.setColor(Color.WHITE);
+        }
+        g.setFont(new Font("Berlin Sans FB Demi",Font.PLAIN,30));
+        g.drawString(options[i],B_WIDTH/2-50 , 300 + i*100); 
+    }
+}
+
+
 //        if (newHighScore() > -1) {
 //            JTextField name = new JTextField(10);
 //            name.setBackground(new Color(255, 204, 0));
@@ -306,7 +315,3 @@ private int CurrentSelection = 0;
 //        }
 //        return counter;
 //    }
-
-    
-
-}

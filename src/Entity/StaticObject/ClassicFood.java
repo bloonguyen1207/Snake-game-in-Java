@@ -43,8 +43,8 @@ public class ClassicFood extends StaticObject {
     }
     @Override
     public int specialEffect(Snakes snake) {
-        if (snake.getSpeed() < 200) {
-            return 1;    
+        if (snake.getSpeed() > 10) {
+            return 5;    
         }
         return 0;
     }

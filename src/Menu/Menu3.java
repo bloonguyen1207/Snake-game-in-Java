@@ -12,6 +12,10 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -135,10 +139,14 @@ public class Menu3 extends javax.swing.JFrame {
     } 
 
     private void EasyButtonActionPerformed(java.awt.event.ActionEvent evt) { 
-        // TODO add your handling code here:
-        Game s = new Game();
-        s.setVisible(true);
-        setVisible(false);
+        try {
+            // TODO add your handling code here:
+            Game s = new Game();
+            s.setVisible(true);
+            setVisible(false);
+        } catch (UnsupportedAudioFileException | IOException ex) {
+            Logger.getLogger(Menu3.class.getName()).log(Level.SEVERE, null, ex);
+        }
     } 
 
     private void HardButtonActionPerformed(java.awt.event.ActionEvent evt) { 

@@ -9,11 +9,8 @@ package GamePlay.TimeAttack;
  *
  * @author Bloo
  */
-import Entity.DynamicObject.Mouse;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,33 +21,22 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import Entity.DynamicObject.Snakes;
-import Entity.StaticObject.Coffee;
-import Entity.StaticObject.Apple;
-import Entity.StaticObject.Border;
-import Entity.StaticObject.Clock;
-import static Entity.StaticObject.Border.setBorders;
-import Entity.StaticObject.Heal;
-import Entity.StaticObject.ItemFactory;
-import Entity.StaticObject.Revert;
-import Entity.StaticObject.StaticObject;
-import Entity.StaticObject.TeaLeaf;
-import static GamePlay.Classic.Board.BLOCK_SIZE;
-import GamePlay.Game;
+import GamePlay.Classic.Board;
 import Menu.GameStateManager;
-import Menu.Menu;
 import Score.OperationAdd;
 import Score.Score;
-import java.awt.Toolkit;
-import static java.lang.Thread.sleep;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import javax.swing.JButton;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JFrame;
-import static java.lang.Thread.sleep;
-import static java.lang.Thread.sleep;
-import static java.lang.Thread.sleep;
+
+
 
 public class GameBoardPanel extends JPanel implements ActionListener {
 
@@ -77,6 +63,7 @@ public class GameBoardPanel extends JPanel implements ActionListener {
 //    private boolean upDirection = false;
 //    private boolean downDirection = false;
     private boolean inGame = true;
+    private static AudioInputStream bgMusic;
 
     private Timer timer;
     // private long start = System.currentTimeMillis();
@@ -87,14 +74,19 @@ public class GameBoardPanel extends JPanel implements ActionListener {
 //fixed
     Snakes snake = Snakes.getInstance();
     
-    public GameBoardPanel(JFrame Game) {
+    public GameBoardPanel(JFrame Game){
         this.Game = Game;
         addKeyListener(new TAdapter());
         setBackground(new Color(7, 123, 83));
         setFocusable(true);
-
         setPreferredSize(new Dimension(B_WIDTH, B_HEIGHT));
         initGame();
+        try {
+            playBackgroundMusic();
+        } catch (UnsupportedAudioFileException | IOException ex) {
+            Logger.getLogger(GameBoardPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
     
     public JFrame getContainer() {
@@ -163,5 +155,17 @@ public class GameBoardPanel extends JPanel implements ActionListener {
     public void locateMultiFood() {
     }
     
+    public static void playBackgroundMusic() throws UnsupportedAudioFileException, IOException {
+        bgMusic = AudioSystem.getAudioInputStream(new File("res/sound/background.wav").getAbsoluteFile());
+        Clip clip;
+        try {
+            clip = AudioSystem.getClip();
+            clip.open(bgMusic);
+            clip.start();
+            clip.loop(100);
+        } catch (LineUnavailableException ex) {
+            Logger.getLogger(Board.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
 

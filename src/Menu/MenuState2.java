@@ -6,7 +6,6 @@
 package Menu;
 
 import GamePlay.Game;
-import GamePlay.TimeAttack.EasyBoard;
 import GamePlay.TimeAttack.GameBoardPanel;
 import java.awt.Color;
 import java.awt.Font;
@@ -15,7 +14,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import static javafx.scene.text.Font.font;
 import static javafx.scene.text.Font.font;
-import GamePlay.ClassicGame;
 import GamePlay.Classic.ClassicLevel;
 import java.awt.Graphics2D;
 import java.awt.Image;

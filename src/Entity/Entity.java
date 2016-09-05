@@ -14,7 +14,7 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.Timer;
-import static GamePlay.Classic.Board.BLOCK_SIZE;
+import static GamePlay.TimeAttack.GameBoardPanel.BLOCK_SIZE;
 import java.awt.Graphics;
 import java.awt.event.ActionListener;
 import javax.swing.JPanel;

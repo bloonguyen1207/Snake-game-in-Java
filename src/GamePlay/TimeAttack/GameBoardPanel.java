@@ -21,7 +21,7 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import Entity.DynamicObject.Snakes;
-import GamePlay.Classic.Board;
+import GamePlay.Classic.ClassicLevel;
 import Menu.GameStateManager;
 import Score.OperationAdd;
 import Score.Score;
@@ -164,7 +164,7 @@ public class GameBoardPanel extends JPanel implements ActionListener {
             clip.start();
             clip.loop(100);
         } catch (LineUnavailableException ex) {
-            Logger.getLogger(Board.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ClassicLevel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

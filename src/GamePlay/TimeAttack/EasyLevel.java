@@ -13,16 +13,11 @@ import Entity.StaticObject.Clock;
 import Entity.StaticObject.Heal;
 import Entity.StaticObject.ItemFactory;
 import Entity.StaticObject.StaticObject;
-import GamePlay.Classic.Board;
-import static GamePlay.Classic.Board.BLOCK_SIZE;
-import GamePlay.ClassicGame;
-import static GamePlay.TimeAttack.EasyBoard.B_WIDTH;
-import static GamePlay.TimeAttack.EasyBoard.foodsPos;
+import static GamePlay.TimeAttack.GameBoardPanel.*;
 import static GamePlay.TimeAttack.GameBoardPanel.B_HEIGHT;
 import static GamePlay.TimeAttack.GameBoardPanel.B_WIDTH;
 import Menu.GameState;
 import Menu.GameStateManager;
-import Menu.Menu;
 import Menu.MenuState;
 import Menu.MenuState2;
 import Score.OperationAdd;
@@ -153,7 +148,7 @@ Clock clock;
         }
     }
     public void checkCollision(){
-          for (int z = snake.getLength(); z > 0; z--) {
+        for (int z = snake.getLength(); z > 0; z--) {
             if ((z > 3) && (snake.getX(0) == snake.getX(z)) && (snake.getY(0) == snake.getY(z))) {
                 inGame = false;
             }
@@ -182,6 +177,7 @@ Clock clock;
 //            timer.stop();
 //        }
     }
+    
     private void checkFood() {
          for (int j = 0; j < foodsPos.length; j++) {
             if (snake.getX(0) == foodsPos[j][0] && snake.getY(0) == foodsPos[j][1]) {

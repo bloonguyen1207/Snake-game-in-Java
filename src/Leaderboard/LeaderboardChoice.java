@@ -10,7 +10,6 @@ package Leaderboard;
  * @author Bloo
  */
 
-import Menu.Menu;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -117,9 +116,9 @@ public class LeaderboardChoice extends JFrame {
     
     private void BackButtonActionPerformed(ActionEvent evt) {
         // TODO add your handling code here:
-        Menu m = new Menu();
-        m.setVisible(true);
-        setVisible(false);
+        //Menu m = new Menu();
+//        m.setVisible(true);
+//        setVisible(false);
     } 
 
     /**

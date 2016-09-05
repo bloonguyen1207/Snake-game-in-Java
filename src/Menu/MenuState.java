@@ -6,7 +6,6 @@
 package Menu;
 
 import GamePlay.Game;
-import GamePlay.TimeAttack.EasyBoard;
 import GamePlay.TimeAttack.GameBoardPanel;
 import java.awt.Color;
 import java.awt.Font;

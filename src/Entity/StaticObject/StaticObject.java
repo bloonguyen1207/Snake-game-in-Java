@@ -7,9 +7,8 @@ package Entity.StaticObject;
 
 import Entity.DynamicObject.Snakes;
 import Entity.Entity;
-import static GamePlay.Classic.Board.BLOCK_SIZE;
-import static GamePlay.TimeAttack.HardBoard.foodsPos;
-import static GamePlay.TimeAttack.EasyBoard.foodsPos;
+import static GamePlay.TimeAttack.GameBoardPanel.BLOCK_SIZE;
+import static GamePlay.TimeAttack.GameBoardPanel.*;
 //import static GamePlay.TimeAttack.EasyBoard.foodsPos;
 
 import java.awt.event.ActionListener;

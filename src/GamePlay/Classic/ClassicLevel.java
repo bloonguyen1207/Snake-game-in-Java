@@ -7,7 +7,7 @@ package GamePlay.Classic;
 
 import Entity.DynamicObject.Snakes;
 import Entity.StaticObject.ClassicFood;
-import static GamePlay.Classic.Board.BLOCK_SIZE;
+import static GamePlay.TimeAttack.GameBoardPanel.BLOCK_SIZE;
 import GamePlay.TimeAttack.GameBoardPanel;
 import static GamePlay.TimeAttack.GameBoardPanel.B_HEIGHT;
 import static GamePlay.TimeAttack.GameBoardPanel.B_WIDTH;
@@ -155,7 +155,7 @@ private void checkFood() throws UnsupportedAudioFileException, IOException {
             clip.open(sound);
             clip.start();
         } catch (LineUnavailableException ex) {
-            Logger.getLogger(Board.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ClassicLevel.class.getName()).log(Level.SEVERE, null, ex);
         }
         snake.setLength(snake.getLength() + 1);
         classic_score.executeStrategy(classicfood.point);            

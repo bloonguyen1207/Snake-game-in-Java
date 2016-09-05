@@ -9,11 +9,11 @@ package Entity.DynamicObject;
  *
  * @author Hanh
  */
-import static GamePlay.Classic.Board.LENGTH;
 import GamePlay.TimeAttack.GameBoardPanel;
 import static GamePlay.TimeAttack.GameBoardPanel.B_HEIGHT;
 import static GamePlay.TimeAttack.GameBoardPanel.B_WIDTH;
 import static GamePlay.TimeAttack.GameBoardPanel.BLOCK_SIZE;
+import static GamePlay.TimeAttack.GameBoardPanel.ALL_DOTS;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -25,8 +25,8 @@ import java.util.Timer;
 public class Snakes extends DynamicObject{
 
     private int length = 3;
-    private final int x[] = new int[LENGTH];
-    private final int y[] = new int[LENGTH];
+    private final int x[] = new int[ALL_DOTS];
+    private final int y[] = new int[ALL_DOTS];
     private Image head;
     private boolean isRevert = false;
 //fixed

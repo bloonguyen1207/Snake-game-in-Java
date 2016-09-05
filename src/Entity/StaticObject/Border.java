@@ -9,10 +9,12 @@ import Entity.DynamicObject.Snakes;
 import Entity.Entity;
 import java.awt.Color;
 import java.awt.Graphics;
-import static GamePlay.TimeAttack.HardBoard.B_HEIGHT;
-import static GamePlay.TimeAttack.HardBoard.B_WIDTH;
+import static GamePlay.TimeAttack.GameBoardPanel.*;
 import java.awt.Image;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 
 /**
@@ -27,33 +29,67 @@ public class Border extends StaticObject {
           brick = loadImage(brick, "res\\Items\\brick.png");
     }
     
-    public static ArrayList<Border> setBorders(ArrayList<Border> borders, int beginX, int endX, int beginY, int endY) {        
-        //System.out.println(beginX != endX);
-        //System.out.println(beginY == endY);
-        if (beginX != endX && beginY == endY) {
-            for (int i = beginX / 20; i < endX / 20; i++) {
-                Border temp = new Border();
-                temp.setPosX(i * 20);
-                temp.setPosY(beginY);
-                //System.out.println(i);
-                borders.add(temp);
+    public static ArrayList<Border> setBorders(ArrayList<Border> borders, File map) {
+        Scanner scanMap;
+        int count_line = 0;
+        int num_line = B_HEIGHT / 20;
+        int num_char = B_WIDTH / 20;
+        //System.out.println("Access");
+        try {
+            scanMap = new Scanner(map);
+            while (scanMap.hasNext() && count_line < num_line ) {
+               //System.out.println("Line: " + count_line);
+                //System.out.println("Num_char: " + num_char);
+                String line = scanMap.nextLine();
+                for (int count_char = 0; count_char < num_char; count_char++) {
+                    //System.out.println("Char: " + count_char); 
+                    if (line.length() <= count_char) {
+                        break;
+                    }
+                    if ('x' == line.charAt(count_char)) {
+                        //System.out.println("Access x == ch");
+                        Border temp = new Border();
+                        temp.setPosX(count_char * 20);
+                        temp.setPosY(count_line * 20);
+                        borders.add(temp);                        
+                    }
+                }
+                count_line += 1;
             }
-        } else if (beginX == endX && beginY != endY) {
-            for (int i = beginY / 20; i < endY / 20; i++) {
-                Border temp = new Border();
-                temp.setPosY(i * 20);
-                temp.setPosX(beginX);
-                borders.add(temp);
-            }
-        } else if (beginX == endX && beginY == endY) {
-            Border temp = new Border();
-            temp.setPosX(beginX);
-            temp.setPosY(beginY);
-            borders.add(temp);
+            scanMap.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("This file is not found!");
         }
-        
         return borders;
     }
+    
+//    public static ArrayList<Border> setBorders(ArrayList<Border> borders, int beginX, int endX, int beginY, int endY) {        
+//        //System.out.println(beginX != endX);
+//        //System.out.println(beginY == endY);
+//        if (beginX != endX && beginY == endY) {
+//            for (int i = beginX / 20; i < endX / 20; i++) {
+//                Border temp = new Border();
+//                temp.setPosX(i * 20);
+//                temp.setPosY(beginY);
+//                //System.out.println(i);
+//                borders.add(temp);
+//            }
+//        } else if (beginX == endX && beginY != endY) {
+//            for (int i = beginY / 20; i < endY / 20; i++) {
+//                Border temp = new Border();
+//                temp.setPosY(i * 20);
+//                temp.setPosX(beginX);
+//                borders.add(temp);
+//            }
+//        } else if (beginX == endX && beginY == endY) {
+//            Border temp = new Border();
+//            temp.setPosX(beginX);
+//            temp.setPosY(beginY);
+//            borders.add(temp);
+//        }
+//        
+//        return borders;
+//    }
     
     public void drawBorder(Graphics g) {        
         super.paintComponent(g);

@@ -6,7 +6,6 @@
 package Entity.StaticObject;
 
 import Entity.DynamicObject.Snakes;
-import GamePlay.Classic.Board;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 

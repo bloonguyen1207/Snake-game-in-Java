@@ -7,24 +7,18 @@ package GamePlay.TimeAttack;
 
 import Entity.DynamicObject.Mouse;
 import Entity.DynamicObject.Snakes;
-import Entity.StaticObject.Border;
-import static Entity.StaticObject.Border.setBorders;
 import Entity.StaticObject.ClassicFood;
 import Entity.StaticObject.Clock;
 import Entity.StaticObject.Heal;
 import Entity.StaticObject.ItemFactory;
 import Entity.StaticObject.StaticObject;
 import Entity.StaticObject.Border;
+import static Entity.StaticObject.Border.*;
 import static Entity.StaticObject.Border.setBorders;
-import GamePlay.Classic.Board;
-import static GamePlay.Classic.Board.BLOCK_SIZE;
-import GamePlay.ClassicGame;
-import static GamePlay.TimeAttack.EasyBoard.foodsPos;
-import static GamePlay.TimeAttack.GameBoardPanel.B_HEIGHT;
-import static GamePlay.TimeAttack.GameBoardPanel.B_WIDTH;
+import GamePlay.Classic.ClassicLevel;
+import static GamePlay.TimeAttack.GameBoardPanel.*;
 import Menu.GameState;
 import Menu.GameStateManager;
-import Menu.Menu;
 import Menu.MenuState;
 import Menu.MenuState2;
 import Score.OperationAdd;
@@ -160,14 +154,33 @@ Clock clock;
         }
     }
     public void checkCollision(){
-             for (int z = snake.getLength(); z > 0; z--) {
-
+        for (int z = snake.getLength(); z > 0; z--) {
             if ((z > 4) && (snake.getX(0) == snake.getX(z)) && (snake.getY(0) == snake.getY(z))) {
                 inGame = false;
                 break;
             }
         }
+        
+        if (snake.getY(0) >= GameBoardPanel.B_HEIGHT) {
+            //inGame = false;
+            snake.setY(0, 0);
+        }
 
+        if (snake.getY(0) < 0) {
+            //inGame = false;
+            snake.setY(0, GameBoardPanel.B_HEIGHT - BLOCK_SIZE);
+        }
+
+        if (snake.getX(0) >= GameBoardPanel.B_WIDTH) {
+            //inGame = false;
+            snake.setX(0, 0);
+        }
+
+        if (snake.getX(0) < 0) {
+            //inGame = false;
+            snake.setX(0, GameBoardPanel.B_WIDTH - BLOCK_SIZE);
+        }
+        
         for (Border border: borders) {
             if (snake.getX(0) == border.getPosX() && snake.getY(0) == border.getPosY()) {
                 inGame = false;
@@ -179,6 +192,7 @@ Clock clock;
 //            timer.stop();
 //        }
     }
+    
     private void checkFood() {
          for (int j = 0; j < foodsPos.length; j++) {
             if (snake.getX(0) == foodsPos[j][0] && snake.getY(0) == foodsPos[j][1]) {
@@ -426,29 +440,34 @@ Clock clock;
     }
     
     ArrayList<Border> borders = new ArrayList();
-     private void setAllBorders() {
-        borders = setBorders(borders, 0, GameBoardPanel.B_WIDTH, 0, 0);
-        borders = setBorders(borders, 0, GameBoardPanel.B_WIDTH, GameBoardPanel.B_HEIGHT - 20, GameBoardPanel.B_HEIGHT - 20);
-        borders = setBorders(borders, 0, 0, 0, GameBoardPanel.B_HEIGHT);  
-        borders = setBorders(borders, GameBoardPanel.B_WIDTH - 20, GameBoardPanel.B_WIDTH - 20, 0, GameBoardPanel.B_HEIGHT);
-      
-        borders = setBorders(borders, 260, 260, 20, 60);
-        
-        borders = setBorders(borders, 400, 400, 20, 60);
-        borders = setBorders(borders, 400, 440, 60, 60);
-        
-        borders = setBorders(borders, 700, 700, 20, 60);
-        
-        borders = setBorders(borders, 680, 680, 540, 580);
-        borders = setBorders(borders, 680, 720, 520, 520);
-        
-        borders = setBorders(borders, 280, 280, 540, 580);
-        
-        borders = setBorders(borders, 940, GameBoardPanel.B_WIDTH, 120, 120);
-        borders = setBorders(borders, 920, 920, 100, 140);        
-        
-        borders = setBorders(borders, 20, 60, 200, 200);
+    String mapName = "res\\Map\\hardMap.txt";
+    File map = new File(mapName);
+    private void setAllBorders() {
+        borders = setBorders(borders, map);
     }
+//    private void setAllBorders() {
+//        borders = setBorders(borders, 0, GameBoardPanel.B_WIDTH, 0, 0);
+//        borders = setBorders(borders, 0, GameBoardPanel.B_WIDTH, GameBoardPanel.B_HEIGHT - 20, GameBoardPanel.B_HEIGHT - 20);
+//        borders = setBorders(borders, 0, 0, 0, GameBoardPanel.B_HEIGHT);  
+//        borders = setBorders(borders, GameBoardPanel.B_WIDTH - 20, GameBoardPanel.B_WIDTH - 20, 0, GameBoardPanel.B_HEIGHT);
+//      
+//        borders = setBorders(borders, 260, 260, 20, 60);
+//        
+//        borders = setBorders(borders, 400, 400, 20, 60);
+//        borders = setBorders(borders, 400, 440, 60, 60);
+//        
+//        borders = setBorders(borders, 700, 700, 20, 60);
+//        
+//        borders = setBorders(borders, 680, 680, 540, 580);
+//        borders = setBorders(borders, 680, 720, 520, 520);
+//        
+//        borders = setBorders(borders, 280, 280, 540, 580);
+//        
+//        borders = setBorders(borders, 940, GameBoardPanel.B_WIDTH, 120, 120);
+//        borders = setBorders(borders, 920, 920, 100, 140);        
+//        
+//        borders = setBorders(borders, 20, 60, 200, 200);
+//    }
        
 
 }

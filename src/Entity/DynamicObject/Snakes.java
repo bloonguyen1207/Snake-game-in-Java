@@ -142,6 +142,7 @@ public class Snakes extends DynamicObject{
         double del = (currentTime - previousTime) / 10000.0;
         double timepoint = 1.0 / speed;      
         if (del >= timepoint) {
+            System.out.println("automove------------");
             move();
             previousTime = currentTime;
         }
@@ -175,7 +176,8 @@ public class Snakes extends DynamicObject{
                 }
             }
     }
-   public void keyPressed(KeyEvent e) {
+   
+    public void keyPressed(KeyEvent e) {
        int key = e.getKeyCode();
        if ((key == KeyEvent.VK_LEFT) && (
                     (!isRightDirection() && !isIsRevert())
@@ -217,36 +219,37 @@ public class Snakes extends DynamicObject{
                 revertDirection();
             }
    }
-   public void checkCollision(){
-        for (int z = getLength(); z > 0; z--) {
-
-//            if ((z > 3) && (getX(0) == getX(z)) && (getY(0) ==getY(z))) {
-//                inGame = false;
-//            }
-        }
-
-        if (getY(0) >= GameBoardPanel.B_HEIGHT) {
-            //inGame = false;
-            setY(0, 0);
-        }
-
-        if (getY(0) < 0) {
-            //inGame = false;
-            setY(0, GameBoardPanel.B_HEIGHT - GameBoardPanel.BLOCK_SIZE);
-        }
-
-        if (getX(0) >= GameBoardPanel.B_WIDTH) {
-            //inGame = false;
-            setX(0, 0);
-        }
-
-        if (getX(0) < 0) {
-            //inGame = false;
-            setX(0, GameBoardPanel.B_WIDTH - GameBoardPanel.BLOCK_SIZE);
-        }
-        
-//        if(!inGame) {
-//            timer.stop();
+   
+//    public void checkCollision(){
+//        for (int z = getLength(); z > 0; z--) {
+//
+////            if ((z > 3) && (getX(0) == getX(z)) && (getY(0) ==getY(z))) {
+////                inGame = false;
+////            }
 //        }
-   }
+//
+//        if (getY(0) >= GameBoardPanel.B_HEIGHT) {
+//            //inGame = false;
+//            setY(0, 0);
+//        }
+//
+//        if (getY(0) < 0) {
+//            //inGame = false;
+//            setY(0, GameBoardPanel.B_HEIGHT - GameBoardPanel.BLOCK_SIZE);
+//        }
+//
+//        if (getX(0) >= GameBoardPanel.B_WIDTH) {
+//            //inGame = false;
+//            setX(0, 0);
+//        }
+//
+//        if (getX(0) < 0) {
+//            //inGame = false;
+//            setX(0, GameBoardPanel.B_WIDTH - GameBoardPanel.BLOCK_SIZE);
+//        }
+//        
+////        if(!inGame) {
+////            timer.stop();
+////        }
+//   }
 }

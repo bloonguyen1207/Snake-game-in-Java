@@ -117,7 +117,7 @@ public void keyPressed(KeyEvent e) {
     }
 }
 public void checkCollision(){
-      for (int z = snake.getLength(); z > 0; z--) {
+    for (int z = snake.getLength() - 1; z > 0; z--) {
         if ((z > 3) && (snake.getX(0) == snake.getX(z)) && (snake.getY(0) == snake.getY(z))) {
             inGame = false;
         }

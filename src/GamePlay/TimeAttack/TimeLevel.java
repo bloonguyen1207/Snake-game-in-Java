@@ -157,10 +157,11 @@ Clock clock;
 //        }
 //    }
     public void checkCollision(){
-        for (int z = snake.getLength(); z > 0; z--) {
-            System.out.println("Snake: " + snake.getX(0) + " " + snake.getY(0));
-            System.out.println("Dot: " + snake.getX(z) + " " + snake.getY(z));
-            if ((z > 4) && (snake.getX(0) == snake.getX(z)) && (snake.getY(0) == snake.getY(z))) {
+        for (int z = snake.getLength() - 1; z > 0; z--) {
+            System.out.println("SNAKE: " + snake.getX(0) + " " + snake.getY(0));
+            System.out.println("dot: " + snake.getX(z) + " " + snake.getY(z));
+            System.out.println((snake.getX(0) == snake.getX(z)) && (snake.getY(0) == snake.getY(z)));
+            if ((z > 3) && (snake.getX(0) == snake.getX(z)) && (snake.getY(0) == snake.getY(z))) {
                 inGame = false;
                 break;
             }

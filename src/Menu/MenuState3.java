@@ -16,6 +16,8 @@ import static javafx.scene.text.Font.font;
 import GamePlay.Classic.ClassicLevel;
 import GamePlay.TimeAttack.EasyLevel;
 import GamePlay.TimeAttack.HardLevel;
+import GamePlay.TimeAttack.NormalLevel;
+import GamePlay.TimeAttack.ExpertLevel;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -94,12 +96,13 @@ public class MenuState3 extends GameState {
                 gsm.states.push(new EasyLevel(gsm));
             }
             else if(CurrentSelection == 1){
-                
+                gsm.states.push(new NormalLevel(gsm));
             }
             else if (CurrentSelection == 2){
                 gsm.states.push(new HardLevel(gsm));
             }
             else if (CurrentSelection == 3){
+                gsm.states.push(new ExpertLevel(gsm));
             }
             else if (CurrentSelection == 4){
                 gsm.states.push(new MenuState(gsm));

@@ -15,6 +15,7 @@ import java.awt.event.KeyEvent;
 import static javafx.scene.text.Font.font;
 import static javafx.scene.text.Font.font;
 import GamePlay.Classic.ClassicLevel;
+import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -23,15 +24,17 @@ import java.awt.Toolkit;
  * @author binguyen.com
  */
 public class MenuState2 extends GameState {
-    private String[] options = {"Classic","Time Attack","Back to Main Menu"}; 
+    private final String[] options = {"Classic","Time Attack","Back to Main Menu"}; 
     private int CurrentSelection = 0;
     public MenuState2(GameStateManager gsm){
         super(gsm);
     }
+    @Override
     public void init() {
         
     }
 
+    @Override
     public void paintComponent(Graphics g) {
          Graphics2D g1 = (Graphics2D) g;
         Image img1 = Toolkit.getDefaultToolkit().getImage("res\\Menu\\snake.png");
@@ -40,18 +43,24 @@ public class MenuState2 extends GameState {
     }
 
     
+    @Override
     public void doDrawing(Graphics g) {
-        g.setColor(new Color(7, 123, 83));
-        g.fillRect(0, 0, GameBoardPanel.B_WIDTH, GameBoardPanel.B_HEIGHT);
+        int gap = 200;
+
         for (int i = 0; i < options.length;i++){
+            g.setColor(Color.YELLOW);
+            g.fillRect(360, gap, 300, 60);
+
+            FontMetrics metr = g.getFontMetrics();
             if(i == CurrentSelection){
-                g.setColor(Color.YELLOW);
+                g.setColor(new Color(153, 0, 0));
             }
             else {
-                g.setColor(Color.WHITE);
+                g.setColor(new Color(204, 51, 0));
             }
             g.setFont(new Font("Berlin Sans FB Demi",Font.PLAIN,30));
-            g.drawString(options[i],GameBoardPanel.B_WIDTH/2-50, 250 + i*80); 
+            g.drawString(options[i],(GameBoardPanel.B_WIDTH - metr.stringWidth(options[i]))/2 + 10, 240 + i * 100);
+            gap += 100;
         }
     }
 

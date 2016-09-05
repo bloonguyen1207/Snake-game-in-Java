@@ -33,19 +33,21 @@ import javax.swing.JLabel;
  * @author binguyen.com
  */
 public class MenuState extends GameState {
-    private String[] options = {"Start","Leader Board","Exit"}; 
+    private final String[] options = {"Start","Leaderboard","Exit"}; 
     private int CurrentSelection = 0;
     public JLabel Background;
-     public JLabel SnakeLabels;
-     public Rectangle StartButton = new Rectangle(GameBoardPanel.B_WIDTH/2+120,150,100,50);
+    public JLabel SnakeLabels;
+    public Rectangle StartButton = new Rectangle(GameBoardPanel.B_WIDTH/2+120,150,100,50);
      
     public MenuState(GameStateManager gsm){
         super(gsm);
         
     }
+    @Override
     public void init() {
     }
 
+    @Override
     public void paintComponent(Graphics g) {
         Graphics2D g1 = (Graphics2D) g;
         Image img1 = Toolkit.getDefaultToolkit().getImage("res\\Menu\\snake.png");
@@ -55,23 +57,25 @@ public class MenuState extends GameState {
          
     }
 
+    @Override
     public void doDrawing(Graphics g) {
-//        g.setColor(new Color(7, 123, 83));
-//        g.fillRect(0, 0, GameBoardPanel.B_WIDTH, GameBoardPanel.B_HEIGHT);
-        for (int i = 0; i < options.length;i++){
+        int gap = 200;
+
+        for (int i = 0; i < options.length; i++){
+            g.setColor(Color.YELLOW);
+            g.fillRect(400, gap, 220, 60);
+
             FontMetrics metr = g.getFontMetrics();
             if(i == CurrentSelection){
-                g.setColor(Color.YELLOW);
+                g.setColor(new Color(153, 0, 0));
             }
             else {
-                g.setColor(Color.WHITE);
+                g.setColor(new Color(204, 51, 0));
             }
             g.setFont(new Font("Berlin Sans FB Demi",Font.PLAIN,30));
-            g.drawString(options[i],GameBoardPanel.B_WIDTH/2-50, 250 + i*80); 
+            g.drawString(options[i],(GameBoardPanel.B_WIDTH - metr.stringWidth(options[i]))/2 + 10, 240 + i * 100);
+            gap += 100;
         }
-        
-        //Graphics2D g2 = (Graphics2D) g;
-
     }
     public void actionPerformed(ActionEvent e) {
         

@@ -18,6 +18,7 @@ import GamePlay.TimeAttack.EasyLevel;
 import GamePlay.TimeAttack.HardLevel;
 import GamePlay.TimeAttack.NormalLevel;
 import GamePlay.TimeAttack.ExpertLevel;
+import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -40,7 +41,7 @@ import static javafx.scene.text.Font.font;
  * @author binguyen.com
  */
 public class MenuState3 extends GameState {
-    private String[] options = {"Easy","Normal","Hard","Expert","Back to Main Menu"}; 
+    private String[] options = {"Easy","Normal","Hard","Expert"}; 
     private int CurrentSelection = 0;
     public MenuState3(GameStateManager gsm){
         super(gsm);
@@ -58,18 +59,24 @@ public class MenuState3 extends GameState {
     
 
     
+    @Override
     public void doDrawing(Graphics g) {
-        g.setColor(new Color(7, 123, 83));
-        g.fillRect(0, 0, GameBoardPanel.B_WIDTH, GameBoardPanel.B_HEIGHT);
+        int gap = 200;
+
         for (int i = 0; i < options.length;i++){
+            g.setColor(Color.YELLOW);
+            g.fillRect(360, gap, 300, 60);
+
+            FontMetrics metr = g.getFontMetrics();
             if(i == CurrentSelection){
-                g.setColor(Color.YELLOW);
+                g.setColor(new Color(153, 0, 0));
             }
             else {
-                g.setColor(Color.WHITE);
+                g.setColor(new Color(204, 51, 0));
             }
             g.setFont(new Font("Berlin Sans FB Demi",Font.PLAIN,30));
-            g.drawString(options[i],GameBoardPanel.B_WIDTH/2-50, 250 + i*80); 
+            g.drawString(options[i],(GameBoardPanel.B_WIDTH - metr.stringWidth(options[i]))/2 + 10, 240 + i * 100);
+            gap += 100;
         }
     }
 

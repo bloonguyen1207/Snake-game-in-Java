@@ -43,7 +43,7 @@ ClassicFood classicfood= new ClassicFood();;
 Score classic_score = new Score(new OperationAdd());
 private boolean inGame = true;
 private Timer timer;
-private String[] options = {"Replay","Menu"}; 
+private final String[] options = {"Replay","Menu"}; 
 private int CurrentSelection = 0;
 private static AudioInputStream sound;
 
@@ -181,9 +181,9 @@ public void Over(Graphics g){
 
 }
 private void gameOver(Graphics g){
-    Over(g);
     g.setColor(new Color(7, 123, 83));
     g.fillRect(0, 0, GameBoardPanel.B_WIDTH, GameBoardPanel.B_HEIGHT);
+    Over(g);
     for (int i = 0; i < options.length;i++){
         if(i == CurrentSelection){
             g.setColor(Color.YELLOW);

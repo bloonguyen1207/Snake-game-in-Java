@@ -34,10 +34,16 @@ import java.awt.event.KeyEvent;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JTextField;
@@ -53,84 +59,90 @@ ClassicFood classicfood= new ClassicFood();;
 Score time_score = new Score(new OperationAdd());
 private boolean inGame = true;
 private Timer timer;
+private static AudioInputStream sound;
 protected String[] options = {"Replay","Menu"}; 
 protected int CurrentSelection = 0;
 Clock clock; 
 
-    public TimeLevel(GameStateManager gsm) {
-        super(gsm);
-        snake.initSnake();
-        initMultiFood();
-        clock = new Clock();
+public TimeLevel(GameStateManager gsm) {
+    super(gsm);
+    snake.initSnake();
+    initMultiFood();
+    clock = new Clock();
 //        timer = new Timer(20, (ActionListener) this);
 //        timer.start();
 //        setAllBorders();
-    }
-    public void init() {
-      
-    }
- 
-    public void paintComponent(Graphics g) {
+}
+public void init() {
 
-    }
+}
 
-    public void doDrawing(Graphics g) {
-        if (inGame) {    
-            for (Border border : borders) {
-                border.drawBorder(g);
-            }
-            for (int i = 0; i < foodsPos.length; i++) {
-                if (foodsPos[i][0] > -1) {
-                    multiFood[i].paintComponent(g);
-                }
-            }
-            for (int i = 0; i < mice.size(); i++) {
-                    mice.get(i).paintComponent(g);
-            }
-        snake.paintComponent(g);
-        //gameover.doDrawing(g);
-        String score = "Score: " + Integer.toString(time_score.getScore());
-        Font small = new Font("Berlin Sans FB Demi", Font.BOLD, 30);
-        FontMetrics metr = g.getFontMetrics(small);
-        g.setColor(Color.black);
-        g.setFont(small);
-        
-        g.drawString(score, 10, 30);
-        String time = "Time: " + Integer.toString(clock.getSec());    
-        g.setColor(Color.black);
-        g.setFont(small);
-        g.drawString(time, GameBoardPanel.B_WIDTH-(metr.stringWidth(time) + 20), 30);
-            
-         }
-         else{
-             gameOver(g);
-//             gsm.states.push(new MenuState2(gsm));
-         }
-            
+public void paintComponent(Graphics g) {
 
-    }
-    public void actionPerformed(ActionEvent e) {
-        if(inGame){
-            clock.getTime();
-            int count = clock.getSec();
-            if(count > 60){
-                inGame = false;
-            }
-            checkFood();
-            checkCollision();
-            snake.autoMove();
-            locateMice();
-              for (int i = 0; i < mice.size(); i++) {
-                //mice.get(i).avoidSnake(snake);
-                //mice.get(i).avoidOut();
-                //mice.get(i).avoidBorder(borders);
-                mice.get(i).autoMoveHard(borders);
+}
+
+public void doDrawing(Graphics g) {
+    if (inGame) {    
+        for (Border border : borders) {
+            border.drawBorder(g);
+        }
+        for (int i = 0; i < foodsPos.length; i++) {
+            if (foodsPos[i][0] > -1) {
+                multiFood[i].paintComponent(g);
             }
         }
+        for (int i = 0; i < mice.size(); i++) {
+                mice.get(i).paintComponent(g);
+        }
+    snake.paintComponent(g);
+    //gameover.doDrawing(g);
+    String score = "Score: " + Integer.toString(time_score.getScore());
+    Font small = new Font("Berlin Sans FB Demi", Font.BOLD, 30);
+    FontMetrics metr = g.getFontMetrics(small);
+    g.setColor(Color.black);
+    g.setFont(small);
+
+    g.drawString(score, 10, 30);
+    String time = "Time: " + Integer.toString(clock.getSec());    
+    g.setColor(Color.black);
+    g.setFont(small);
+    g.drawString(time, GameBoardPanel.B_WIDTH-(metr.stringWidth(time) + 20), 30);
+
+     }
+     else{
+         gameOver(g);
+//             gsm.states.push(new MenuState2(gsm));
+     }
+
+
+}
+@Override
+public void actionPerformed(ActionEvent e) {
+    if(inGame){
+        clock.getTime();
+        int count = clock.getSec();
+        if(count > 60){
+            inGame = false;
+        }
+        try {
+            checkFood();
+        } catch (UnsupportedAudioFileException | IOException ex) {
+            Logger.getLogger(TimeLevel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        checkCollision();
+        snake.autoMove();
+        locateMice();
+          for (int i = 0; i < mice.size(); i++) {
+            //mice.get(i).avoidSnake(snake);
+            //mice.get(i).avoidOut();
+            //mice.get(i).avoidBorder(borders);
+            mice.get(i).autoMoveHard(borders);
+        }
     }
-    
-    abstract public void keyPressed(KeyEvent e); 
-    
+}
+
+abstract public void keyPressed(KeyEvent e); 
+
 //    public void keyPressed(KeyEvent e) {
 //        snake.keyPressed(e); 
 //        int k = e.getKeyCode();
@@ -156,109 +168,118 @@ Clock clock;
 //            }
 //        }
 //    }
-    public void checkCollision(){
-        for (int z = snake.getLength() - 1; z > 0; z--) {
-            System.out.println("SNAKE: " + snake.getX(0) + " " + snake.getY(0));
-            System.out.println("dot: " + snake.getX(z) + " " + snake.getY(z));
-            System.out.println((snake.getX(0) == snake.getX(z)) && (snake.getY(0) == snake.getY(z)));
-            if ((z > 3) && (snake.getX(0) == snake.getX(z)) && (snake.getY(0) == snake.getY(z))) {
-                inGame = false;
-                break;
-            }
+public void checkCollision(){
+    for (int z = snake.getLength() - 1; z > 0; z--) {
+        System.out.println("SNAKE: " + snake.getX(0) + " " + snake.getY(0));
+        System.out.println("dot: " + snake.getX(z) + " " + snake.getY(z));
+        System.out.println((snake.getX(0) == snake.getX(z)) && (snake.getY(0) == snake.getY(z)));
+        if ((z > 3) && (snake.getX(0) == snake.getX(z)) && (snake.getY(0) == snake.getY(z))) {
+            inGame = false;
+            break;
         }
-        
-        if (snake.getY(0) >= GameBoardPanel.B_HEIGHT) {
-            //inGame = false;
-            snake.setY(0, 0);
-        }
+    }
 
-        if (snake.getY(0) < 0) {
-            //inGame = false;
-            snake.setY(0, GameBoardPanel.B_HEIGHT - BLOCK_SIZE);
-        }
+    if (snake.getY(0) >= GameBoardPanel.B_HEIGHT) {
+        //inGame = false;
+        snake.setY(0, 0);
+    }
 
-        if (snake.getX(0) >= GameBoardPanel.B_WIDTH) {
-            //inGame = false;
-            snake.setX(0, 0);
-        }
+    if (snake.getY(0) < 0) {
+        //inGame = false;
+        snake.setY(0, GameBoardPanel.B_HEIGHT - BLOCK_SIZE);
+    }
 
-        if (snake.getX(0) < 0) {
-            //inGame = false;
-            snake.setX(0, GameBoardPanel.B_WIDTH - BLOCK_SIZE);
+    if (snake.getX(0) >= GameBoardPanel.B_WIDTH) {
+        //inGame = false;
+        snake.setX(0, 0);
+    }
+
+    if (snake.getX(0) < 0) {
+        //inGame = false;
+        snake.setX(0, GameBoardPanel.B_WIDTH - BLOCK_SIZE);
+    }
+
+    for (Border border: borders) {
+        if (snake.getX(0) == border.getPosX() && snake.getY(0) == border.getPosY()) {
+            inGame = false;
+            break;
         }
-        
-        for (Border border: borders) {
-            if (snake.getX(0) == border.getPosX() && snake.getY(0) == border.getPosY()) {
-                inGame = false;
-                break;
-            }
-        }
-                     
+    }
+
 //        if(!inGame) {
 //            timer.stop();
 //        }
-    }
-    
-    private void checkFood() {
-         for (int j = 0; j < foodsPos.length; j++) {
-            if (snake.getX(0) == foodsPos[j][0] && snake.getY(0) == foodsPos[j][1]) {
-                foodOnScreen -= 1;
-                fIndex = j;
-                time_score.executeStrategy(multiFood[fIndex].point);
-                snake.setLength(snake.getLength()+ 1);
-                if (multiFood[fIndex].getClass().equals(Heal.class)) {
-                    snake.setSpeed(100);
-                    multiFood[fIndex].specialEffect(snake);
-                } else {
-                    snake.setSpeed(snake.getSpeed() + multiFood[fIndex].specialEffect(snake));
-                }
-                locateMultiFood();
-                break;
-            } else if (fSet < totalFood && j == foodsPos.length - 1){
-                fIndex = fSet;
-                locateMultiFood();
-            }
-        }
-          for (int i = 0; i < mice.size(); i++) {
-            if (snake.getX(0) == mice.get(i).getPosX() && snake.getY(0) == mice.get(i).getPosY()) {
-                time_score.executeStrategy(mice.get(i).point);
-                mice.remove(i);
-            }
-        }
-    }
-    
-    public void Over(Graphics g){
-        String msg = "Game Over";
-        Font text = new Font("Berlin Sans FB Demi", Font.BOLD, 30);
-        Font buttons = new Font("Berlin Sans FB Demi", 1, 24);
-        FontMetrics metr = g.getFontMetrics(text);
+}
 
-        g.setColor(Color.orange);
-        g.setFont(text);
-        g.drawString(msg, (GameBoardPanel.B_WIDTH - metr.stringWidth(msg)) / 2, B_HEIGHT / 2 - 150);
-        
-        String score = "Score: " + Integer.toString(time_score.getScore());
-
-        g.setColor(Color.WHITE);
-        g.setFont(text);
-        g.drawString(score, (GameBoardPanel.B_WIDTH - metr.stringWidth(msg)) / 2 + 20, B_HEIGHT / 2 - 90);
-        
-    }
-        private void gameOver(Graphics g){
-        Over(g);
-        g.setColor(new Color(7, 123, 83));
-        g.fillRect(0, 0, GameBoardPanel.B_WIDTH, GameBoardPanel.B_HEIGHT);
-        for (int i = 0; i < options.length;i++){
-            if(i == CurrentSelection){
-                g.setColor(Color.YELLOW);
+private void checkFood() throws UnsupportedAudioFileException, IOException {
+    for (int j = 0; j < foodsPos.length; j++) {
+        if (snake.getX(0) == foodsPos[j][0] && snake.getY(0) == foodsPos[j][1]) {
+            sound = AudioSystem.getAudioInputStream(new File("res/sound/eat.wav").getAbsoluteFile());
+            Clip clip;
+            try {
+                clip = AudioSystem.getClip();
+                clip.open(sound);
+                clip.start();
+            } catch (LineUnavailableException ex) {
+                Logger.getLogger(ClassicLevel.class.getName()).log(Level.SEVERE, null, ex);
             }
-            else {
-                g.setColor(Color.WHITE);
+            foodOnScreen -= 1;
+            fIndex = j;
+            time_score.executeStrategy(multiFood[fIndex].point);
+            snake.setLength(snake.getLength()+ 1);
+            if (multiFood[fIndex].getClass().equals(Heal.class)) {
+                snake.setSpeed(100);
+                multiFood[fIndex].specialEffect(snake);
+            } else {
+                snake.setSpeed(snake.getSpeed() + multiFood[fIndex].specialEffect(snake));
             }
-            g.setFont(new Font("Berlin Sans FB Demi",Font.PLAIN,30));
-            g.drawString(options[i],GameBoardPanel.B_WIDTH/2-50 , 300 + i*100); 
+            locateMultiFood();
+            break;
+        } else if (fSet < totalFood && j == foodsPos.length - 1){
+            fIndex = fSet;
+            locateMultiFood();
         }
-        
+    }
+    for (int i = 0; i < mice.size(); i++) {
+        if (snake.getX(0) == mice.get(i).getPosX() && snake.getY(0) == mice.get(i).getPosY()) {
+            time_score.executeStrategy(mice.get(i).point);
+            mice.remove(i);
+        }
+    }
+}
+
+public void Over(Graphics g){
+    String msg = "Game Over";
+    Font text = new Font("Berlin Sans FB Demi", Font.BOLD, 30);
+    Font buttons = new Font("Berlin Sans FB Demi", 1, 24);
+    FontMetrics metr = g.getFontMetrics(text);
+
+    g.setColor(Color.orange);
+    g.setFont(text);
+    g.drawString(msg, (GameBoardPanel.B_WIDTH - metr.stringWidth(msg)) / 2, B_HEIGHT / 2 - 150);
+
+    String score = "Score: " + Integer.toString(time_score.getScore());
+
+    g.setColor(Color.WHITE);
+    g.setFont(text);
+    g.drawString(score, (GameBoardPanel.B_WIDTH - metr.stringWidth(msg)) / 2 + 20, B_HEIGHT / 2 - 90);
+
+}
+private void gameOver(Graphics g){
+    g.setColor(new Color(7, 123, 83));
+    g.fillRect(0, 0, GameBoardPanel.B_WIDTH, GameBoardPanel.B_HEIGHT);
+    Over(g);
+    for (int i = 0; i < options.length;i++){
+        if(i == CurrentSelection){
+            g.setColor(Color.YELLOW);
+        }
+        else {
+            g.setColor(Color.WHITE);
+        }
+        g.setFont(new Font("Berlin Sans FB Demi",Font.PLAIN,30));
+        g.drawString(options[i],GameBoardPanel.B_WIDTH / 2 - 50 , 300 + i * 100); 
+    }
+
 //        if (newHighScore() > -1) {
 //            JTextField name = new JTextField(10);
 //            name.setBackground(new Color(255, 204, 0));
@@ -338,8 +359,8 @@ Clock clock;
 //        //MenuButton.addActionListener(this::MenuButtonActionPerformed);
 //        add(MenuButton);
 //        MenuButton.setBounds((B_WIDTH - metr.stringWidth(msg)) / 2 - 20, B_HEIGHT / 2 + 100, 200, 59);
-    }
-    
+}
+
 //    private void ReplayButtonActionPerformed(ActionEvent evt) {                                            
 //        // TODO add your handling code here:
 //        ClassicGame newGame = new ClassicGame();
@@ -378,81 +399,81 @@ Clock clock;
 //        return counter;
 //    }
 
-        private int foodOnScreen;
-        private int fIndex = 0;
-        private int fSet = 0;
-        private final int totalFood = 10;
-        private StaticObject[] multiFood;
-        private ArrayList<Mouse> mice;
-        public static int[][] foodsPos;
-        private int awardMouse = 1;
-    
-     public void initMultiFood() {
-       
-        this.foodOnScreen = 0;
-        this.fIndex = 0;
-        this.fSet = 0;
-        multiFood = new StaticObject[totalFood];
-        mice = new ArrayList();
-        foodsPos = new int[totalFood][2];
-        for (int[] foodPos : foodsPos) {
-            for (int j = 0; j < foodsPos[0].length; j++) {
-                foodPos[j] = -1;
-            }
-        }
-    }
-      public void locateMice() {
-      
-        //System.out.println(awardMouse);
-        //System.out.println(SCORE);
-        if (time_score.getScore() >= 10 * awardMouse) {
-            Mouse temp = new Mouse();
-            temp.locateMouse(snake, borders);
-            mice.add(temp);
-            awardMouse++;
-        }
-    }
-         public void locateMultiFood() {
-        if (foodOnScreen < totalFood) {
-            foodOnScreen += 1;
-            int r = (int) (Math.random() * 5);
-            int i = (int) ((Math.random() * 4));
-//fixed            
-            ItemFactory itemFactory = new ItemFactory();
-            if (r <= 1) {
-//fixed                
-                multiFood[fIndex] = itemFactory.getItem("Apple");
-            } else {
-                switch(i) {
-//fixed                     
-                    case 0: multiFood[fIndex] = itemFactory.getItem("TeaLeaf");
-                        break;
-                    case 1: multiFood[fIndex] = itemFactory.getItem("Coffee");
-                        break;
-                    case 2: multiFood[fIndex] = itemFactory.getItem("Revert");
-                        break;
-                    case 3: multiFood[fIndex] = itemFactory.getItem("Heal");
-                        break;
-                }
-            }
+    private int foodOnScreen;
+    private int fIndex = 0;
+    private int fSet = 0;
+    private final int totalFood = 10;
+    private StaticObject[] multiFood;
+    private ArrayList<Mouse> mice;
+    public static int[][] foodsPos;
+    private int awardMouse = 1;
 
-            multiFood[fIndex].locateFood(snake, borders,foodsPos);
-            foodsPos[fIndex][0] = multiFood[fIndex].getPosX();
-            foodsPos[fIndex][1] = multiFood[fIndex].getPosY();
-            if (fIndex == fSet) {
-                fSet += 1;
-            }
+ public void initMultiFood() {
+
+    this.foodOnScreen = 0;
+    this.fIndex = 0;
+    this.fSet = 0;
+    multiFood = new StaticObject[totalFood];
+    mice = new ArrayList();
+    foodsPos = new int[totalFood][2];
+    for (int[] foodPos : foodsPos) {
+        for (int j = 0; j < foodsPos[0].length; j++) {
+            foodPos[j] = -1;
         }
     }
-    
-    ArrayList<Border> borders = new ArrayList();
-    protected String mapName = "";
-    protected abstract void setMap();
-    protected void setAllBorders() {
-        setMap();
-        File map = new File(mapName);
-        borders = setBorders(borders, map);
+}
+  public void locateMice() {
+
+    //System.out.println(awardMouse);
+    //System.out.println(SCORE);
+    if (time_score.getScore() >= 10 * awardMouse) {
+        Mouse temp = new Mouse();
+        temp.locateMouse(snake, borders);
+        mice.add(temp);
+        awardMouse++;
     }
+}
+     public void locateMultiFood() {
+    if (foodOnScreen < totalFood) {
+        foodOnScreen += 1;
+        int r = (int) (Math.random() * 5);
+        int i = (int) ((Math.random() * 4));
+//fixed            
+        ItemFactory itemFactory = new ItemFactory();
+        if (r <= 1) {
+//fixed                
+            multiFood[fIndex] = itemFactory.getItem("Apple");
+        } else {
+            switch(i) {
+//fixed                     
+                case 0: multiFood[fIndex] = itemFactory.getItem("TeaLeaf");
+                    break;
+                case 1: multiFood[fIndex] = itemFactory.getItem("Coffee");
+                    break;
+                case 2: multiFood[fIndex] = itemFactory.getItem("Revert");
+                    break;
+                case 3: multiFood[fIndex] = itemFactory.getItem("Heal");
+                    break;
+            }
+        }
+
+        multiFood[fIndex].locateFood(snake, borders,foodsPos);
+        foodsPos[fIndex][0] = multiFood[fIndex].getPosX();
+        foodsPos[fIndex][1] = multiFood[fIndex].getPosY();
+        if (fIndex == fSet) {
+            fSet += 1;
+        }
+    }
+}
+
+ArrayList<Border> borders = new ArrayList();
+protected String mapName = "";
+protected abstract void setMap();
+protected void setAllBorders() {
+    setMap();
+    File map = new File(mapName);
+    borders = setBorders(borders, map);
+}
 //    private void setAllBorders() {
 //        borders = setBorders(borders, 0, GameBoardPanel.B_WIDTH, 0, 0);
 //        borders = setBorders(borders, 0, GameBoardPanel.B_WIDTH, GameBoardPanel.B_HEIGHT - 20, GameBoardPanel.B_HEIGHT - 20);
@@ -476,6 +497,6 @@ Clock clock;
 //        
 //        borders = setBorders(borders, 20, 60, 200, 200);
 //    }
-       
+
 
 }

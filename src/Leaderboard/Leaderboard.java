@@ -9,14 +9,10 @@ import Player.Player;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Graphics;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Dictionary;
 import java.util.Scanner;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -28,12 +24,11 @@ import javax.swing.WindowConstants;
  *
  * @author Bloo
  */
-public class Leaderboard extends JFrame{
+public final class Leaderboard extends JFrame{
     // Variables declaration - do not modify//
     public JPanel Background;
     public JLabel Title, Info;
     public JButton BackButton;
-    private ArrayList<Player> playersInfo = new ArrayList<Player>(10);    
     private static File highscores;
     private static Scanner readFiles;
     // End of variables declaration//

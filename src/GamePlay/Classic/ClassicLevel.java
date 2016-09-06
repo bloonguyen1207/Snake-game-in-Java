@@ -43,6 +43,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 /**
@@ -182,10 +183,12 @@ private void checkFood() throws UnsupportedAudioFileException, IOException {
         classicfood.locateFood(snake);
     }
 }
-public void Over(Graphics g){
+
+private void gameOver(Graphics g){
+    JPanel b = new JPanel();
     String msg = "Game Over";
     Font text = new Font("Berlin Sans FB Demi", Font.BOLD, 30);
-    Font buttons = new Font("Berlin Sans FB Demi", 1, 24);
+    Font buttons = new Font("Berlin Sans FB Demi", 1, 28);
     FontMetrics metr = g.getFontMetrics(text);
 
     g.setColor(Color.orange);
@@ -198,15 +201,6 @@ public void Over(Graphics g){
     g.setFont(text);
     g.drawString(score, (B_WIDTH - metr.stringWidth(msg)) / 2 + 20, B_HEIGHT / 2 - 90);
 
-}
-private void gameOver(Graphics g){
-    String msg = "Score";
-    Font text = new Font("Berlin Sans FB Demi", Font.BOLD, 30);
-    FontMetrics metr = g.getFontMetrics(text);
-    g.setColor(new Color(7, 123, 83));
-    g.fillRect(0, 0, GameBoardPanel.B_WIDTH, GameBoardPanel.B_HEIGHT);
-    Over(g);
-
     for (int i = 0; i < options.length;i++){
         if(i == CurrentSelection){
             g.setColor(Color.YELLOW);
@@ -214,89 +208,89 @@ private void gameOver(Graphics g){
         else {
             g.setColor(Color.WHITE);
         }
-        g.setFont(new Font("Berlin Sans FB Demi",Font.PLAIN,30));
-        g.drawString(options[i],B_WIDTH/2-50 , 300 + i*100); 
+        g.setFont(buttons);
+        g.drawString(options[i], (B_WIDTH - metr.stringWidth(msg)) / 2 + 20, 400 + i*100); 
     }
-            if (newHighScore() > -1) {
-            JTextField name = new JTextField(10);
-            name.setBackground(new Color(255, 204, 0));
-            //name.setFont(text);
-            name.setText("AAA");
-            name.setBounds((B_WIDTH - metr.stringWidth(msg)) / 2 - 20, B_HEIGHT / 2 - 70, 150, 50);
-            add(name);
+    if (newHighScore() > -1) {
+        JTextField name = new JTextField(10);
+        name.setBackground(new Color(255, 204, 0));
+        //name.setFont(text);
+        name.setText("AAA");
+        name.setBounds((B_WIDTH - metr.stringWidth(score)) / 2 - 20, B_HEIGHT / 2 - 70, 150, 50);
+        add(name);
 
-            //TODO: Delete when done
-            String newHighScore = "NEW HIGHSCORE!!!";
-    
-            g.setColor(Color.yellow);
-            g.setFont(text);
-            g.drawString(newHighScore, (B_WIDTH - metr.stringWidth(msg)) / 2 - 50, B_HEIGHT / 2 - 200);
-            // END
+        //TODO: Delete when done
+        String newHighScore = "NEW HIGHSCORE!!!";
 
-            // Submit
-            JButton SubmitButton = new JButton();
-
-            SubmitButton.setBackground(new Color(255, 204, 0));
-            //SubmitButton.setFont(buttons);
-            SubmitButton.setForeground(new Color(204, 51, 0));
-            SubmitButton.setIcon(new ImageIcon(new ImageIcon("res\\Menu\\submit.png").getImage().getScaledInstance(BLOCK_SIZE, BLOCK_SIZE, Image.SCALE_DEFAULT)));
-            SubmitButton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent evt){
-                    try {
-                        StringBuilder data = new StringBuilder();
-                        int index = newHighScore();
-                        ArrayList<String> infos = readFile();
-                        for (int i = 9; i > index; i--) {
-                            infos.set(i, infos.get(i - 1));
-                        }
-                        infos.set(index, name.getText() + " " + Integer.toString(classic_score.getScore()));
-                        try {
-                            output = new FileWriter(highscores, false);
-                            writeFiles = new BufferedWriter(output);
-                        } catch (Exception e) {
-                            System.out.println(e.getMessage());
-                        }
-                        for (int i = 0; i < 10; i++) {
-                            data.append(infos.get(i));
-
-                            writeFiles.write(data.toString());
-                            writeFiles.newLine();
-                            writeFiles.flush();
-                            data.delete(0, data.length());
-                        }
-                    } catch (Exception ex) {
-                        Logger.getLogger(ClassicLevel.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    SubmitButton.setIcon(new ImageIcon(new ImageIcon("res\\Menu\\check.png").getImage().getScaledInstance(BLOCK_SIZE, BLOCK_SIZE, Image.SCALE_DEFAULT)));
-                    SubmitButton.setEnabled(false);
-                }   
-            });
-            add(SubmitButton);
-            SubmitButton.setBounds((B_WIDTH - metr.stringWidth(msg)) / 2 + 130, B_HEIGHT / 2 - 70, 50, 50);
-        }
-        // Replay
-        JButton ReplayButton = new JButton();
-        
-        ReplayButton.setBackground(new Color(255, 204, 0));
-        //ReplayButton.setFont(buttons);
-        ReplayButton.setForeground(new Color(204, 51, 0));
-        ReplayButton.setText("Replay");
-        ReplayButton.addActionListener(this::ReplayButtonActionPerformed);
-        add(ReplayButton);
-        ReplayButton.setBounds((B_WIDTH - metr.stringWidth(msg)) / 2 - 20, B_HEIGHT / 2 + 20, 200, 59);
-        
-        // Back to menu - In Progess
-        JButton MenuButton = new JButton();
-        
-        MenuButton.setBackground(new Color(255, 204, 0));
-        //MenuButton.setFont(buttons);
-        MenuButton.setForeground(new Color(204, 51, 0));
-        MenuButton.setText("Back to menu");
-        //MenuButton.addActionListener(this::MenuButtonActionPerformed);
-        add(MenuButton);
-        MenuButton.setBounds((B_WIDTH - metr.stringWidth(msg)) / 2 - 20, B_HEIGHT / 2 + 100, 200, 59);
+        g.setColor(Color.yellow);
+        g.setFont(text);
+        g.drawString(newHighScore, (B_WIDTH - metr.stringWidth(score)) / 2 - 90, B_HEIGHT / 2 - 200);
+        // END
     }
+        // Submit
+//        JButton SubmitButton = new JButton();
+//
+//        SubmitButton.setBackground(new Color(255, 204, 0));
+//        //SubmitButton.setFont(buttons);
+//        SubmitButton.setForeground(Color.BLACK);
+//        SubmitButton.setIcon(new ImageIcon(new ImageIcon("res\\Menu\\submit.png").getImage().getScaledInstance(BLOCK_SIZE, BLOCK_SIZE, Image.SCALE_DEFAULT)));
+//        SubmitButton.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent evt){
+//                try {
+//                    StringBuilder data = new StringBuilder();
+//                    int index = newHighScore();
+//                    ArrayList<String> infos = readFile();
+//                    for (int i = 9; i > index; i--) {
+//                        infos.set(i, infos.get(i - 1));
+//                    }
+//                    infos.set(index, name.getText() + " " + Integer.toString(classic_score.getScore()));
+//                    try {
+//                        output = new FileWriter(highscores, false);
+//                        writeFiles = new BufferedWriter(output);
+//                    } catch (Exception e) {
+//                        System.out.println(e.getMessage());
+//                    }
+//                    for (int i = 0; i < 10; i++) {
+//                        data.append(infos.get(i));
+//
+//                        writeFiles.write(data.toString());
+//                        writeFiles.newLine();
+//                        writeFiles.flush();
+//                        data.delete(0, data.length());
+//                    }
+//                } catch (Exception ex) {
+//                    Logger.getLogger(ClassicLevel.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//                SubmitButton.setIcon(new ImageIcon(new ImageIcon("res\\Menu\\check.png").getImage().getScaledInstance(BLOCK_SIZE, BLOCK_SIZE, Image.SCALE_DEFAULT)));
+//                SubmitButton.setEnabled(false);
+//            }   
+//        });
+//        add(SubmitButton);
+//        SubmitButton.setBounds((B_WIDTH - metr.stringWidth(score)) / 2 + 130, B_HEIGHT / 2 - 70, 50, 50);
+//    }
+//    // Replay
+//    JButton ReplayButton = new JButton();
+//
+//    ReplayButton.setBackground(new Color(255, 204, 0));
+//    //ReplayButton.setFont(buttons);
+//    ReplayButton.setForeground(new Color(204, 51, 0));
+//    ReplayButton.setText("Replay");
+//    ReplayButton.addActionListener(this::ReplayButtonActionPerformed);
+//    add(ReplayButton);
+//    ReplayButton.setBounds((B_WIDTH - metr.stringWidth(score)) / 2 - 20, B_HEIGHT / 2 + 20, 200, 59);
+//
+//    // Back to menu - In Progess
+//    JButton MenuButton = new JButton();
+//
+//    MenuButton.setBackground(new Color(255, 204, 0));
+//    //MenuButton.setFont(buttons);
+//    MenuButton.setForeground(new Color(204, 51, 0));
+//    MenuButton.setText("Back to menu");
+//    //MenuButton.addActionListener(this::MenuButtonActionPerformed);
+//    add(MenuButton);
+//    MenuButton.setBounds((B_WIDTH - metr.stringWidth(score)) / 2 - 20, B_HEIGHT / 2 + 100, 200, 59);
+}
     
     private void ReplayButtonActionPerformed(ActionEvent evt) {                                            
         // TODO add your handling code here:
@@ -335,26 +329,21 @@ private void gameOver(Graphics g){
         return counter;
     }
       
-    public static ArrayList<String> readFile() {
-        String name;
-        int score;
-        String[] info;
-        ArrayList<String> infos;
-
-        try {
-            highscores = new File(System.getProperty("user.dir") + ("/src/assignment2/customers.txt"));
-            readFiles = new Scanner(highscores);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-
-        while (readFiles.hasNext()) {
-            info = readFiles.nextLine().split(" ");
-            name = info[0];
-            score = Integer.parseInt(info[1]);
-           
-        }
-
-    }
+    public ArrayList readFile() throws Exception {
+         ArrayList<String> infos = new ArrayList<>(10);
+         if (!inGame) {
+             try {
+                 highscores = new File(System.getProperty("user.dir") + ("/classic.txt"));
+                 readFiles = new Scanner(highscores);
+             } catch (Exception e) {
+                 System.out.println(e.getMessage());
+             }
+ 
+             while (readFiles.hasNext()) {
+                 infos.add(readFiles.nextLine());
+             }
+         }
+         return infos;
+     }
 }
 

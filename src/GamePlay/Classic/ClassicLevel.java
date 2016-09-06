@@ -72,10 +72,12 @@ public void init() {
 
 }
 
+@Override
 public void paintComponent(Graphics g) {
 
 }
 
+@Override
 public void doDrawing(Graphics g) {
      if (inGame) {
     classicfood.paintComponent(g);
@@ -95,6 +97,7 @@ public void doDrawing(Graphics g) {
 
 
 }
+@Override
 public void actionPerformed(ActionEvent e) {
     if(inGame){
         snake.autoMove();
@@ -106,6 +109,7 @@ public void actionPerformed(ActionEvent e) {
         }
     }
 }
+@Override
 public void keyPressed(KeyEvent e) {
     snake.keyPressed(e); 
     int k = e.getKeyCode();

@@ -180,22 +180,18 @@ public void checkCollision(){
     }
 
     if (snake.getY(0) >= GameBoardPanel.B_HEIGHT) {
-        //inGame = false;
         snake.setY(0, 0);
     }
 
     if (snake.getY(0) < 0) {
-        //inGame = false;
         snake.setY(0, GameBoardPanel.B_HEIGHT - BLOCK_SIZE);
     }
 
     if (snake.getX(0) >= GameBoardPanel.B_WIDTH) {
-        //inGame = false;
         snake.setX(0, 0);
     }
 
     if (snake.getX(0) < 0) {
-        //inGame = false;
         snake.setX(0, GameBoardPanel.B_WIDTH - BLOCK_SIZE);
     }
 
@@ -205,10 +201,6 @@ public void checkCollision(){
             break;
         }
     }
-
-//        if(!inGame) {
-//            timer.stop();
-//        }
 }
 
 private void checkFood() throws UnsupportedAudioFileException, IOException {

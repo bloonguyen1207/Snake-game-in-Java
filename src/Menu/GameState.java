@@ -8,12 +8,13 @@ package Menu;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import javax.swing.JFrame;
 
 /**
  *
  * @author binguyen.com
  */
-public abstract class GameState {
+public abstract class GameState extends JFrame {
     protected GameStateManager gsm;
     public GameState(GameStateManager gsm){
         this.gsm = gsm;

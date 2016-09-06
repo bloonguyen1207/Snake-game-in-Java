@@ -7,6 +7,8 @@ package Menu;
 
 import GamePlay.Game;
 import GamePlay.TimeAttack.GameBoardPanel;
+import Leaderboard.Leaderboard;
+import Leaderboard.LeaderboardChoice;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
@@ -100,7 +102,8 @@ public class MenuState extends GameState {
                 gsm.states.push(new MenuState2(gsm));
             }
             else if(CurrentSelection == 1){
-                
+                 Leaderboard s = new Leaderboard();
+                s.setVisible(true);
             }
             else if (CurrentSelection == 2){
                 System.exit(0);

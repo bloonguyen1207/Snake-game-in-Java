@@ -128,9 +128,9 @@ public class LeaderboardTimeChoice extends JFrame {
 
     private void EasyButtonActionPerformed(java.awt.event.ActionEvent evt) { 
         // TODO add your handling code here:
-        Leaderboard e = new Leaderboard();
-        e.setVisible(true);
-        setVisible(false);
+//        Leaderboard e = new Leaderboard();
+//        e.setVisible(true);
+//        setVisible(false);
     } 
 
     private void HardButtonActionPerformed(java.awt.event.ActionEvent evt) { 

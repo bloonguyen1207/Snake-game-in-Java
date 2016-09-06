@@ -102,9 +102,9 @@ public class LeaderboardChoice extends JFrame {
 
     public void ClassicButtonActionPerformed(ActionEvent evt) {                                              
         // TODO add your handling code here:
-        Leaderboard c = new Leaderboard();
-        c.setVisible(true);
-        setVisible(false);
+//        Leaderboard c = new Leaderboard();
+//        c.setVisible(true);
+//        setVisible(false);
     } 
 
     private void TimeButtonActionPerformed(ActionEvent evt) {

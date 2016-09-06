@@ -10,12 +10,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.Stack;
 import Menu.GameState;
+import javax.swing.JFrame;
 
 /**
  *
  * @author binguyen.com
  */
-public class GameStateManager {
+public class GameStateManager extends JFrame {
     public Stack<GameState> states;
     public GameStateManager() { 
         states = new Stack<GameState>();

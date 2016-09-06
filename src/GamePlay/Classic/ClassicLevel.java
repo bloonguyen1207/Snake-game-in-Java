@@ -20,8 +20,11 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -32,6 +35,15 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.Writer;
+import java.util.ArrayList;
+import java.util.Scanner;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JTextField;
 
 /**
  *
@@ -46,7 +58,10 @@ private Timer timer;
 private final String[] options = {"Replay","Menu"}; 
 private int CurrentSelection = 0;
 private static AudioInputStream sound;
-
+private static File highscores;
+private static Scanner readFiles;
+private static BufferedWriter writeFiles;
+private static FileWriter output;
 
 public ClassicLevel(GameStateManager gsm) {
     super(gsm);
@@ -194,89 +209,72 @@ private void gameOver(Graphics g){
         g.setFont(new Font("Berlin Sans FB Demi",Font.PLAIN,30));
         g.drawString(options[i],B_WIDTH/2-50 , 300 + i*100); 
     }
-}
 
+        if (newHighScore() > -1) {
+            JTextField name = new JTextField(10);
+            name.setBackground(new Color(255, 204, 0));
+            //name.setFont(text);
+            name.setText("AAA");
+            name.setBounds((B_WIDTH / 2) - 20, B_HEIGHT / 2 - 70, 150, 50);
+            //add(name);
 
-//        if (newHighScore() > -1) {
-//            JTextField name = new JTextField(10);
-//            name.setBackground(new Color(255, 204, 0));
-//            name.setFont(text);
-//            name.setText("AAA");
-//            name.setBounds((B_WIDTH - metr.stringWidth(msg)) / 2 - 20, B_HEIGHT / 2 - 70, 150, 50);
-//            add(name);
-//
-//            //TODO: Delete when done
-//            String newHighScore = "NEW HIGHSCORE!!!";
-//    
-//            g.setColor(Color.yellow);
-//            g.setFont(text);
-//            g.drawString(newHighScore, (B_WIDTH - metr.stringWidth(msg)) / 2 - 50, B_HEIGHT / 2 - 200);
-//            // END
-//
-//            // Submit
-//            JButton SubmitButton = new JButton();
-//
-//            SubmitButton.setBackground(new Color(255, 204, 0));
+            //TODO: Delete when done
+            String newHighScore = "NEW HIGHSCORE!!!";
+    
+            g.setColor(Color.yellow);
+            //g.setFont(text);
+            g.drawString(newHighScore, (B_WIDTH / 2) - 50, B_HEIGHT / 2 - 200);
+            // END
+
+            // Submit
+            JButton SubmitButton = new JButton();
+
+            SubmitButton.setBackground(new Color(255, 204, 0));
 //            SubmitButton.setFont(buttons);
-//            SubmitButton.setForeground(new Color(204, 51, 0));
-//            SubmitButton.setIcon(new ImageIcon(new ImageIcon("res\\Menu\\submit.png").getImage().getScaledInstance(BLOCK_SIZE, BLOCK_SIZE, Image.SCALE_DEFAULT)));
-//            SubmitButton.addActionListener(new ActionListener() {
-//                @Override
-//                public void actionPerformed(ActionEvent evt){
-//                    try {
-//                        StringBuilder data = new StringBuilder();
-//                        int index = newHighScore();
-//                        ArrayList<String> infos = readFile();
-//                        for (int i = 9; i > index; i--) {
-//                            infos.set(i, infos.get(i - 1));
-//                        }
-//                        infos.set(index, name.getText() + " " + Integer.toString(classic_score.getScore()));
-//                        try {
-//                            output = new FileWriter(highscores, false);
-//                            writeFiles = new BufferedWriter(output);
-//                        } catch (Exception e) {
-//                            System.out.println(e.getMessage());
-//                        }
-//                        for (int i = 0; i < 10; i++) {
-//                            data.append(infos.get(i));
-//
-//                            writeFiles.write(data.toString());
-//                            writeFiles.newLine();
-//                            writeFiles.flush();
-//                            data.delete(0, data.length());
-//                        }
-//                    } catch (Exception ex) {
+            SubmitButton.setForeground(new Color(204, 51, 0));
+            SubmitButton.setIcon(new ImageIcon(new ImageIcon("res\\Menu\\submit.png").getImage().getScaledInstance(BLOCK_SIZE, BLOCK_SIZE, Image.SCALE_DEFAULT)));
+            SubmitButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent evt){
+                    try {
+                        StringBuilder data = new StringBuilder();
+                        int index = newHighScore();
+                        ArrayList<String> infos = readFile();
+                        for (int i = 9; i > index; i--) {
+                            infos.set(i, infos.get(i - 1));
+                        }
+                        infos.set(index, name.getText() + " " + Integer.toString(classic_score.getScore()));
+                        try {
+                            output = new FileWriter(highscores, false);
+                            writeFiles = new BufferedWriter(output);
+                        } catch (Exception e) {
+                            System.out.println(e.getMessage());
+                        }
+                        for (int i = 0; i < 10; i++) {
+                            data.append(infos.get(i));
+
+                            writeFiles.write(data.toString());
+                            writeFiles.newLine();
+                            writeFiles.flush();
+                            data.delete(0, data.length());
+                        }
+                    } catch (Exception ex) {
 //                        Logger.getLogger(Board.class.getName()).log(Level.SEVERE, null, ex);
-//                    }
-//                    SubmitButton.setIcon(new ImageIcon(new ImageIcon("res\\Menu\\check.png").getImage().getScaledInstance(BLOCK_SIZE, BLOCK_SIZE, Image.SCALE_DEFAULT)));
-//                    SubmitButton.setEnabled(false);
-//                }   
-//            });
-//            add(SubmitButton);
-//            SubmitButton.setBounds((B_WIDTH - metr.stringWidth(msg)) / 2 + 130, B_HEIGHT / 2 - 70, 50, 50);
-//        }
-//        // Replay
-//        JButton ReplayButton = new JButton();
-//        
-//        ReplayButton.setBackground(new Color(255, 204, 0));
-//        ReplayButton.setFont(buttons);
-//        ReplayButton.setForeground(new Color(204, 51, 0));
-//        ReplayButton.setText("Replay");
-//        ReplayButton.addActionListener(this::ReplayButtonActionPerformed);
-//        add(ReplayButton);
-//        ReplayButton.setBounds((B_WIDTH - metr.stringWidth(msg)) / 2 - 20, B_HEIGHT / 2 + 20, 200, 59);
-//        
-//        // Back to menu - In Progess
-//        JButton MenuButton = new JButton();
-//        
-//        MenuButton.setBackground(new Color(255, 204, 0));
-//        MenuButton.setFont(buttons);
-//        MenuButton.setForeground(new Color(204, 51, 0));
-//        MenuButton.setText("Back to menu");
-//        //MenuButton.addActionListener(this::MenuButtonActionPerformed);
-//        add(MenuButton);
-//        MenuButton.setBounds((B_WIDTH - metr.stringWidth(msg)) / 2 - 20, B_HEIGHT / 2 + 100, 200, 59);
-    }
+                    }
+                    SubmitButton.setIcon(new ImageIcon(new ImageIcon("res\\Menu\\check.png").getImage().getScaledInstance(BLOCK_SIZE, BLOCK_SIZE, Image.SCALE_DEFAULT)));
+                    SubmitButton.setEnabled(false);
+                }   
+
+                private ArrayList<String> readFile() {
+                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                }
+            });
+            SubmitButton.setBounds((B_WIDTH / 2) + 130, B_HEIGHT / 2 - 70, 50, 50);
+        }
+        // Replay
+        
+        // Back to menu - In Progess
+}
     
 //    private void ReplayButtonActionPerformed(ActionEvent evt) {                                            
 //        // TODO add your handling code here:
@@ -292,26 +290,29 @@ private void gameOver(Graphics g){
 //        mainMenu.setVisible(true);
 //        this.getContainer().setVisible(false);
 //    }
-//      public int newHighScore() throws Exception {
-//        String info;
-//        int counter = -1;
-////        ArrayList<Player> players = new ArrayList<Player>(10);
-//        if (!inGame) {
-//            try {
-//                highscores = new File(System.getProperty("user.dir") + ("/classic.txt"));
-//                readFiles = new Scanner(highscores);
-//            } catch (Exception e) {
-//                System.out.println(e.getMessage());
-//            }
-//
-//            while (readFiles.hasNext()) {
-//                counter++;
-//                info = readFiles.nextLine();
-//                String[] piece = info.split(" ");
-//                if (classic_score.getScore() >= Integer.parseInt(piece[1])) {
-//                    return counter;
-//                }
-//            }
-//        }
-//        return counter;
-//    }
+
+
+      public int newHighScore(){
+        String info;
+        int counter = -1;
+//        ArrayList<Player> players = new ArrayList<Player>(10);
+        if (!inGame) {
+            try {
+                highscores = new File(System.getProperty("user.dir") + ("/classic.txt"));
+                readFiles = new Scanner(highscores);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+
+            while (readFiles.hasNext()) {
+                counter++;
+                info = readFiles.nextLine();
+                String[] piece = info.split(" ");
+                if (classic_score.getScore() >= Integer.parseInt(piece[1])) {
+                    return counter;
+                }
+            }
+        }
+        return counter;
+    }
+}

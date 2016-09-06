@@ -5,6 +5,7 @@
  */
 package Leaderboard;
 
+import Menu.GameStateManager;
 import Player.Player;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -34,6 +35,7 @@ public final class Leaderboard extends JFrame{
     // End of variables declaration//
     
     public Leaderboard() {
+        //super(gsm);
         initComponents();
     }
     
@@ -100,8 +102,8 @@ public final class Leaderboard extends JFrame{
     
     public void BackButtonActionPerformed(ActionEvent evt) {                                              
         // TODO add your handling code here:
-        LeaderboardChoice s = new LeaderboardChoice();
-        s.setVisible(true);
+//        LeaderboardChoice s = new LeaderboardChoice();
+//        s.setVisible(true);
         setVisible(false);
     } 
     

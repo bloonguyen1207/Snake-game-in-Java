@@ -243,31 +243,31 @@ private void gameOver(Graphics g){
             SubmitButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent evt){
-//                    try {
-//                        StringBuilder data = new StringBuilder();
-//                        int index = newHighScore();
-//                        ArrayList<String> infos = readFile();
-//                        for (int i = 9; i > index; i--) {
-//                            infos.set(i, infos.get(i - 1));
-//                        }
-//                        infos.set(index, name.getText() + " " + Integer.toString(classic_score.getScore()));
-//                        try {
-//                            output = new FileWriter(highscores, false);
-//                            writeFiles = new BufferedWriter(output);
-//                        } catch (Exception e) {
-//                            System.out.println(e.getMessage());
-//                        }
-//                        for (int i = 0; i < 10; i++) {
-//                            data.append(infos.get(i));
-//
-//                            writeFiles.write(data.toString());
-//                            writeFiles.newLine();
-//                            writeFiles.flush();
-//                            data.delete(0, data.length());
-//                        }
-//                    } catch (Exception ex) {
-//                        Logger.getLogger(ClassicLevel.class.getName()).log(Level.SEVERE, null, ex);
-//                    }
+                    try {
+                        StringBuilder data = new StringBuilder();
+                        int index = newHighScore();
+                        ArrayList<String> infos = readFile();
+                        for (int i = 9; i > index; i--) {
+                            infos.set(i, infos.get(i - 1));
+                        }
+                        infos.set(index, name.getText() + " " + Integer.toString(classic_score.getScore()));
+                        try {
+                            output = new FileWriter(highscores, false);
+                            writeFiles = new BufferedWriter(output);
+                        } catch (Exception e) {
+                            System.out.println(e.getMessage());
+                        }
+                        for (int i = 0; i < 10; i++) {
+                            data.append(infos.get(i));
+
+                            writeFiles.write(data.toString());
+                            writeFiles.newLine();
+                            writeFiles.flush();
+                            data.delete(0, data.length());
+                        }
+                    } catch (Exception ex) {
+                        Logger.getLogger(ClassicLevel.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     SubmitButton.setIcon(new ImageIcon(new ImageIcon("res\\Menu\\check.png").getImage().getScaledInstance(BLOCK_SIZE, BLOCK_SIZE, Image.SCALE_DEFAULT)));
                     SubmitButton.setEnabled(false);
                 }   
@@ -335,26 +335,26 @@ private void gameOver(Graphics g){
         return counter;
     }
       
-//    public static ArrayList<String> readFile() {
-//        String name;
-//        int score;
-//        String[] info;
-//        ArrayList<String> infos;
-//
-//        try {
-//            highscores = new File(System.getProperty("user.dir") + ("/src/assignment2/customers.txt"));
-//            readFiles = new Scanner(highscores);
-//        } catch (Exception e) {
-//            System.out.println(e.getMessage());
-//        }
-//
-//        while (readFiles.hasNext()) {
-//            info = readFiles.nextLine().split(" ");
-//            name = info[0];
-//            score = Integer.parseInt(info[1]);
-//           
-//        }
-//
-//    }
+    public static ArrayList<String> readFile() {
+        String name;
+        int score;
+        String[] info;
+        ArrayList<String> infos;
+
+        try {
+            highscores = new File(System.getProperty("user.dir") + ("/src/assignment2/customers.txt"));
+            readFiles = new Scanner(highscores);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        while (readFiles.hasNext()) {
+            info = readFiles.nextLine().split(" ");
+            name = info[0];
+            score = Integer.parseInt(info[1]);
+           
+        }
+
+    }
 }
 

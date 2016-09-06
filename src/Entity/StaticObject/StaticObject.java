@@ -5,19 +5,13 @@
  */
 package Entity.StaticObject;
 
+import Entity.Border;
 import Entity.DynamicObject.Snakes;
 import Entity.Entity;
-import static GamePlay.TimeAttack.GameBoardPanel.BLOCK_SIZE;
 import static GamePlay.TimeAttack.GameBoardPanel.*;
-//import static GamePlay.TimeAttack.EasyBoard.foodsPos;
-
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-/**
- *
- * @author Hanh
- */
+
 public abstract class StaticObject extends Entity {
     public static final int RAND_POS_X = 49;
     public static final int RAND_POS_Y = 29;

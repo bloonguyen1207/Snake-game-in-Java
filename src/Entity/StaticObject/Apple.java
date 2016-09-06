@@ -6,13 +6,8 @@
 package Entity.StaticObject;
 
 import Entity.DynamicObject.Snakes;
-import java.awt.Graphics;
-import java.awt.event.ActionEvent;
 
-/**
- *
- * @author Hanh
- */
+
 public class Apple extends StaticObject {
     public Apple() {
         point = 1;

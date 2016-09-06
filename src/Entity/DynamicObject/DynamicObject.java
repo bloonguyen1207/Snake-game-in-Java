@@ -12,12 +12,11 @@ import Entity.Entity;
  * @author Hanh
  */
 public abstract class DynamicObject extends Entity {
-    public boolean leftDirection = false;
-    public boolean rightDirection = true;
-    public boolean upDirection = false;
-    public boolean downDirection = false;
-    public int veloX, veloY;
-    public double speed;
+    boolean leftDirection = false;
+    boolean rightDirection = true;
+    boolean upDirection = false;
+    boolean downDirection = false;
+    double speed;
 
     public boolean isLeftDirection() {
         return leftDirection;
@@ -51,8 +50,12 @@ public abstract class DynamicObject extends Entity {
         this.downDirection = downDirection;
     }  
     
-    abstract protected void move();
+    public double getSpeed() {
+        return this.speed;
+    }
     
-    abstract public void autoMove();
-    
+    public void setSpeed(double speed) {
+        this.speed = speed;
+    }
+    abstract void move();
 }

@@ -51,182 +51,183 @@ import javax.swing.JTextField;
  * @author binguyen.com
  */
 public class ClassicLevel extends GameState {
-Snakes snake = Snakes.getInstance();
-ClassicFood classicfood= new ClassicFood();;
-Score classic_score = new Score(new OperationAdd());
-private boolean inGame = true;
-private Timer timer;
-private final String[] options = {"Replay","Menu"}; 
-private int CurrentSelection = 0;
-private static AudioInputStream sound;
-private static File highscores;
-private static Scanner readFiles;
-private static BufferedWriter writeFiles;
-private static FileWriter output;
+    private Snakes snake = Snakes.getInstance();
+    private Score classicScore = new Score(new OperationAdd());
+    private ClassicFood classicFood = new ClassicFood();
+    private boolean inGame = true;
+    private Timer timer;
+    private final String[] options = {"Replay","Menu"}; 
+    private int CurrentSelection = 0;
+    private static AudioInputStream sound;
+    private static File highscores;
+    private static Scanner readFiles;
+    private static BufferedWriter writeFiles;
+    private static FileWriter output;
 
-public ClassicLevel(GameStateManager gsm) {
-    super(gsm);
-    classicfood.locateFood(snake);
-    snake.initSnake();
-}
-public void init() {
+    public ClassicLevel(GameStateManager gsm) {
+        super(gsm);
+        classicFood.locateFood(snake);
+        snake.initSnake();
+    }
+    @Override
+    public void init() {
 
-}
+    }
 
-@Override
-public void paintComponent(Graphics g) {
+    @Override
+    public void paintComponent(Graphics g) {
 
-}
+    }
 
-@Override
-public void doDrawing(Graphics g) {
-     if (inGame) {
-    classicfood.paintComponent(g);
-    snake.paintComponent(g);
-    //gameover.doDrawing(g);
-    String score = "Score: " + Integer.toString(classic_score.getScore());
-    Font small = new Font("Berlin Sans FB Demi", Font.BOLD, 30);
-        //FontMetrics metr = getFontMetrics(small);
-    g.setColor(Color.black);
-    g.setFont(small);
-    g.drawString(score, 10, 30);
-     }
-     else{
-         gameOver(g);
-//             gsm.states.push(new MenuState2(gsm));
-     }
+    @Override
+    public void doDrawing(Graphics g) {
+         if (inGame) {
+        classicFood.paintComponent(g);
+        snake.paintComponent(g);
+        //gameover.doDrawing(g);
+        String score = "Score: " + Integer.toString(classicScore.getScore());
+        Font small = new Font("Berlin Sans FB Demi", Font.BOLD, 30);
+            //FontMetrics metr = getFontMetrics(small);
+        g.setColor(Color.black);
+        g.setFont(small);
+        g.drawString(score, 10, 30);
+         }
+         else{
+             gameOver(g);
+    //             gsm.states.push(new MenuState2(gsm));
+         }
 
 
-}
-@Override
-public void actionPerformed(ActionEvent e) {
-    if(inGame){
-        snake.autoMove();
-        checkCollision();
-        try {
-            checkFood();
-        } catch (UnsupportedAudioFileException | IOException ex) {
-            Logger.getLogger(ClassicLevel.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(inGame){
+            snake.autoMove();
+            checkCollision();
+            try {
+                checkFood();
+            } catch (UnsupportedAudioFileException | IOException ex) {
+                Logger.getLogger(ClassicLevel.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
-}
-@Override
-public void keyPressed(KeyEvent e) {
-    snake.keyPressed(e); 
-    int k = e.getKeyCode();
-    if(k == KeyEvent.VK_DOWN){
-        CurrentSelection++;
-        if (CurrentSelection >= options.length){
-            CurrentSelection = 0;
-        }
-}
-    else if (k == KeyEvent.VK_UP){
-        CurrentSelection--;
-        if (CurrentSelection <0){
-            CurrentSelection = options.length-1;
-        }
+    @Override
+    public void keyPressed(KeyEvent e) {
+        snake.keyPressed(e); 
+        int k = e.getKeyCode();
+        if(k == KeyEvent.VK_DOWN){
+            CurrentSelection++;
+            if (CurrentSelection >= options.length){
+                CurrentSelection = 0;
+            }
     }
-    if(k == KeyEvent.VK_ENTER){
-        //Start button 
-        if(CurrentSelection == 0){
-            gsm.states.push(new ClassicLevel(gsm));
+        else if (k == KeyEvent.VK_UP){
+            CurrentSelection--;
+            if (CurrentSelection <0){
+                CurrentSelection = options.length-1;
+            }
         }
-        else if(CurrentSelection == 1){
-              gsm.states.push(new MenuState(gsm));
-        }
-    }
-}
-public void checkCollision(){
-    for (int z = snake.getLength() - 1; z > 0; z--) {
-        if ((z > 3) && (snake.getX(0) == snake.getX(z)) && (snake.getY(0) == snake.getY(z))) {
-            inGame = false;
+        if(k == KeyEvent.VK_ENTER){
+            //Start button 
+            if(CurrentSelection == 0){
+                gsm.states.push(new ClassicLevel(gsm));
+            }
+            else if(CurrentSelection == 1){
+                  gsm.states.push(new MenuState(gsm));
+            }
         }
     }
-    if (snake.getY(0) >= B_HEIGHT) {
-        //inGame = false;
-        snake.setY(0, 0);
-    }
-
-    if (snake.getY(0) < 0) {
-        //inGame = false;
-        snake.setY(0, B_HEIGHT - BLOCK_SIZE);
-    }
-
-    if (snake.getX(0) >= B_WIDTH) {
-        //inGame = false;
-        snake.setX(0, 0);
-    }
-
-    if (snake.getX(0) < 0) {
-        //inGame = false;
-        snake.setX(0, B_WIDTH - BLOCK_SIZE);
-    }
-
-//        if(!inGame) {
-//            timer.stop();
-//        }
-}
-private void checkFood() throws UnsupportedAudioFileException, IOException {
-    if ((snake.getX(0) == classicfood.posX) && (snake.getY(0) == classicfood.posY)) {
-        sound = AudioSystem.getAudioInputStream(new File("res/sound/eat.wav").getAbsoluteFile());
-        Clip clip;
-        try {
-            clip = AudioSystem.getClip();
-            clip.open(sound);
-            clip.start();
-        } catch (LineUnavailableException ex) {
-            Logger.getLogger(ClassicLevel.class.getName()).log(Level.SEVERE, null, ex);
+    public void checkCollision(){
+        for (int z = snake.getLength() - 1; z > 0; z--) {
+            if ((z > 3) && (snake.getX(0) == snake.getX(z)) && (snake.getY(0) == snake.getY(z))) {
+                inGame = false;
+            }
         }
-        snake.setLength(snake.getLength() + 1);
-        classic_score.executeStrategy(classicfood.point);            
-        snake.setSpeed(snake.getSpeed() + classicfood.specialEffect(snake));
-        classicfood.locateFood(snake);
-    }
-}
-
-private void gameOver(Graphics g){
-    JPanel b = new JPanel();
-    String msg = "Game Over";
-    Font text = new Font("Berlin Sans FB Demi", Font.BOLD, 30);
-    Font buttons = new Font("Berlin Sans FB Demi", 1, 28);
-    FontMetrics metr = g.getFontMetrics(text);
-
-    g.setColor(Color.orange);
-    g.setFont(text);
-    g.drawString(msg, (B_WIDTH - metr.stringWidth(msg)) / 2, B_HEIGHT / 2 - 150);
-
-    String score = "Score: " + Integer.toString(classic_score.getScore());
-
-    g.setColor(Color.WHITE);
-    g.setFont(text);
-    g.drawString(score, (B_WIDTH - metr.stringWidth(msg)) / 2 + 20, B_HEIGHT / 2 - 90);
-
-    for (int i = 0; i < options.length;i++){
-        if(i == CurrentSelection){
-            g.setColor(Color.YELLOW);
+        if (snake.getY(0) >= B_HEIGHT) {
+            //inGame = false;
+            snake.setY(0, 0);
         }
-        else {
-            g.setColor(Color.WHITE);
+
+        if (snake.getY(0) < 0) {
+            //inGame = false;
+            snake.setY(0, B_HEIGHT - BLOCK_SIZE);
         }
-        g.setFont(buttons);
-        g.drawString(options[i], (B_WIDTH - metr.stringWidth(msg)) / 2 + 20, 400 + i*100); 
+
+        if (snake.getX(0) >= B_WIDTH) {
+            //inGame = false;
+            snake.setX(0, 0);
+        }
+
+        if (snake.getX(0) < 0) {
+            //inGame = false;
+            snake.setX(0, B_WIDTH - BLOCK_SIZE);
+        }
+
+    //        if(!inGame) {
+    //            timer.stop();
+    //        }
     }
-    if (newHighScore() > -1) {
-        JTextField name = new JTextField(10);
-        name.setBackground(new Color(255, 204, 0));
-        //name.setFont(text);
-        name.setText("AAA");
-        name.setBounds((B_WIDTH - metr.stringWidth(score)) / 2 - 20, B_HEIGHT / 2 - 70, 150, 50);
-        add(name);
+    private void checkFood() throws UnsupportedAudioFileException, IOException {
+        if ((snake.getX(0) == classicFood.getPosX()) && (snake.getY(0) == classicFood.getPosY())) {
+            sound = AudioSystem.getAudioInputStream(new File("res/sound/eat.wav").getAbsoluteFile());
+            Clip clip;
+            try {
+                clip = AudioSystem.getClip();
+                clip.open(sound);
+                clip.start();
+            } catch (LineUnavailableException ex) {
+                Logger.getLogger(ClassicLevel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            snake.setLength(snake.getLength() + 1);
+            classicScore.executeStrategy(classicFood.getPoint());            
+            snake.setSpeed(snake.getSpeed() + classicFood.specialEffect(snake));
+            classicFood.locateFood(snake);
+        }
+    }
 
-        //TODO: Delete when done
-        String newHighScore = "NEW HIGHSCORE!!!";
+    private void gameOver(Graphics g){
+        JPanel b = new JPanel();
+        String msg = "Game Over";
+        Font text = new Font("Berlin Sans FB Demi", Font.BOLD, 30);
+        Font buttons = new Font("Berlin Sans FB Demi", 1, 28);
+        FontMetrics metr = g.getFontMetrics(text);
 
-        g.setColor(Color.yellow);
+        g.setColor(Color.orange);
         g.setFont(text);
-        g.drawString(newHighScore, (B_WIDTH - metr.stringWidth(score)) / 2 - 90, B_HEIGHT / 2 - 200);
-        // END
-    }
+        g.drawString(msg, (B_WIDTH - metr.stringWidth(msg)) / 2, B_HEIGHT / 2 - 150);
+
+        String score = "Score: " + Integer.toString(classicScore.getScore());
+
+        g.setColor(Color.WHITE);
+        g.setFont(text);
+        g.drawString(score, (B_WIDTH - metr.stringWidth(msg)) / 2 + 20, B_HEIGHT / 2 - 90);
+
+        for (int i = 0; i < options.length;i++){
+            if(i == CurrentSelection){
+                g.setColor(Color.YELLOW);
+            }
+            else {
+                g.setColor(Color.WHITE);
+            }
+            g.setFont(buttons);
+            g.drawString(options[i], (B_WIDTH - metr.stringWidth(msg)) / 2 + 20, 400 + i*100); 
+        }
+        if (newHighScore() > -1) {
+            JTextField name = new JTextField(10);
+            name.setBackground(new Color(255, 204, 0));
+            //name.setFont(text);
+            name.setText("AAA");
+            name.setBounds((B_WIDTH - metr.stringWidth(score)) / 2 - 20, B_HEIGHT / 2 - 70, 150, 50);
+            add(name);
+
+            //TODO: Delete when done
+            String newHighScore = "NEW HIGHSCORE!!!";
+
+            g.setColor(Color.yellow);
+            g.setFont(text);
+            g.drawString(newHighScore, (B_WIDTH - metr.stringWidth(score)) / 2 - 90, B_HEIGHT / 2 - 200);
+            // END
+        }
         // Submit
 //        JButton SubmitButton = new JButton();
 //
@@ -290,7 +291,7 @@ private void gameOver(Graphics g){
 //    //MenuButton.addActionListener(this::MenuButtonActionPerformed);
 //    add(MenuButton);
 //    MenuButton.setBounds((B_WIDTH - metr.stringWidth(score)) / 2 - 20, B_HEIGHT / 2 + 100, 200, 59);
-}
+    }
     
     private void ReplayButtonActionPerformed(ActionEvent evt) {                                            
         // TODO add your handling code here:
@@ -306,7 +307,8 @@ private void gameOver(Graphics g){
 //        mainMenu.setVisible(true);
 //        this.getContainer().setVisible(false);
     }
-      public int newHighScore(){
+    
+    public int newHighScore(){
         String info;
         int counter = -1;
         if (!inGame) {
@@ -321,7 +323,7 @@ private void gameOver(Graphics g){
                 counter++;
                 info = readFiles.nextLine();
                 String[] piece = info.split(" ");
-                if (classic_score.getScore() >= Integer.parseInt(piece[1])) {
+                if (classicScore.getScore() >= Integer.parseInt(piece[1])) {
                     return counter;
                 }
             }
@@ -330,20 +332,20 @@ private void gameOver(Graphics g){
     }
       
     public ArrayList readFile() throws Exception {
-         ArrayList<String> infos = new ArrayList<>(10);
-         if (!inGame) {
-             try {
-                 highscores = new File(System.getProperty("user.dir") + ("/classic.txt"));
-                 readFiles = new Scanner(highscores);
-             } catch (Exception e) {
-                 System.out.println(e.getMessage());
-             }
+        ArrayList<String> infos = new ArrayList<>(10);
+        if (!inGame) {
+            try {
+                highscores = new File(System.getProperty("user.dir") + ("/classic.txt"));
+                readFiles = new Scanner(highscores);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
  
-             while (readFiles.hasNext()) {
-                 infos.add(readFiles.nextLine());
-             }
-         }
-         return infos;
-     }
+            while (readFiles.hasNext()) {
+                infos.add(readFiles.nextLine());
+            }
+        }
+        return infos;
+    }
 }
 

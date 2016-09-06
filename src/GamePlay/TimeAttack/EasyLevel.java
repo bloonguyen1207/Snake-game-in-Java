@@ -7,9 +7,9 @@ package GamePlay.TimeAttack;
 
 import Entity.DynamicObject.Mouse;
 import Entity.DynamicObject.Snakes;
-import Entity.StaticObject.Border;
+import Entity.Border;
 import Entity.StaticObject.ClassicFood;
-import Entity.StaticObject.Clock;
+import Entity.Clock;
 import Entity.StaticObject.Heal;
 import Entity.StaticObject.ItemFactory;
 import Entity.StaticObject.StaticObject;
@@ -424,6 +424,6 @@ public class EasyLevel extends TimeLevel {
 //    
 //    ArrayList<Border> borders = new ArrayList();
     @Override
-    protected void setMap() {
+    void setMap() {
     }
 }

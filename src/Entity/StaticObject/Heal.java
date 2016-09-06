@@ -6,13 +6,8 @@
 package Entity.StaticObject;
 
 import Entity.DynamicObject.Snakes;
-import java.awt.Graphics;
-import java.awt.event.ActionEvent;
 
-/**
- *
- * @author Hanh
- */
+
 public class Heal extends StaticObject {
     public Heal() {
         point = 1;

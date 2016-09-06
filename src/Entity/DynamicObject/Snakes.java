@@ -10,16 +10,10 @@ package Entity.DynamicObject;
  * @author Hanh
  */
 import GamePlay.TimeAttack.GameBoardPanel;
-import static GamePlay.TimeAttack.GameBoardPanel.B_HEIGHT;
-import static GamePlay.TimeAttack.GameBoardPanel.B_WIDTH;
-import static GamePlay.TimeAttack.GameBoardPanel.BLOCK_SIZE;
 import static GamePlay.TimeAttack.GameBoardPanel.ALL_DOTS;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-import java.util.Timer;
-
 
 
 public class Snakes extends DynamicObject{
@@ -29,9 +23,22 @@ public class Snakes extends DynamicObject{
     private final int y[] = new int[ALL_DOTS];
     private Image head;
     private boolean isRevert = false;
-//fixed
+
     private static final Snakes instance = new Snakes();
 
+    private Snakes() {
+        head = loadImage(head, "res\\Items\\heada.png");
+        icon = loadImage(icon, "res\\Items\\body_1.png");
+    }
+
+    private void setDefault() {
+        setLength(3);
+        setLeftDirection(false);
+        setUpDirection(false);
+        setDownDirection(false);
+        setRightDirection(true);
+    }
+    
     public boolean isIsRevert() {
         return isRevert;
     }
@@ -40,23 +47,8 @@ public class Snakes extends DynamicObject{
         this.isRevert = isRevert;
     }
 
-//fixed
-    public Snakes() {
-        head = loadImage(head, "res\\Items\\heada.png");
-        icon = loadImage(icon, "res\\Items\\body_1.png");
-    }
-
-//fixed
     public static Snakes getInstance() {
         return instance;
-    }
-    
-    public double getSpeed() {
-        return this.speed;
-    }
-    
-    public void setSpeed(double speed) {
-        this.speed = speed;
     }
     
     public void setLength(int length) {
@@ -87,14 +79,6 @@ public class Snakes extends DynamicObject{
         return this.head;
     }
     
-    private void setDefault() {
-        setLength(3);
-        setLeftDirection(false);
-        setUpDirection(false);
-        setDownDirection(false);
-        setRightDirection(true);
-    }
-    
     public void revertDirection() {
         if (isRevert) {
             if (leftDirection) {
@@ -113,7 +97,7 @@ public class Snakes extends DynamicObject{
         }
     }
     @Override
-    protected void move() {
+    void move() {
         for (int z = length; z > 0; z--) {
             x[z] = x[(z - 1)];
             y[z] = y[(z - 1)];
@@ -136,13 +120,11 @@ public class Snakes extends DynamicObject{
         }
     }
     
-    @Override
     public void autoMove(){     
         currentTime = System.currentTimeMillis();        
         double del = (currentTime - previousTime) / 10000.0;
         double timepoint = 1.0 / speed;      
         if (del >= timepoint) {
-            System.out.println("automove------------");
             move();
             previousTime = currentTime;
         }
@@ -220,36 +202,4 @@ public class Snakes extends DynamicObject{
             }
    }
    
-//    public void checkCollision(){
-//        for (int z = getLength(); z > 0; z--) {
-//
-////            if ((z > 3) && (getX(0) == getX(z)) && (getY(0) ==getY(z))) {
-////                inGame = false;
-////            }
-//        }
-//
-//        if (getY(0) >= GameBoardPanel.B_HEIGHT) {
-//            //inGame = false;
-//            setY(0, 0);
-//        }
-//
-//        if (getY(0) < 0) {
-//            //inGame = false;
-//            setY(0, GameBoardPanel.B_HEIGHT - GameBoardPanel.BLOCK_SIZE);
-//        }
-//
-//        if (getX(0) >= GameBoardPanel.B_WIDTH) {
-//            //inGame = false;
-//            setX(0, 0);
-//        }
-//
-//        if (getX(0) < 0) {
-//            //inGame = false;
-//            setX(0, GameBoardPanel.B_WIDTH - GameBoardPanel.BLOCK_SIZE);
-//        }
-//        
-////        if(!inGame) {
-////            timer.stop();
-////        }
-//   }
 }

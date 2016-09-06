@@ -9,25 +9,22 @@ package Entity;
  *
  * @author Hanh
  */
-import java.awt.EventQueue;
 import java.awt.Image;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.Timer;
 import static GamePlay.TimeAttack.GameBoardPanel.BLOCK_SIZE;
 import java.awt.Graphics;
-import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 
+
 public abstract class Entity extends JPanel{
-    public String name;
-    public Image icon;
-    public int delay;
-    public int point;
-    public long currentTime;
-    public long previousTime;
-    public int posX;
-    public int posY;
+    protected String name;
+    protected Image icon;
+    protected int delay;
+    protected int point;
+    protected long currentTime;
+    protected long previousTime;
+    protected int posX;
+    protected int posY;
 
     public int getPoint() {
         return point;

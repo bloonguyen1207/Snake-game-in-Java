@@ -48,9 +48,5 @@ public class ClassicFood extends StaticObject {
         }
         return 0;
     }
-    @Override
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-    }
     
 }

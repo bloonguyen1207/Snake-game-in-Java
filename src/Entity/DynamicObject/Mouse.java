@@ -9,13 +9,11 @@ package Entity.DynamicObject;
  *
  * @author Hanh
  */
-import Entity.StaticObject.Border;
-import static Entity.StaticObject.StaticObject.RAND_POS_X;
-import static Entity.StaticObject.StaticObject.RAND_POS_Y;
+import Entity.Border;
+import static Entity.StaticObject.StaticObject.*;
 import static GamePlay.TimeAttack.GameBoardPanel.*;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.event.ActionEvent;
 import java.util.ArrayList;
         
 public class Mouse extends DynamicObject{
@@ -34,21 +32,6 @@ public class Mouse extends DynamicObject{
         preTimeDirection = System.currentTimeMillis();
         point = 5;
         speed = 70;
-    }
-    
-    public double getSpeed() {
-        return this.speed;
-    }
-    
-    public void setSpeed(double speed) {
-        this.speed = speed;
-    }
-    
-    public void setDefault() {
-        setLeftDirection(false);
-        setUpDirection(false);
-        setDownDirection(false);
-        setRightDirection(true);
     }
     
     private void changeDirection() {
@@ -159,7 +142,7 @@ public class Mouse extends DynamicObject{
     }
     
     @Override
-    protected void move() {
+    void move() {
         double curTimeDirection = System.currentTimeMillis();
         double deltaTime = (curTimeDirection - preTimeDirection) / 10000.0;
         int seed = ((int) (Math.random() * 5) + 2) * 10;
@@ -190,19 +173,7 @@ public class Mouse extends DynamicObject{
         }
     }
     
-    @Override
-    public void autoMove(){
-        currentTime = System.currentTimeMillis();
-        double deltaTime = (currentTime - previousTime) / 10000.0;
-        double timepoint = 1.0 / speed;
-        if (deltaTime >= timepoint) {
-            isChanged = false;
-            move();
-            previousTime = currentTime;            
-        }
-    }
-    
-    public void autoMoveHard(ArrayList<Border> borders){
+    public void autoMove(ArrayList<Border> borders){
         currentTime = System.currentTimeMillis();
         double deltaTime = (currentTime - previousTime) / 10000.0;
         double timepoint = 1.0 / speed;

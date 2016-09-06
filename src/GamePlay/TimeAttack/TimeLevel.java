@@ -242,6 +242,14 @@ private void checkFood() throws UnsupportedAudioFileException, IOException {
     }
     for (int i = 0; i < mice.size(); i++) {
         if (snake.getX(0) == mice.get(i).getPosX() && snake.getY(0) == mice.get(i).getPosY()) {
+            Clip clip;
+            try {
+                clip = AudioSystem.getClip();
+                clip.open(sound);
+                clip.start();
+            } catch (LineUnavailableException ex) {
+                Logger.getLogger(ClassicLevel.class.getName()).log(Level.SEVERE, null, ex);
+            }
             time_score.executeStrategy(mice.get(i).point);
             mice.remove(i);
         }

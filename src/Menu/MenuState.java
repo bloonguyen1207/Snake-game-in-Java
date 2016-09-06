@@ -63,7 +63,7 @@ public class MenuState extends GameState {
 
         for (int i = 0; i < options.length; i++){
             g.setColor(Color.YELLOW);
-            g.fillRect(400, gap, 220, 60);
+            g.fillRect(360, gap, 300, 60);
 
             FontMetrics metr = g.getFontMetrics();
             if(i == CurrentSelection){

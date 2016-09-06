@@ -196,9 +196,13 @@ public void Over(Graphics g){
 
 }
 private void gameOver(Graphics g){
+    String msg = "Score";
+    Font text = new Font("Berlin Sans FB Demi", Font.BOLD, 30);
+    FontMetrics metr = g.getFontMetrics(text);
     g.setColor(new Color(7, 123, 83));
     g.fillRect(0, 0, GameBoardPanel.B_WIDTH, GameBoardPanel.B_HEIGHT);
     Over(g);
+
     for (int i = 0; i < options.length;i++){
         if(i == CurrentSelection){
             g.setColor(Color.YELLOW);
@@ -209,28 +213,27 @@ private void gameOver(Graphics g){
         g.setFont(new Font("Berlin Sans FB Demi",Font.PLAIN,30));
         g.drawString(options[i],B_WIDTH/2-50 , 300 + i*100); 
     }
-
-        if (newHighScore() > -1) {
+            if (newHighScore() > -1) {
             JTextField name = new JTextField(10);
             name.setBackground(new Color(255, 204, 0));
             //name.setFont(text);
             name.setText("AAA");
-            name.setBounds((B_WIDTH / 2) - 20, B_HEIGHT / 2 - 70, 150, 50);
-            //add(name);
+            name.setBounds((B_WIDTH - metr.stringWidth(msg)) / 2 - 20, B_HEIGHT / 2 - 70, 150, 50);
+            add(name);
 
             //TODO: Delete when done
             String newHighScore = "NEW HIGHSCORE!!!";
     
             g.setColor(Color.yellow);
-            //g.setFont(text);
-            g.drawString(newHighScore, (B_WIDTH / 2) - 50, B_HEIGHT / 2 - 200);
+            g.setFont(text);
+            g.drawString(newHighScore, (B_WIDTH - metr.stringWidth(msg)) / 2 - 50, B_HEIGHT / 2 - 200);
             // END
 
             // Submit
             JButton SubmitButton = new JButton();
 
             SubmitButton.setBackground(new Color(255, 204, 0));
-//            SubmitButton.setFont(buttons);
+            //SubmitButton.setFont(buttons);
             SubmitButton.setForeground(new Color(204, 51, 0));
             SubmitButton.setIcon(new ImageIcon(new ImageIcon("res\\Menu\\submit.png").getImage().getScaledInstance(BLOCK_SIZE, BLOCK_SIZE, Image.SCALE_DEFAULT)));
             SubmitButton.addActionListener(new ActionListener() {
@@ -259,43 +262,55 @@ private void gameOver(Graphics g){
                             data.delete(0, data.length());
                         }
                     } catch (Exception ex) {
-//                        Logger.getLogger(Board.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(ClassicLevel.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     SubmitButton.setIcon(new ImageIcon(new ImageIcon("res\\Menu\\check.png").getImage().getScaledInstance(BLOCK_SIZE, BLOCK_SIZE, Image.SCALE_DEFAULT)));
                     SubmitButton.setEnabled(false);
                 }   
-
-                private ArrayList<String> readFile() {
-                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                }
             });
-            SubmitButton.setBounds((B_WIDTH / 2) + 130, B_HEIGHT / 2 - 70, 50, 50);
+            add(SubmitButton);
+            SubmitButton.setBounds((B_WIDTH - metr.stringWidth(msg)) / 2 + 130, B_HEIGHT / 2 - 70, 50, 50);
         }
         // Replay
+        JButton ReplayButton = new JButton();
+        
+        ReplayButton.setBackground(new Color(255, 204, 0));
+        //ReplayButton.setFont(buttons);
+        ReplayButton.setForeground(new Color(204, 51, 0));
+        ReplayButton.setText("Replay");
+        ReplayButton.addActionListener(this::ReplayButtonActionPerformed);
+        add(ReplayButton);
+        ReplayButton.setBounds((B_WIDTH - metr.stringWidth(msg)) / 2 - 20, B_HEIGHT / 2 + 20, 200, 59);
         
         // Back to menu - In Progess
-}
+        JButton MenuButton = new JButton();
+        
+        MenuButton.setBackground(new Color(255, 204, 0));
+        //MenuButton.setFont(buttons);
+        MenuButton.setForeground(new Color(204, 51, 0));
+        MenuButton.setText("Back to menu");
+        //MenuButton.addActionListener(this::MenuButtonActionPerformed);
+        add(MenuButton);
+        MenuButton.setBounds((B_WIDTH - metr.stringWidth(msg)) / 2 - 20, B_HEIGHT / 2 + 100, 200, 59);
+    }
     
-//    private void ReplayButtonActionPerformed(ActionEvent evt) {                                            
-//        // TODO add your handling code here:
+    private void ReplayButtonActionPerformed(ActionEvent evt) {                                            
+        // TODO add your handling code here:
 //        ClassicGame newGame = new ClassicGame();
 //        newGame.setVisible(true);
 //        this.getContainer().setVisible(false);
 //                      
-//    }
-//    
-//    private void MenuButtonActionPerformed(ActionEvent evt) {                                            
-//        // TODO add your handling code here:
+    }
+    
+    private void MenuButtonActionPerformed(ActionEvent evt) {                                            
+        // TODO add your handling code here:
 //        Menu mainMenu = new Menu();
 //        mainMenu.setVisible(true);
 //        this.getContainer().setVisible(false);
-//    }
-
-
+    }
       public int newHighScore(){
         String info;
         int counter = -1;
-//        ArrayList<Player> players = new ArrayList<Player>(10);
         if (!inGame) {
             try {
                 highscores = new File(System.getProperty("user.dir") + ("/classic.txt"));
@@ -315,4 +330,27 @@ private void gameOver(Graphics g){
         }
         return counter;
     }
+      
+    public static ArrayList<String> readFile() {
+        String name;
+        int score;
+        String[] info;
+        ArrayList<String> infos;
+
+        try {
+            highscores = new File(System.getProperty("user.dir") + ("/src/assignment2/customers.txt"));
+            readFiles = new Scanner(highscores);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        while (readFiles.hasNext()) {
+            info = readFiles.nextLine().split(" ");
+            name = info[0];
+            score = Integer.parseInt(info[1]);
+           
+        }
+
+    }
 }
+
